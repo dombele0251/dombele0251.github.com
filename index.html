@@ -2,70 +2,123 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dombele Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dombele Chindandy | Photographer</title>
+    <meta name="description" content="Dombele Chindandy — Photographer. Studio Portraits & Creative Shoots." />
+
     <style>
+      :root {
+        --fg: #0e0e0e;          /* text color */
+        --sub: #4a4a4a;         /* secondary text */
+        --bg: #faf9f7;          /* soft background */
+        --line: #e7e7e7;        /* divider */
+      }
+
+      html, body {
+        height: 100%;
+      }
       body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background-color: #ffffff;
-        color: #111;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
         margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .wrap {
+        width: min(700px, 92vw);
         text-align: center;
+        padding: 48px 20px;
+      }
+
+      .logo {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 1.2rem;
+        border-radius: 50%;
+        background: var(--fg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo span {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
       }
 
       h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        margin-bottom: 0.5rem;
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
+        line-height: 1.1;
+        margin: 0 0 0.4rem;
+        letter-spacing: 0.5px;
       }
 
-      p {
-        font-size: 1.1rem;
-        margin: 0.4rem 0;
-        color: #333;
+      .subtitle {
+        color: var(--sub);
+        font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+        margin: 0 0 1.4rem;
       }
 
-      a {
-        color: #111;
+      .rule {
+        width: 120px;
+        height: 1px;
+        background: var(--line);
+        margin: 16px auto 26px;
+      }
+
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        border: 1px solid var(--fg);
+        border-radius: 999px;
         text-decoration: none;
-        font-weight: 500;
-        border-bottom: 1px solid transparent;
+        color: var(--fg);
+        font-weight: 600;
         transition: all 0.2s ease-in-out;
       }
 
-      a:hover {
-        border-bottom: 1px solid #111;
-        opacity: 0.8;
+      .btn:hover {
+        background: var(--fg);
+        color: #fff;
       }
 
       footer {
-        margin-top: 2rem;
+        margin-top: 36px;
+        color: var(--sub);
         font-size: 0.9rem;
-        color: #666;
       }
     </style>
   </head>
 
   <body>
-    <h1>Dombele</h1>
-    <p>Photographer | Studio Portraits & Creative Shoots</p>
+    <main class="wrap" role="main">
+      <div class="logo" aria-hidden="true"><span>D</span></div>
+      <h1>Dombele Chindandy</h1>
+      <p class="subtitle">Photographer · Studio Portraits & Creative Shoots</p>
 
-    <p>
-      <a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a>
-    </p>
-    <p>
-      <a href="mailto:studio@dombele.com">studio@dombele.com</a>
-    </p>
+      <div class="rule"></div>
 
-    <footer>
-      <p>© 2025 Dombele — All rights reserved.</p>
-    </footer>
+      <section class="links" aria-label="Contact and socials">
+        <a class="btn" href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">Instagram · @dombele.studio</a>
+        <a class="btn" href="mailto:studio@dombele.com">Email · studio@dombele.com</a>
+      </section>
+
+      <footer>
+        © 2025 Dombele Chindandy — All rights reserved.
+      </footer>
+    </main>
   </body>
 </html>
 
