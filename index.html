@@ -1,116 +1,133 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DOMBELE| Photographer</title>
-    <meta name="description" content="Dombele — Photographer. Fashion, Beauty, and Portrait work based in the UK." />
+    <title>DOMBELE — Photographer</title>
+    <meta name="description" content="Dombele Chindandy — Photographer. Fashion, Beauty, Portraits. UK." />
 
     <style>
-      :root {
-        --fg: #0d0d0d;   /* primary text */
-        --sub: #5c5c5c;  /* secondary text */
-        --bg: #faf9f7;   /* background */
-        --accent: #bfbfbf;
+      /* ————— Tokens (Adanola-esque neutrals) ————— */
+      :root{
+        --bg:#f6f5f3;      /* soft cream */
+        --ink:#0e0e0e;     /* primary text */
+        --muted:#6b6b6b;   /* secondary text */
+        --line:#e6e4e0;    /* hairline divider */
+        --accent:#0e0e0e;  /* link underline */
+        --maxw:760px;
       }
 
-      html, body { height: 100%; }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--fg);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+      /* ————— Base ————— */
+      html,body{height:100%}
+      body{
+        margin:0;
+        background:var(--bg);
+        color:var(--ink);
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        display:flex; align-items:center; justify-content:center;
+        text-rendering:optimizeLegibility;
+        -webkit-font-smoothing:antialiased;
       }
 
-      main {
-        padding: 48px 24px;
-        max-width: 700px;
+      /* ————— Layout ————— */
+      .wrap{
+        width:min(var(--maxw),92vw);
+        margin:auto;
+        padding:72px 20px;
+        text-align:center;
       }
 
-      .logo {
-        width: 80px;
-        height: auto;
-        margin: 0 auto 1.6rem;
-        display: block;
+      /* ————— Logo ————— */
+      .logo{
+        width:88px; height:auto;
+        margin:0 auto 24px;
+        display:block;
       }
 
-      h1 {
-        font-size: clamp(2.5rem, 6vw, 3.5rem);
-        letter-spacing: 3px;
-        margin: 0 0 0.75rem;
-        font-weight: 700;
+      /* ————— Typographic hierarchy ————— */
+      .brand{
+        font-size:clamp(34px,6vw,56px);
+        letter-spacing:5px;            /* uppercase tracking */
+        font-weight:700;
+        margin:0 0 8px;
       }
 
-      .subtitle {
-        color: var(--sub);
-        font-size: 1.1rem;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        margin-bottom: 1.2rem;
+      .tag{
+        color:var(--muted);
+        font-size:clamp(14.5px,2.4vw,17px);
+        letter-spacing:.4px;
+        margin:0 auto 18px;
       }
 
-      .rule {
-        width: 100px;
-        height: 1px;
-        background: var(--accent);
-        margin: 20px auto;
+      .rule{
+        width:120px; height:1px; background:var(--line);
+        margin:18px auto 26px;
       }
 
-      .details {
-        color: var(--sub);
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.6rem;
+      .stack{
+        display:grid;
+        gap:8px;
+        justify-items:center;
+        margin-bottom:20px;
       }
 
-      a {
-        color: var(--fg);
-        text-decoration: none;
-        font-weight: 600;
-        transition: opacity 0.2s ease;
+      .meta{
+        color:var(--muted);
+        font-size:15.5px;
+        letter-spacing:.2px;
+        margin:0;
       }
 
-      a:hover { opacity: 0.7; }
+      /* ————— Links (understated, editorial) ————— */
+      a{
+        color:var(--ink); text-decoration:none; font-weight:600;
+        border-bottom:1px solid transparent; text-underline-offset:3px;
+        transition:border-color .18s ease, opacity .18s ease;
+      }
+      a:hover{ border-color:var(--accent); opacity:.9 }
 
-      footer {
-        margin-top: 40px;
-        color: var(--sub);
-        font-size: 0.9rem;
+      /* Instagram handle as a “line item” */
+      .social{
+        margin-top:6px;
+        font-size:15.5px;
+      }
+
+      /* ————— Footer ————— */
+      footer{
+        border-top:1px solid var(--line);
+        margin-top:36px; padding-top:18px;
+        color:var(--muted); font-size:14px;
+      }
+
+      /* ————— Small tweaks for tiny screens ————— */
+      @media (max-width:420px){
+        .logo{ width:72px }
+        .brand{ letter-spacing:4px }
       }
     </style>
   </head>
 
   <body>
-    <main>
-      <!-- Logo -->
+    <main class="wrap" role="main">
+      <!-- use your uploaded file name exactly -->
       <img src="black logo.png" alt="Dombele Studio logo" class="logo" />
 
-      <!-- Name -->
-      <h1>DOMBELE</h1>
+      <h1 class="brand">DOMBELE</h1>
 
-      <!-- Tagline -->
-      <p class="subtitle">Photographer · Fashion | Beauty | Portraits |</p>
+      <p class="tag">Photographer · Fashion | Beauty | Portraits |</p>
 
-      <div class="rule"></div>
+      <div class="rule" aria-hidden="true"></div>
 
-      <!-- Contact Info -->
-      <div class="details">
-        <p>📍 UK</p>
-        <p><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-        <p>Website currently down for an update</p>
+      <div class="stack" aria-label="Contact details">
+        <p class="meta">📍 UK</p>
+        <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
+        <p class="meta">Website currently down for an update</p>
       </div>
 
-      <!-- Instagram -->
-      <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a>
+      <p class="social"><a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a></p>
 
-      <footer>
-        © 2025 Dombele — All rights reserved.
-      </footer>
+      <footer>© 2025 Dombele Chindandy — All rights reserved.</footer>
     </main>
   </body>
 </html>
+
