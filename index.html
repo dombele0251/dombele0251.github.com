@@ -8,15 +8,13 @@
 
     <style>
       :root {
-        --fg: #0e0e0e;
-        --sub: #4a4a4a;
-        --bg: #faf9f7;
-        --line: #e7e7e7;
+        --fg: #0e0e0e;   /* primary text */
+        --sub: #4a4a4a;  /* secondary text */
+        --bg: #faf9f7;   /* soft background */
+        --line: #e7e7e7; /* divider */
       }
 
-      html, body {
-        height: 100%;
-      }
+      html, body { height: 100%; }
       body {
         margin: 0;
         background: var(--bg);
@@ -37,6 +35,7 @@
         width: 90px;
         height: auto;
         margin: 0 auto 1.5rem;
+        display: block;
       }
 
       h1 {
@@ -76,11 +75,7 @@
         font-weight: 600;
         transition: all 0.2s ease-in-out;
       }
-
-      .btn:hover {
-        background: var(--fg);
-        color: #fff;
-      }
+      .btn:hover { background: var(--fg); color: #fff; }
 
       footer {
         margin-top: 36px;
@@ -92,22 +87,23 @@
 
   <body>
     <main class="wrap" role="main">
+      <!-- Replace the src if you rename the file -->
       <img src="black logo.png" alt="Dombele Studio logo" class="logo" />
+
       <h1>Dombele Chindandy</h1>
       <p class="subtitle">Photographer · Studio Portraits & Creative Shoots</p>
 
       <div class="rule"></div>
 
       <section class="links" aria-label="Contact and socials">
-        <a class="btn" href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">Instagram · @dombele.studio</a>
+        <a class="btn" href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">
+          Instagram · @dombele.studio
+        </a>
         <a class="btn" href="mailto:studio@dombele.com">Email · studio@dombele.com</a>
       </section>
 
-      <footer>
-        © 2025 Dombele Chindandy — All rights reserved.
-      </footer>
+      <footer>© 2025 Dombele Chindandy — All rights reserved.</footer>
     </main>
   </body>
 </html>
-
 
