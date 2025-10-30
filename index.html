@@ -1,17 +1,32 @@
+Absolutely 🔥 — here’s a **refined, high-end version** of your page — inspired by minimalist portfolio landing pages used by photographers and studios.
+
+This version includes:
+
+* Your **name in all caps**
+* Updated tagline: *Photographer · Fashion | Beauty | Portraits |*
+* Location 📍 UK
+* Email and temporary “website down for update” note
+* Sleek typographic layout with balanced spacing, modern uppercase headline, and subtle gray tones
+
+---
+
+### ✅ Final `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dombele Chindandy | Photographer</title>
-    <meta name="description" content="Dombele Chindandy — Photographer. Studio Portraits & Creative Shoots." />
+    <title>DOMBELE CHINDANDY | Photographer</title>
+    <meta name="description" content="Dombele Chindandy — Photographer. Fashion, Beauty, and Portrait work based in the UK." />
 
     <style>
       :root {
-        --fg: #0e0e0e;   /* primary text */
-        --sub: #4a4a4a;  /* secondary text */
-        --bg: #faf9f7;   /* soft background */
-        --line: #e7e7e7; /* divider */
+        --fg: #0d0d0d;   /* primary text */
+        --sub: #5c5c5c;  /* secondary text */
+        --bg: #faf9f7;   /* background */
+        --accent: #bfbfbf;
       }
 
       html, body { height: 100%; }
@@ -23,62 +38,61 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
       }
 
-      .wrap {
-        width: min(700px, 92vw);
-        text-align: center;
-        padding: 48px 20px;
+      main {
+        padding: 48px 24px;
+        max-width: 700px;
       }
 
       .logo {
-        width: 90px;
+        width: 80px;
         height: auto;
-        margin: 0 auto 1.5rem;
+        margin: 0 auto 1.6rem;
         display: block;
       }
 
       h1 {
-        font-size: clamp(2.2rem, 5vw, 3.2rem);
-        line-height: 1.1;
-        margin: 0 0 0.4rem;
-        letter-spacing: 0.5px;
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+        letter-spacing: 3px;
+        margin: 0 0 0.75rem;
+        font-weight: 700;
       }
 
       .subtitle {
         color: var(--sub);
-        font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-        margin: 0 0 1.4rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin-bottom: 1.2rem;
       }
 
       .rule {
-        width: 120px;
+        width: 100px;
         height: 1px;
-        background: var(--line);
-        margin: 16px auto 26px;
+        background: var(--accent);
+        margin: 20px auto;
       }
 
-      .links {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        align-items: center;
+      .details {
+        color: var(--sub);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.6rem;
       }
 
-      .btn {
-        display: inline-block;
-        padding: 12px 20px;
-        border: 1px solid var(--fg);
-        border-radius: 999px;
-        text-decoration: none;
+      a {
         color: var(--fg);
+        text-decoration: none;
         font-weight: 600;
-        transition: all 0.2s ease-in-out;
+        transition: opacity 0.2s ease;
       }
-      .btn:hover { background: var(--fg); color: #fff; }
+
+      a:hover { opacity: 0.7; }
 
       footer {
-        margin-top: 36px;
+        margin-top: 40px;
         color: var(--sub);
         font-size: 0.9rem;
       }
@@ -86,24 +100,31 @@
   </head>
 
   <body>
-    <main class="wrap" role="main">
-      <!-- Replace the src if you rename the file -->
+    <main>
+      <!-- Logo -->
       <img src="black logo.png" alt="Dombele Studio logo" class="logo" />
 
-      <h1>Dombele Chindandy</h1>
-      <p class="subtitle">Photographer · Studio Portraits & Creative Shoots</p>
+      <!-- Name -->
+      <h1>DOMBELE CHINDANDY</h1>
+
+      <!-- Tagline -->
+      <p class="subtitle">Photographer · Fashion | Beauty | Portraits |</p>
 
       <div class="rule"></div>
 
-      <section class="links" aria-label="Contact and socials">
-        <a class="btn" href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">
-          Instagram · @dombele.studio
-        </a>
-        <a class="btn" href="mailto:studio@dombele.com">Email · studio@dombele.com</a>
-      </section>
+      <!-- Contact Info -->
+      <div class="details">
+        <p>📍 UK</p>
+        <p><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
+        <p>Website currently down for an update</p>
+      </div>
 
-      <footer>© 2025 Dombele Chindandy — All rights reserved.</footer>
+      <!-- Instagram -->
+      <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a>
+
+      <footer>
+        © 2025 Dombele Chindandy — All rights reserved.
+      </footer>
     </main>
   </body>
 </html>
-
