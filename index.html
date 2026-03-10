@@ -1,133 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DOMBELE — Photographer</title>
-    <meta name="description" content="Dombele Chindandy — Photographer. Fashion, Beauty, Portraits. UK." />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DOMBELE — Photographer</title>
+<meta name="description" content="Dombele Chindandy — Photographer. Fashion, Beauty, Portraits. UK.">
 
-    <style>
-      /* ————— Tokens (Adanola-esque neutrals) ————— */
-      :root{
-        --bg:#f6f5f3;      /* soft cream */
-        --ink:#0e0e0e;     /* primary text */
-        --muted:#6b6b6b;   /* secondary text */
-        --line:#e6e4e0;    /* hairline divider */
-        --accent:#0e0e0e;  /* link underline */
-        --maxw:760px;
-      }
+<style>
 
-      /* ————— Base ————— */
-      html,body{height:100%}
-      body{
-        margin:0;
-        background:var(--bg);
-        color:var(--ink);
-        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-        display:flex; align-items:center; justify-content:center;
-        text-rendering:optimizeLegibility;
-        -webkit-font-smoothing:antialiased;
-      }
+/* ---------- Base Style ---------- */
 
-      /* ————— Layout ————— */
-      .wrap{
-        width:min(var(--maxw),92vw);
-        margin:auto;
-        padding:72px 20px;
-        text-align:center;
-      }
+:root{
+  --bg:#f6f5f3;
+  --ink:#0e0e0e;
+  --muted:#6b6b6b;
+  --line:#e6e4e0;
+  --maxw:1000px;
+}
 
-      /* ————— Logo ————— */
-      .logo{
-        width:88px; height:auto;
-        margin:0 auto 24px;
-        display:block;
-      }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  text-align:center;
+}
 
-      /* ————— Typographic hierarchy ————— */
-      .brand{
-        font-size:clamp(34px,6vw,56px);
-        letter-spacing:5px;            /* uppercase tracking */
-        font-weight:700;
-        margin:0 0 8px;
-      }
+/* ---------- Layout ---------- */
 
-      .tag{
-        color:var(--muted);
-        font-size:clamp(14.5px,2.4vw,17px);
-        letter-spacing:.4px;
-        margin:0 auto 18px;
-      }
+.wrap{
+  width:min(var(--maxw),92vw);
+  margin:auto;
+  padding:60px 20px;
+}
 
-      .rule{
-        width:120px; height:1px; background:var(--line);
-        margin:18px auto 26px;
-      }
+/* ---------- Logo ---------- */
 
-      .stack{
-        display:grid;
-        gap:8px;
-        justify-items:center;
-        margin-bottom:20px;
-      }
+.logo{
+  width:88px;
+  margin-bottom:24px;
+}
 
-      .meta{
-        color:var(--muted);
-        font-size:15.5px;
-        letter-spacing:.2px;
-        margin:0;
-      }
+/* ---------- Typography ---------- */
 
-      /* ————— Links (understated, editorial) ————— */
-      a{
-        color:var(--ink); text-decoration:none; font-weight:600;
-        border-bottom:1px solid transparent; text-underline-offset:3px;
-        transition:border-color .18s ease, opacity .18s ease;
-      }
-      a:hover{ border-color:var(--accent); opacity:.9 }
+.brand{
+  font-size:48px;
+  letter-spacing:5px;
+  margin:0 0 10px;
+}
 
-      /* Instagram handle as a “line item” */
-      .social{
-        margin-top:6px;
-        font-size:15.5px;
-      }
+.tag{
+  color:var(--muted);
+  font-size:16px;
+  margin-bottom:20px;
+}
 
-      /* ————— Footer ————— */
-      footer{
-        border-top:1px solid var(--line);
-        margin-top:36px; padding-top:18px;
-        color:var(--muted); font-size:14px;
-      }
+.rule{
+  width:120px;
+  height:1px;
+  background:var(--line);
+  margin:20px auto 30px;
+}
 
-      /* ————— Small tweaks for tiny screens ————— */
-      @media (max-width:420px){
-        .logo{ width:72px }
-        .brand{ letter-spacing:4px }
-      }
-    </style>
-  </head>
+.meta{
+  color:var(--muted);
+  margin:5px 0;
+}
 
-  <body>
-    <main class="wrap" role="main">
-      <!-- use your uploaded file name exactly -->
-      <img src="black logo.png" alt="Dombele Studio logo" class="logo" />
+a{
+  color:var(--ink);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
 
-      <h1 class="brand">DOMBELE</h1>
+a:hover{
+  border-color:var(--ink);
+}
 
-      <p class="tag">Photographer · Fashion | Beauty | Portraits |</p>
+/* ---------- Portfolio Grid ---------- */
 
-      <div class="rule" aria-hidden="true"></div>
+.portfolio{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
 
-      <div class="stack" aria-label="Contact details">
-        <p class="meta">📍 UK</p>
-        <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-        <p class="meta">Website currently down for an update</p>
-      </div>
+.portfolio img{
+  width:100%;
+  height:auto;
+  display:block;
+  transition:opacity .25s ease;
+}
 
-      <p class="social"><a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a></p>
+.portfolio img:hover{
+  opacity:.85;
+}
 
-      <footer>© 2025 Dombele Chindandy — All rights reserved.</footer>
-    </main>
-  </body>
+/* ---------- Mobile ---------- */
+
+@media(max-width:800px){
+  .portfolio{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:500px){
+  .portfolio{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+  margin-top:60px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+<img src="black logo.png" alt="Dombele logo" class="logo">
+
+<h1 class="brand">DOMBELE</h1>
+
+<p class="tag">Photographer · Fashion | Beauty | Portraits</p>
+
+<div class="rule"></div>
+
+<p class="meta">📍 UK</p>
+<p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
+<p class="meta"><a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a></p>
+
+<!-- Portfolio Images -->
+
+<section class="portfolio">
+
+<img src="fashion-01.jpg" loading="lazy">
+<img src="fashion-02.jpg" loading="lazy">
+<img src="fashion-03.jpg" loading="lazy">
+
+<img src="beauty-01.jpg" loading="lazy">
+<img src="beauty-02.jpg" loading="lazy">
+
+<img src="commercial-01.jpg" loading="lazy">
+<img src="editorial-01.jpg" loading="lazy">
+
+<img src="portrait-01.jpg" loading="lazy">
+<img src="portrait-02.jpg" loading="lazy">
+
+</section>
+
+<footer>
+© 2026 Dombele Chindandy — All rights reserved.
+</footer>
+
+</main>
+
+</body>
 </html>
-
