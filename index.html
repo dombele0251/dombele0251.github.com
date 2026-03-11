@@ -35,39 +35,23 @@ a:hover{ border-color:var(--text); }
 /* CLIENT MESSAGE */
 .clients{ max-width:600px; margin:60px auto; color:var(--muted); line-height:1.6; }
 
-/* SINGLE PORTFOLIO IMAGE */
+/* PORTFOLIO GRID */
 .portfolio{
-  max-width:800px;
-  margin:80px auto;
-  position:relative;
-  height: auto;
+  column-count:4;
+  column-gap:12px;
+  margin-top:80px;
 }
 .portfolio img{
   width:100%;
+  margin-bottom:12px;
   display:block;
-  position:absolute;
-  top:0; left:0;
-  opacity:0;
-  transition:opacity 1s ease;
+  break-inside:avoid;
+  cursor:pointer;
+  transition: transform .25s ease, opacity .5s ease;
 }
-.portfolio img.active{ opacity:1; }
-
-/* LIGHTBOX */
-.lightbox{
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none; align-items:center; justify-content:center;
-  z-index:999; cursor:zoom-out;
-}
-.lightbox img{ max-width:90%; max-height:90%; transition:opacity .25s ease; }
-.lightbox.active{ display:flex; }
-.nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  font-size:60px; color:white; cursor:pointer; padding:20px;
-  opacity:.7; user-select:none; transition:opacity .25s ease;
-}
-.nav:hover{ opacity:1; }
-.prev{left:20px;} .next{right:20px;}
+.portfolio img:hover{ transform: scale(1.03); }
+@media(max-width:1000px){ .portfolio{ column-count:3; } }
+@media(max-width:600px){ .portfolio{ column-count:2; } }
 
 /* OFFER + FORM */
 .offer-form{
@@ -140,6 +124,16 @@ footer{
   color:var(--muted);
   font-size:14px;
 }
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none; align-items:center; justify-content:center;
+  z-index:999; cursor:zoom-out;
+}
+.lightbox img{ max-width:90%; max-height:90%; transition:opacity .25s ease; }
+.lightbox.active{ display:flex; }
 </style>
 </head>
 <body>
@@ -157,10 +151,10 @@ footer{
 I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
 </div>
 
-<!-- Single crossfade portfolio -->
+<!-- Portfolio -->
 <section class="portfolio" id="portfolio"></section>
 
-<!-- Offer + Form Section -->
+<!-- Offer + Form -->
 <section class="offer-form" id="contact-section">
   <div class="offer-box">
     <h2>£90 Intro Shoot</h2>
@@ -194,69 +188,62 @@ I create professional photography for brands, personal trainers and businesses w
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
-<div class="nav prev" id="prev">&#10094;</div>
 <img id="lightbox-img">
-<div class="nav next" id="next">&#10095;</div>
 </div>
 
 <!-- Fixed Enquire Button -->
 <button id="fixed-enquire">Enquire</button>
 
 <script>
-// --- Crossfade Portfolio ---
-const portfolioSection=document.getElementById("portfolio");
+// --- Portfolio 15-photo dynamic replacement ---
+const portfolio=document.getElementById("portfolio");
 const allImages=[];
 for(let i=1;i<=35;i++){ allImages.push(`website-${i}.jpg`); }
 
-let currentImg=null;
-let nextImg=null;
-
-function initPortfolio(){
-  currentImg=document.createElement("img");
-  currentImg.src=allImages[Math.floor(Math.random()*allImages.length)];
-  currentImg.classList.add("active");
-  currentImg.loading="lazy";
-  portfolioSection.appendChild(currentImg);
-
-  nextImg=document.createElement("img");
-  nextImg.style.opacity=0;
-  nextImg.loading="lazy";
-  portfolioSection.appendChild(nextImg);
+// Randomly pick 15 images to show initially
+let displayed=[];
+while(displayed.length<15){
+  let candidate=allImages[Math.floor(Math.random()*allImages.length)];
+  if(!displayed.includes(candidate)) displayed.push(candidate);
 }
 
-initPortfolio();
+// Render portfolio
+displayed.forEach(src=>{
+  const img=document.createElement("img");
+  img.src=src;
+  img.loading="lazy";
+  portfolio.appendChild(img);
+});
 
+// Replace one random image every 7 seconds
 setInterval(()=>{
-  let newSrc;
-  do{ newSrc=allImages[Math.floor(Math.random()*allImages.length)]; } while(newSrc===currentImg.src);
-  nextImg.src=newSrc;
-  nextImg.classList.add("active");
-  currentImg.classList.remove("active");
+  const imgs=portfolio.querySelectorAll("img");
+  const idx=Math.floor(Math.random()*imgs.length);
 
-  // swap references
-  [currentImg, nextImg] = [nextImg, currentImg];
+  let newSrc;
+  do{ newSrc=allImages[Math.floor(Math.random()*allImages.length)]; } while(displayed.includes(newSrc));
+  
+  imgs[idx].style.opacity=0;
+  setTimeout(()=>{
+    imgs[idx].src=newSrc;
+    imgs[idx].style.opacity=1;
+
+    // Update displayed array
+    displayed[idx]=newSrc;
+  },500);
 },7000);
 
 // --- Lightbox ---
 const lightbox=document.getElementById("lightbox");
 const lightboxImg=document.getElementById("lightbox-img");
-const nextBtn=document.getElementById("next");
-const prevBtn=document.getElementById("prev");
-let images=[];
 
-portfolioSection.addEventListener("click",(e)=>{
+portfolio.addEventListener("click",(e)=>{
   if(e.target.tagName==="IMG"){
     lightboxImg.src=e.target.src;
     lightbox.classList.add("active");
   }
 });
 
-nextBtn.onclick=()=>{}; // single image lightbox
-prevBtn.onclick=()=>{};
-document.addEventListener("keydown",(e)=>{
-  if(!lightbox.classList.contains("active")) return;
-  if(e.key==="Escape") lightbox.classList.remove("active");
-});
 lightbox.addEventListener("click",(e)=>{ if(e.target===lightbox) lightbox.classList.remove("active"); });
 
 // --- Contact form submit ---
