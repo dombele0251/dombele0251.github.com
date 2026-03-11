@@ -240,7 +240,7 @@ I create professional photography for brands, personal trainers and businesses w
 </div>
 
 <!-- PORTFOLIO -->
-<section class="portfolio">
+<section class="portfolio" id="portfolio">
 <img src="website-1.jpg" loading="lazy">
 <img src="website-2.jpg" loading="lazy">
 <img src="website-3.jpg" loading="lazy">
@@ -272,7 +272,27 @@ I create professional photography for brands, personal trainers and businesses w
 </div>
 
 <script>
-const images = document.querySelectorAll(".portfolio img");
+// -------- Persistent Shuffle for Portfolio --------
+const portfolio = document.getElementById("portfolio");
+let imgs = Array.from(portfolio.querySelectorAll("img"));
+
+// Check if a shuffled order already exists in sessionStorage
+let order = sessionStorage.getItem("portfolioOrder");
+
+if(order){
+  order = JSON.parse(order);
+  order.forEach(i => portfolio.appendChild(imgs[i]));
+} else {
+  // Fisher-Yates shuffle
+  for (let i = imgs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+  }
+  sessionStorage.setItem("portfolioOrder", JSON.stringify(imgs.map((_, idx) => idx)));
+  imgs.forEach(img => portfolio.appendChild(img));
+}
+
+// -------- Lightbox and Navigation --------
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const nextBtn = document.getElementById("next");
@@ -281,9 +301,9 @@ const prevBtn = document.getElementById("prev");
 let currentIndex = 0;
 
 // Preload images
-images.forEach(img => { const preload = new Image(); preload.src = img.src; });
+imgs.forEach(img => { const preload = new Image(); preload.src = img.src; });
 
-images.forEach((img,index)=>{
+imgs.forEach((img,index)=>{
 img.addEventListener("click",()=>{
 currentIndex=index;
 showImage();
@@ -294,20 +314,20 @@ lightbox.classList.add("active");
 function showImage(){
 lightboxImg.style.opacity = 0;
 setTimeout(()=>{
-lightboxImg.src = images[currentIndex].src;
+lightboxImg.src = imgs[currentIndex].src;
 lightboxImg.style.opacity = 1;
 },150);
 }
 
 function nextImage(){
 currentIndex++;
-if(currentIndex>=images.length) currentIndex=0;
+if(currentIndex>=imgs.length) currentIndex=0;
 showImage();
 }
 
 function prevImage(){
 currentIndex--;
-if(currentIndex<0) currentIndex=images.length-1;
+if(currentIndex<0) currentIndex=imgs.length-1;
 showImage();
 }
 
