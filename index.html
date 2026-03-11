@@ -2,14 +2,10 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>DOMBELE — Photographer</title>
-
 <style>
-
 :root{
 --bg:#f6f5f3;
 --text:#0e0e0e;
@@ -69,81 +65,36 @@ a:hover{
 border-color:var(--text);
 }
 
-/* CLIENT MESSAGE */
+/* INTRO SHOOT */
 
-.clients{
-max-width:600px;
-margin:60px auto;
-color:var(--muted);
-line-height:1.6;
-}
-
-/* PROCESS */
-
-.process{
-max-width:650px;
-margin:80px auto;
-color:var(--muted);
-line-height:1.7;
-}
-
-.process h2{
-color:var(--text);
-margin-bottom:20px;
-}
-
-/* SERVICES */
-
-.services{
-margin:100px auto;
-max-width:900px;
-}
-
-.services h2{
-margin-bottom:40px;
-}
-
-.service-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:30px;
-}
-
-.service{
-text-align:left;
-color:var(--muted);
-line-height:1.6;
-}
-
-.service h3{
-color:var(--text);
-margin-bottom:8px;
-}
-
-@media(max-width:700px){
-.service-grid{
-grid-template-columns:1fr;
-}
-}
-
-/* CTA */
-
-.cta{
-margin:100px auto;
+.offer{
 max-width:500px;
+margin:60px auto;
+border:1px solid var(--line);
+padding:35px;
 }
 
-.cta-buttons{
-display:flex;
-justify-content:center;
-gap:20px;
-margin-top:20px;
-flex-wrap:wrap;
+.offer h2{
+margin-top:0;
 }
+
+.offer ul{
+list-style:none;
+padding:0;
+margin:20px 0;
+color:var(--muted);
+}
+
+.offer li{
+margin:6px 0;
+}
+
+/* CTA BUTTONS */
 
 .button{
 display:inline-block;
-padding:12px 28px;
+margin-top:15px;
+padding:12px 26px;
 border:1px solid var(--text);
 text-decoration:none;
 color:var(--text);
@@ -153,6 +104,15 @@ transition:all .25s ease;
 .button:hover{
 background:var(--text);
 color:white;
+}
+
+/* CLIENT MESSAGE */
+
+.clients{
+max-width:600px;
+margin:60px auto;
+color:var(--muted);
+line-height:1.6;
 }
 
 /* PORTFOLIO */
@@ -169,23 +129,20 @@ margin-bottom:12px;
 display:block;
 break-inside:avoid;
 cursor:pointer;
-transition:opacity .25s ease;
+transition:transform .25s ease, opacity .25s ease;
 }
 
 .portfolio img:hover{
-opacity:.85;
+opacity:.9;
+transform:scale(1.02);
 }
 
 @media(max-width:1000px){
-.portfolio{
-column-count:3;
-}
+.portfolio{column-count:3;}
 }
 
 @media(max-width:600px){
-.portfolio{
-column-count:2;
-}
+.portfolio{column-count:2;}
 }
 
 /* LIGHTBOX */
@@ -201,18 +158,20 @@ display:none;
 align-items:center;
 justify-content:center;
 z-index:999;
+cursor:zoom-out;
 }
 
 .lightbox img{
 max-width:90%;
 max-height:90%;
+transition:opacity .25s ease;
 }
 
 .lightbox.active{
 display:flex;
 }
 
-/* ARROWS */
+/* NAV ARROWS */
 
 .nav{
 position:absolute;
@@ -231,13 +190,8 @@ transition:opacity .25s ease;
 opacity:1;
 }
 
-.prev{
-left:20px;
-}
-
-.next{
-right:20px;
-}
+.prev{left:20px;}
+.next{right:20px;}
 
 footer{
 margin-top:80px;
@@ -246,9 +200,7 @@ border-top:1px solid var(--line);
 color:var(--muted);
 font-size:14px;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -258,123 +210,52 @@ font-size:14px;
 <img src="black logo.png" class="logo">
 
 <h1>DOMBELE</h1>
-
 <p class="tag">Photographer · Fashion | Beauty | Portraits</p>
 
 <div class="rule"></div>
 
 <p class="meta">📍 UK</p>
 <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-<p class="meta"><a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a></p>
+<p class="meta"><a href="https://instagram.com/dombele.studio">@dombele.studio</a></p>
+
+<!-- INTRO SHOOT -->
+<section class="offer">
+<h2>£90 Intro Shoot</h2>
+<ul>
+<li>45 minute session</li>
+<li>8 professionally edited photos</li>
+<li>Delivered within 48 hours</li>
+</ul>
+<p>Optional add-ons:</p>
+<ul>
+<li>+5 photos — £40</li>
+<li>+10 photos — £70</li>
+</ul>
+<p>Ideal for trainers, models and brands looking for strong visual content.</p>
+<a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
+</section>
 
 <div class="clients">
-I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand, attract clients and elevate your presence across websites and social media.
+I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
 </div>
 
-<section class="process">
-
-<h2>The Process</h2>
-
-<p>
-Before every shoot I like to sit down with my clients and understand the objective of the project.
-</p>
-
-<p>
-Together we create a moodboard that defines the visual direction of the shoot.
-</p>
-
-<p>
-We then outline a simple shot list including poses, compositions and key visuals we want to capture.
-</p>
-
-<p>
-By the time we begin shooting, everyone has a clear idea of the objective and the final deliverables.
-</p>
-
-</section>
-
-<section class="services">
-
-<h2>Services</h2>
-
-<div class="service-grid">
-
-<div class="service">
-<h3>Personal Branding</h3>
-<p>Photography for coaches and professionals who want strong visual content.</p>
-</div>
-
-<div class="service">
-<h3>Fitness & Gym Content</h3>
-<p>Professional imagery for personal trainers and fitness brands.</p>
-</div>
-
-<div class="service">
-<h3>Social Media Content</h3>
-<p>Content focused shoots designed to give you a library of images.</p>
-</div>
-
-<div class="service">
-<h3>Editorial & Commercial</h3>
-<p>Creative photography for campaigns and publications.</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="cta">
-
-<p>If you're looking to create strong visuals for your brand or business, feel free to get in touch.</p>
-
-<div class="cta-buttons">
-
-<a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-
-<a href="https://instagram.com/dombele.studio" target="_blank" class="button">Instagram</a>
-
-</div>
-
-</section>
-
+<!-- PORTFOLIO -->
 <section class="portfolio">
-
-<img src="website-1.jpg">
-<img src="website-2.jpg">
-<img src="website-3.jpg">
-<img src="website-4.jpg">
-<img src="website-5.jpg">
-<img src="website-6.jpg">
-<img src="website-7.jpg">
-<img src="website-8.jpg">
-<img src="website-9.jpg">
-<img src="website-10.jpg">
-<img src="website-11.jpg">
-<img src="website-12.jpg">
-<img src="website-13.jpg">
-<img src="website-14.jpg">
-<img src="website-15.jpg">
-<img src="website-16.jpg">
-<img src="website-17.jpg">
-<img src="website-18.jpg">
-<img src="website-19.jpg">
-<img src="website-20.jpg">
-<img src="website-21.jpg">
-<img src="website-22.jpg">
-<img src="website-23.jpg">
-<img src="website-24.jpg">
-<img src="website-25.jpg">
-<img src="website-26.jpg">
-<img src="website-27.jpg">
-<img src="website-28.jpg">
-<img src="website-29.jpg">
-<img src="website-30.jpg">
-<img src="website-31.jpg">
-<img src="website-32.jpg">
-<img src="website-33.jpg">
-<img src="website-34.jpg">
-<img src="website-35.jpg">
-
+<img src="website-1.jpg" loading="lazy">
+<img src="website-2.jpg" loading="lazy">
+<img src="website-3.jpg" loading="lazy">
+<img src="website-4.jpg" loading="lazy">
+<img src="website-5.jpg" loading="lazy">
+<img src="website-6.jpg" loading="lazy">
+<img src="website-7.jpg" loading="lazy">
+<img src="website-8.jpg" loading="lazy">
+<img src="website-9.jpg" loading="lazy">
+<img src="website-10.jpg" loading="lazy">
+<img src="website-11.jpg" loading="lazy">
+<img src="website-12.jpg" loading="lazy">
+<img src="website-13.jpg" loading="lazy">
+<img src="website-14.jpg" loading="lazy">
+<img src="website-15.jpg" loading="lazy">
 </section>
 
 <footer>
@@ -383,92 +264,79 @@ By the time we begin shooting, everyone has a clear idea of the objective and th
 
 </div>
 
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-
 <div class="nav prev" id="prev">&#10094;</div>
-
 <img id="lightbox-img">
-
 <div class="nav next" id="next">&#10095;</div>
-
 </div>
 
 <script>
+const images = document.querySelectorAll(".portfolio img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
 
-const images = document.querySelectorAll(".portfolio img")
-const lightbox = document.getElementById("lightbox")
-const lightboxImg = document.getElementById("lightbox-img")
-const nextBtn = document.getElementById("next")
-const prevBtn = document.getElementById("prev")
+let currentIndex = 0;
 
-let currentIndex = 0
+// Preload images
+images.forEach(img => { const preload = new Image(); preload.src = img.src; });
 
 images.forEach((img,index)=>{
 img.addEventListener("click",()=>{
-currentIndex=index
-showImage()
-lightbox.classList.add("active")
-})
-})
+currentIndex=index;
+showImage();
+lightbox.classList.add("active");
+});
+});
 
 function showImage(){
-lightboxImg.src=images[currentIndex].src
+lightboxImg.style.opacity = 0;
+setTimeout(()=>{
+lightboxImg.src = images[currentIndex].src;
+lightboxImg.style.opacity = 1;
+},150);
 }
 
 function nextImage(){
-currentIndex++
-if(currentIndex>=images.length){currentIndex=0}
-showImage()
+currentIndex++;
+if(currentIndex>=images.length) currentIndex=0;
+showImage();
 }
 
 function prevImage(){
-currentIndex--
-if(currentIndex<0){currentIndex=images.length-1}
-showImage()
+currentIndex--;
+if(currentIndex<0) currentIndex=images.length-1;
+showImage();
 }
 
-nextBtn.addEventListener("click",nextImage)
-prevBtn.addEventListener("click",prevImage)
+nextBtn.addEventListener("click", nextImage);
+prevBtn.addEventListener("click", prevImage);
 
-/* keyboard navigation */
-
+// Keyboard navigation
 document.addEventListener("keydown",(e)=>{
-if(!lightbox.classList.contains("active")) return
+if(!lightbox.classList.contains("active")) return;
+if(e.key==="ArrowRight") nextImage();
+if(e.key==="ArrowLeft") prevImage();
+if(e.key==="Escape") lightbox.classList.remove("active");
+});
 
-if(e.key==="ArrowRight") nextImage()
-if(e.key==="ArrowLeft") prevImage()
-if(e.key==="Escape") lightbox.classList.remove("active")
-})
-
-/* swipe navigation */
-
-let startX=0
-let endX=0
-
-lightbox.addEventListener("touchstart",(e)=>{
-startX=e.changedTouches[0].screenX
-})
-
-lightbox.addEventListener("touchend",(e)=>{
-endX=e.changedTouches[0].screenX
-handleSwipe()
-})
-
+// Swipe navigation
+let startX=0, endX=0;
+lightbox.addEventListener("touchstart", e=>{ startX=e.changedTouches[0].screenX; });
+lightbox.addEventListener("touchend", e=>{ endX=e.changedTouches[0].screenX; handleSwipe(); });
 function handleSwipe(){
-let diff=endX-startX
-
-if(Math.abs(diff)<50) return
-
-if(diff<0){nextImage()}
-else{prevImage()}
+let diff=endX-startX;
+if(Math.abs(diff)<50) return;
+if(diff<0) nextImage();
+else prevImage();
 }
 
+// Click outside image to close
 lightbox.addEventListener("click",(e)=>{
-if(e.target===lightbox){
-lightbox.classList.remove("active")
-}
-})
-
+if(e.target===lightbox) lightbox.classList.remove("active");
+});
 </script>
 
 </body>
