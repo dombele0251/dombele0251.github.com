@@ -1,296 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DOMBELE — Photographer</title>
 <style>
 :root{
---bg:#f6f5f3;
---text:#0e0e0e;
---muted:#6b6b6b;
---line:#e6e4e0;
+  --bg:#f6f5f3;
+  --text:#0e0e0e;
+  --muted:#6b6b6b;
+  --line:#e6e4e0;
 }
-
 body{
-margin:0;
-background:var(--bg);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-color:var(--text);
-text-align:center;
+  margin:0;
+  background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);
+  text-align:center;
 }
-
 .wrap{
-max-width:1200px;
-margin:auto;
-padding:60px 20px;
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
 }
-
 .logo{
-width:90px;
-margin-bottom:25px;
+  width:90px;
+  margin-bottom:25px;
 }
-
 h1{
-letter-spacing:6px;
-font-size:48px;
-margin:0;
+  letter-spacing:6px;
+  font-size:48px;
+  margin:0;
 }
-
 .tag{
-color:var(--muted);
-margin:10px 0 30px 0;
+  color:var(--muted);
+  margin:10px 0 30px 0;
 }
-
 .rule{
-width:120px;
-height:1px;
-background:var(--line);
-margin:25px auto 30px auto;
+  width:120px;
+  height:1px;
+  background:var(--line);
+  margin:25px auto 30px auto;
 }
-
 .meta{
-color:var(--muted);
-margin:6px 0;
+  color:var(--muted);
+  margin:6px 0;
 }
-
 a{
-color:var(--text);
-text-decoration:none;
-border-bottom:1px solid transparent;
+  color:var(--text);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
 }
-
 a:hover{
-border-color:var(--text);
-}
-
-/* PROMOTION BANNER */
-.promo{
-margin:40px auto;
-padding:20px;
-border:1px solid var(--line);
-max-width:500px;
-}
-
-.promo p{
-margin:0 0 10px 0;
-}
-
-.promo-btn{
-display:inline-block;
-padding:10px 24px;
-border:1px solid var(--text);
-text-decoration:none;
-color:var(--text);
-transition:.25s;
-}
-
-.promo-btn:hover{
-background:var(--text);
-color:white;
-}
-
-/* INTRO SHOOT */
-.offer{
-max-width:500px;
-margin:60px auto;
-border:1px solid var(--line);
-padding:35px;
-}
-
-.offer h2{
-margin-top:0;
-}
-
-.offer ul{
-list-style:none;
-padding:0;
-margin:20px 0;
-color:var(--muted);
-}
-
-.offer li{
-margin:6px 0;
-}
-
-/* CTA BUTTONS */
-.button{
-display:inline-block;
-margin-top:15px;
-padding:12px 26px;
-border:1px solid var(--text);
-text-decoration:none;
-color:var(--text);
-transition:all .25s ease;
-}
-
-.button:hover{
-background:var(--text);
-color:white;
-}
-
-/* CLIENT MESSAGE */
-.clients{
-max-width:600px;
-margin:60px auto;
-color:var(--muted);
-line-height:1.6;
+  border-color:var(--text);
 }
 
 /* PORTFOLIO */
 .portfolio{
-column-count:4;
-column-gap:12px;
-margin-top:80px;
+  column-count:4;
+  column-gap:12px;
+  margin-top:80px;
 }
-
 .portfolio img{
-width:100%;
-margin-bottom:12px;
-display:block;
-break-inside:avoid;
-cursor:pointer;
-transition:transform .25s ease, opacity .25s ease;
+  width:100%;
+  margin-bottom:12px;
+  display:block;
+  break-inside:avoid;
+  cursor:pointer;
+  transition:transform .25s ease, opacity .25s ease;
 }
-
 .portfolio img:hover{
-opacity:.9;
-transform:scale(1.02);
+  opacity:.9;
+  transform:scale(1.02);
 }
-
 @media(max-width:1000px){
-.portfolio{column-count:3;}
+  .portfolio{column-count:3;}
 }
-
 @media(max-width:600px){
-.portfolio{column-count:2;}
+  .portfolio{column-count:2;}
 }
 
 /* LIGHTBOX */
 .lightbox{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-cursor:zoom-out;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  cursor:zoom-out;
 }
-
 .lightbox img{
-max-width:90%;
-max-height:90%;
-transition:opacity .25s ease;
+  max-width:90%;
+  max-height:90%;
+  transition:opacity .25s ease;
 }
-
 .lightbox.active{
-display:flex;
+  display:flex;
 }
-
-/* NAV ARROWS */
 .nav{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-font-size:60px;
-color:white;
-cursor:pointer;
-padding:20px;
-opacity:.7;
-user-select:none;
-transition:opacity .25s ease;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:60px;
+  color:white;
+  cursor:pointer;
+  padding:20px;
+  opacity:.7;
+  user-select:none;
+  transition:opacity .25s ease;
 }
-
 .nav:hover{
-opacity:1;
+  opacity:1;
 }
-
 .prev{left:20px;}
 .next{right:20px;}
 
-/* ENQUIRY POPUP */
-#enquiry-popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:1000;
+/* POPUP */
+#offer-popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+#offer-popup .popup-content{
+  background:white;
+  padding:30px;
+  max-width:400px;
+  width:90%;
+  text-align:left;
+  border-radius:6px;
+}
+#offer-popup .popup-content h3{
+  margin-top:0;
+}
+#offer-popup .popup-content ul{
+  list-style:none;
+  padding:0;
+  margin:10px 0;
+}
+#offer-popup .popup-content ul li{
+  margin:5px 0;
+}
+#offer-popup input, #offer-popup textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+#offer-popup button{
+  padding:12px 20px;
+  border:none;
+  background:#0e0e0e;
+  color:white;
+  cursor:pointer;
+  transition:.25s;
+}
+#offer-popup button:hover{
+  background:#444;
 }
 
-#enquiry-popup form{
-background:white;
-padding:30px;
-max-width:400px;
-width:90%;
-text-align:left;
-border-radius:6px;
+/* FIXED ENQUIRE BUTTON */
+#fixed-enquire{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:999;
+  background:#0e0e0e;
+  color:white;
+  padding:12px 20px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.25s;
 }
-
-#enquiry-popup input, #enquiry-popup textarea{
-width:100%;
-margin-bottom:12px;
-padding:10px;
-border:1px solid #ccc;
-border-radius:4px;
+#fixed-enquire:hover{
+  background:#444;
 }
-
-#enquiry-popup button{
-padding:12px 20px;
-border:none;
-background:#0e0e0e;
-color:white;
-cursor:pointer;
-transition:.25s;
-}
-
-#enquiry-popup button:hover{
-background:#444;
-}
-
 footer{
-margin-top:80px;
-padding-top:20px;
-border-top:1px solid var(--line);
-color:var(--muted);
-font-size:14px;
+  margin-top:80px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:14px;
 }
 </style>
 </head>
-
 <body>
 
 <div class="wrap">
-
 <img src="black logo.png" class="logo">
-
 <h1>DOMBELE</h1>
 <p class="tag">Photographer · Fashion | Beauty | Portraits</p>
-
 <div class="rule"></div>
-
 <p class="meta">📍 UK</p>
 <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
 <p class="meta"><a href="https://instagram.com/dombele.studio">@dombele.studio</a></p>
 
-<!-- PROMOTION -->
-<section class="promo">
-<p><strong>Limited Offer:</strong> £90 Intro Shoot for new clients.</p>
-<a href="#" class="promo-btn" id="enquire-btn">Enquire</a>
-</section>
+<div class="clients">
+I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
+</div>
 
-<!-- INTRO SHOOT -->
-<section class="offer">
-<h2>£90 Intro Shoot</h2>
+<!-- Portfolio -->
+<section class="portfolio" id="portfolio"></section>
+
+<footer>
+© 2026 Dombele Chindandy — All rights reserved.
+</footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+<div class="nav prev" id="prev">&#10094;</div>
+<img id="lightbox-img">
+<div class="nav next" id="next">&#10095;</div>
+</div>
+
+<!-- OFFER POPUP -->
+<div id="offer-popup">
+<div class="popup-content">
+<h3>Limited Offer: £90 Intro Shoot</h3>
 <ul>
 <li>45 minute session</li>
 <li>8 professionally edited photos</li>
@@ -302,128 +242,89 @@ font-size:14px;
 <li>+10 photos — £70</li>
 </ul>
 <p>Ideal for trainers, models and brands looking for strong visual content.</p>
-<a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-</section>
-
-<div class="clients">
-I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
+<button id="popup-book">Book a Shoot</button>
+<button id="popup-close">Close</button>
+</div>
 </div>
 
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio"></section>
-
-<footer>
-© 2026 Dombele Chindandy — All rights reserved.
-</footer>
-
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-<div class="nav prev" id="prev">&#10094;</div>
-<img id="lightbox-img">
-<div class="nav next" id="next">&#10095;</div>
-</div>
-
-<!-- ENQUIRY POPUP -->
-<div id="enquiry-popup">
-<form id="enquiry-form">
-<h3>Enquire About a Shoot</h3>
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Your Email" required>
-<textarea placeholder="Your Message" rows="4" required></textarea>
-<button type="submit">Send Enquiry</button>
-</form>
-</div>
+<!-- FIXED ENQUIRE BUTTON -->
+<button id="fixed-enquire">Enquire</button>
 
 <script>
-// -------- Persistent 15/35 Portfolio --------
-const allImages = [];
+// --- Portfolio: 15 random images auto-rotate from 35 ---
+const allImages=[];
 for(let i=1;i<=35;i++){ allImages.push(`website-${i}.jpg`); }
-
-// Shuffle
-for(let i=allImages.length-1;i>0;i--){
-  const j=Math.floor(Math.random()*(i+1));
-  [allImages[i],allImages[j]]=[allImages[j],allImages[i]];
+let currentSet=[]; // current 15 images
+const portfolio=document.getElementById("portfolio");
+function loadPortfolio(){
+  // shuffle
+  for(let i=allImages.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [allImages[i],allImages[j]]=[allImages[j],allImages[i]];
+  }
+  currentSet=allImages.slice(0,15);
+  portfolio.innerHTML="";
+  currentSet.forEach(src=>{
+    const img=document.createElement("img");
+    img.src=src;
+    img.loading="lazy";
+    portfolio.appendChild(img);
+  });
+  images=document.querySelectorAll(".portfolio img");
+  setupLightbox();
 }
+loadPortfolio();
+setInterval(loadPortfolio,7000); // rotate every 7 seconds
 
-// Select 15
-const selectedImages = allImages.slice(0,15);
-const portfolio = document.getElementById("portfolio");
+// --- Lightbox ---
+let images=document.querySelectorAll(".portfolio img");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+const nextBtn=document.getElementById("next");
+const prevBtn=document.getElementById("prev");
+let currentIndex=0;
 
-selectedImages.forEach(src=>{
-  const img=document.createElement("img");
-  img.src=src;
-  img.loading="lazy";
-  portfolio.appendChild(img);
-});
-
-let images = document.querySelectorAll(".portfolio img"); // for lightbox
-
-// -------- Lightbox --------
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
-let currentIndex = 0;
-
-// Preload
-images.forEach(img => { const preload = new Image(); preload.src = img.src; });
-
-images.forEach((img,index)=>{
-img.addEventListener("click",()=>{
-currentIndex=index;
-showImage();
-lightbox.classList.add("active");
-});
-});
-
+function setupLightbox(){
+  images=document.querySelectorAll(".portfolio img");
+  images.forEach((img,index)=>{
+    img.onclick=()=>{
+      currentIndex=index;
+      showImage();
+      lightbox.classList.add("active");
+    }
+  });
+}
 function showImage(){
-lightboxImg.style.opacity=0;
-setTimeout(()=>{ lightboxImg.src=images[currentIndex].src; lightboxImg.style.opacity=1; },150);
+  lightboxImg.style.opacity=0;
+  setTimeout(()=>{ lightboxImg.src=images[currentIndex].src; lightboxImg.style.opacity=1; },150);
 }
-
-function nextImage(){ currentIndex++; if(currentIndex>=images.length) currentIndex=0; showImage(); }
-function prevImage(){ currentIndex--; if(currentIndex<0) currentIndex=images.length-1; showImage(); }
-
-nextBtn.addEventListener("click", nextImage);
-prevBtn.addEventListener("click", prevImage);
+function nextImage(){ currentIndex++; if(currentIndex>=images.length) currentIndex=0; showImage();}
+function prevImage(){ currentIndex--; if(currentIndex<0) currentIndex=images.length-1; showImage();}
+nextBtn.onclick=nextImage; prevBtn.onclick=prevImage;
 
 document.addEventListener("keydown",(e)=>{
-if(!lightbox.classList.contains("active")) return;
-if(e.key==="ArrowRight") nextImage();
-if(e.key==="ArrowLeft") prevImage();
-if(e.key==="Escape") lightbox.classList.remove("active");
+  if(!lightbox.classList.contains("active")) return;
+  if(e.key==="ArrowRight") nextImage();
+  if(e.key==="ArrowLeft") prevImage();
+  if(e.key==="Escape") lightbox.classList.remove("active");
 });
 
-// Swipe
+// swipe
 let startX=0,endX=0;
 lightbox.addEventListener("touchstart", e=>{ startX=e.changedTouches[0].screenX; });
-lightbox.addEventListener("touchend", e=>{ endX=e.changedTouches[0].screenX; handleSwipe(); });
-function handleSwipe(){ let diff=endX-startX; if(Math.abs(diff)<50) return; if(diff<0) nextImage(); else prevImage(); }
-
+lightbox.addEventListener("touchend", e=>{ endX=e.changedTouches[0].screenX; if(Math.abs(endX-startX)>50){ endX<startX?nextImage():prevImage(); } });
 lightbox.addEventListener("click",(e)=>{ if(e.target===lightbox) lightbox.classList.remove("active"); });
 
-// -------- Enquiry Popup --------
-const enquireBtn = document.getElementById("enquire-btn");
-const enquiryPopup = document.getElementById("enquiry-popup");
+// --- Unified Popup ---
+const offerPopup=document.getElementById("offer-popup");
+const fixedEnquire=document.getElementById("fixed-enquire");
+const popupClose=document.getElementById("popup-close");
+fixedEnquire.onclick=()=>offerPopup.style.display="flex";
+popupClose.onclick=()=>offerPopup.style.display="none";
 
-enquireBtn.addEventListener("click",(e)=>{
-  e.preventDefault();
-  enquiryPopup.style.display="flex";
-});
+// Book a Shoot button inside popup
+document.getElementById("popup-book").onclick=()=>window.location.href="mailto:studio@dombele.com";
 
-enquiryPopup.addEventListener("click",(e)=>{
-  if(e.target===enquiryPopup) enquiryPopup.style.display="none";
-});
-
-document.getElementById("enquiry-form").addEventListener("submit", function(e){
-  e.preventDefault();
-  alert("Thank you! Your enquiry has been sent.");
-  enquiryPopup.style.display="none";
-  this.reset();
-});
 </script>
-
 </body>
 </html>
