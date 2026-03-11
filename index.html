@@ -1,213 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DOMBELE — Photographer</title>
+
 <style>
+
 :root{
-  --bg:#f6f5f3;
-  --text:#0e0e0e;
-  --muted:#6b6b6b;
-  --line:#e6e4e0;
+--bg:#f6f5f3;
+--text:#0e0e0e;
+--muted:#6b6b6b;
+--line:#e6e4e0;
 }
 
 body{
-  margin:0;
-  background:var(--bg);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text);
-  text-align:center;
+margin:0;
+background:var(--bg);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+color:var(--text);
+text-align:center;
 }
 
 .wrap{
-  max-width:1200px;
-  margin:auto;
-  padding:60px 20px;
+max-width:1200px;
+margin:auto;
+padding:60px 20px;
 }
 
 .logo{
-  width:90px;
-  margin-bottom:25px;
+width:90px;
+margin-bottom:25px;
 }
 
 h1{
-  letter-spacing:6px;
-  font-size:48px;
-  margin:0;
+letter-spacing:6px;
+font-size:48px;
+margin:0;
 }
 
 .tag{
-  color:var(--muted);
-  margin:10px 0 30px 0;
+color:var(--muted);
+margin:10px 0 30px 0;
 }
 
 .rule{
-  width:120px;
-  height:1px;
-  background:var(--line);
-  margin:25px auto 30px auto;
+width:120px;
+height:1px;
+background:var(--line);
+margin:25px auto 30px auto;
 }
 
 .meta{
-  color:var(--muted);
-  margin:6px 0;
+color:var(--muted);
+margin:6px 0;
 }
 
 a{
-  color:var(--text);
-  text-decoration:none;
-  border-bottom:1px solid transparent;
+color:var(--text);
+text-decoration:none;
+border-bottom:1px solid transparent;
 }
 
 a:hover{
-  border-color:var(--text);
+border-color:var(--text);
 }
 
 /* CLIENT MESSAGE */
+
 .clients{
-  max-width:600px;
-  margin:60px auto;
-  color:var(--muted);
-  line-height:1.6;
+max-width:600px;
+margin:60px auto;
+color:var(--muted);
+line-height:1.6;
 }
 
 /* PROCESS */
+
 .process{
-  max-width:650px;
-  margin:80px auto;
-  color:var(--muted);
-  line-height:1.7;
+max-width:650px;
+margin:80px auto;
+color:var(--muted);
+line-height:1.7;
 }
 
 .process h2{
-  color:var(--text);
-  margin-bottom:20px;
+color:var(--text);
+margin-bottom:20px;
 }
 
 /* SERVICES */
+
 .services{
-  margin:100px auto;
-  max-width:900px;
+margin:100px auto;
+max-width:900px;
 }
 
 .services h2{
-  margin-bottom:40px;
+margin-bottom:40px;
 }
 
 .service-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:30px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:30px;
 }
 
 .service{
-  text-align:left;
-  color:var(--muted);
-  line-height:1.6;
+text-align:left;
+color:var(--muted);
+line-height:1.6;
 }
 
 .service h3{
-  color:var(--text);
-  margin-bottom:8px;
+color:var(--text);
+margin-bottom:8px;
 }
 
 @media(max-width:700px){
-  .service-grid{
-    grid-template-columns:1fr;
-  }
+.service-grid{
+grid-template-columns:1fr;
+}
 }
 
-/* CALL TO ACTION */
+/* CTA */
+
 .cta{
-  margin:100px auto;
-  max-width:500px;
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
+margin:100px auto;
+max-width:500px;
+}
+
+.cta-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+flex-wrap:wrap;
 }
 
 .button{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 28px;
-  border:1px solid var(--text);
-  text-decoration:none;
-  color:var(--text);
-  transition:all .25s ease;
+display:inline-block;
+padding:12px 28px;
+border:1px solid var(--text);
+text-decoration:none;
+color:var(--text);
+transition:all .25s ease;
 }
 
 .button:hover{
-  background:var(--text);
-  color:white;
+background:var(--text);
+color:white;
 }
 
 /* PORTFOLIO */
+
 .portfolio{
-  column-count:4;
-  column-gap:12px;
-  margin-top:80px;
+column-count:4;
+column-gap:12px;
+margin-top:80px;
 }
 
 .portfolio img{
-  width:100%;
-  margin-bottom:12px;
-  display:block;
-  break-inside:avoid;
-  cursor:pointer;
-  transition:opacity .25s ease;
+width:100%;
+margin-bottom:12px;
+display:block;
+break-inside:avoid;
+cursor:pointer;
+transition:opacity .25s ease;
 }
 
 .portfolio img:hover{
-  opacity:.85;
+opacity:.85;
 }
 
 @media(max-width:1000px){
-  .portfolio{
-    column-count:3;
-  }
+.portfolio{
+column-count:3;
+}
 }
 
 @media(max-width:600px){
-  .portfolio{
-    column-count:2;
-  }
+.portfolio{
+column-count:2;
+}
 }
 
 /* LIGHTBOX */
+
 .lightbox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
 }
 
 .lightbox img{
-  max-width:90%;
-  max-height:90%;
+max-width:90%;
+max-height:90%;
 }
 
 .lightbox.active{
-  display:flex;
+display:flex;
+}
+
+/* ARROWS */
+
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:60px;
+color:white;
+cursor:pointer;
+padding:20px;
+opacity:.7;
+user-select:none;
+transition:opacity .25s ease;
+}
+
+.nav:hover{
+opacity:1;
+}
+
+.prev{
+left:20px;
+}
+
+.next{
+right:20px;
 }
 
 footer{
-  margin-top:80px;
-  padding-top:20px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:14px;
+margin-top:80px;
+padding-top:20px;
+border-top:1px solid var(--line);
+color:var(--muted);
+font-size:14px;
 }
+
 </style>
+
 </head>
+
 <body>
+
 <div class="wrap">
 
 <img src="black logo.png" class="logo">
@@ -227,41 +272,73 @@ I create professional photography for brands, personal trainers and businesses w
 </div>
 
 <section class="process">
+
 <h2>The Process</h2>
-<p>Before every shoot I like to sit down with my clients and understand the objective of the project. Whether it's content for social media, advertising or personal branding, the goal is to create images that represent the brand clearly.</p>
-<p>Together we create a moodboard that defines the visual direction of the shoot. This helps align references, lighting style, mood and overall aesthetic before the shoot takes place.</p>
-<p>We then outline a simple shot list including poses, compositions and key visuals we want to capture. This gives structure to the shoot while still leaving space for creativity.</p>
-<p>By the time we begin shooting, everyone has a clear idea of the objective and the final deliverables we want to achieve.</p>
+
+<p>
+Before every shoot I like to sit down with my clients and understand the objective of the project.
+</p>
+
+<p>
+Together we create a moodboard that defines the visual direction of the shoot.
+</p>
+
+<p>
+We then outline a simple shot list including poses, compositions and key visuals we want to capture.
+</p>
+
+<p>
+By the time we begin shooting, everyone has a clear idea of the objective and the final deliverables.
+</p>
+
 </section>
 
 <section class="services">
+
 <h2>Services</h2>
+
 <div class="service-grid">
+
 <div class="service">
 <h3>Personal Branding</h3>
-<p>Photography for coaches, entrepreneurs and professionals who want strong visual content for their website and social media presence.</p>
+<p>Photography for coaches and professionals who want strong visual content.</p>
 </div>
+
 <div class="service">
 <h3>Fitness & Gym Content</h3>
-<p>Professional imagery for personal trainers, gyms and fitness brands looking to create engaging content and promotional material.</p>
+<p>Professional imagery for personal trainers and fitness brands.</p>
 </div>
+
 <div class="service">
 <h3>Social Media Content</h3>
-<p>Content focused shoots designed to give you a library of high quality images for Instagram and online marketing.</p>
+<p>Content focused shoots designed to give you a library of images.</p>
 </div>
+
 <div class="service">
 <h3>Editorial & Commercial</h3>
-<p>Creative photography for campaigns, publications and brands looking for strong visual storytelling.</p>
+<p>Creative photography for campaigns and publications.</p>
 </div>
+
 </div>
+
 </section>
 
 <section class="cta">
+
+<p>If you're looking to create strong visuals for your brand or business, feel free to get in touch.</p>
+
+<div class="cta-buttons">
+
 <a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
+
 <a href="https://instagram.com/dombele.studio" target="_blank" class="button">Instagram</a>
+
+</div>
+
 </section>
 
 <section class="portfolio">
+
 <img src="website-1.jpg">
 <img src="website-2.jpg">
 <img src="website-3.jpg">
@@ -297,6 +374,7 @@ I create professional photography for brands, personal trainers and businesses w
 <img src="website-33.jpg">
 <img src="website-34.jpg">
 <img src="website-35.jpg">
+
 </section>
 
 <footer>
@@ -306,24 +384,92 @@ I create professional photography for brands, personal trainers and businesses w
 </div>
 
 <div class="lightbox" id="lightbox">
+
+<div class="nav prev" id="prev">&#10094;</div>
+
 <img id="lightbox-img">
+
+<div class="nav next" id="next">&#10095;</div>
+
 </div>
 
 <script>
+
 const images = document.querySelectorAll(".portfolio img")
 const lightbox = document.getElementById("lightbox")
 const lightboxImg = document.getElementById("lightbox-img")
+const nextBtn = document.getElementById("next")
+const prevBtn = document.getElementById("prev")
 
-images.forEach(img=>{
+let currentIndex = 0
+
+images.forEach((img,index)=>{
 img.addEventListener("click",()=>{
+currentIndex=index
+showImage()
 lightbox.classList.add("active")
-lightboxImg.src = img.src
 })
 })
 
-lightbox.addEventListener("click",()=>{
-lightbox.classList.remove("active")
+function showImage(){
+lightboxImg.src=images[currentIndex].src
+}
+
+function nextImage(){
+currentIndex++
+if(currentIndex>=images.length){currentIndex=0}
+showImage()
+}
+
+function prevImage(){
+currentIndex--
+if(currentIndex<0){currentIndex=images.length-1}
+showImage()
+}
+
+nextBtn.addEventListener("click",nextImage)
+prevBtn.addEventListener("click",prevImage)
+
+/* keyboard navigation */
+
+document.addEventListener("keydown",(e)=>{
+if(!lightbox.classList.contains("active")) return
+
+if(e.key==="ArrowRight") nextImage()
+if(e.key==="ArrowLeft") prevImage()
+if(e.key==="Escape") lightbox.classList.remove("active")
 })
+
+/* swipe navigation */
+
+let startX=0
+let endX=0
+
+lightbox.addEventListener("touchstart",(e)=>{
+startX=e.changedTouches[0].screenX
+})
+
+lightbox.addEventListener("touchend",(e)=>{
+endX=e.changedTouches[0].screenX
+handleSwipe()
+})
+
+function handleSwipe(){
+let diff=endX-startX
+
+if(Math.abs(diff)<50) return
+
+if(diff<0){nextImage()}
+else{prevImage()}
+}
+
+lightbox.addEventListener("click",(e)=>{
+if(e.target===lightbox){
+lightbox.classList.remove("active")
+}
+})
+
 </script>
+
 </body>
 </html>
