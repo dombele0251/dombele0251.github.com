@@ -3,136 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dombele — Photographer</title>
+<title>DOMBELE — Photographer</title>
 <style>
-:root {
-  --bg-gradient: linear-gradient(135deg, #f6f5f3 0%, #eaeaea 100%);
+:root{
+  --bg:#f6f5f3;
   --text:#0e0e0e;
   --muted:#6b6b6b;
-  --accent:#000;
-  --accent-hover:#333;
-  --shadow: rgba(0,0,0,0.15);
+  --line:#e6e4e0;
 }
 
-body {
+body{
   margin:0;
+  background:var(--bg);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg-gradient);
   color:var(--text);
   text-align:center;
-  scroll-behavior: smooth;
 }
 
-.wrap {
-  max-width:500px;
+.wrap{
+  max-width:1200px;
   margin:auto;
   padding:60px 20px;
 }
 
-.profile-pic {
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  margin-bottom:20px;
-  object-fit:cover;
-  box-shadow: 0 8px 20px var(--shadow);
-  transition: transform 0.3s ease;
+.logo{
+  width:90px;
+  margin-bottom:25px;
 }
 
-.profile-pic:hover {
-  transform: scale(1.05);
-}
-
-h1 {
-  font-size:36px;
+h1{
+  letter-spacing:6px;
+  font-size:48px;
   margin:0;
-  letter-spacing:4px;
-  opacity:0;
-  transform: translateY(-20px);
-  animation: fadeInUp 1s forwards 0.2s;
 }
 
-p.tag {
+.tag{
   color:var(--muted);
-  margin:8px 0 20px 0;
-  opacity:0;
-  transform: translateY(-20px);
-  animation: fadeInUp 1s forwards 0.4s;
+  margin:10px 0 30px 0;
 }
 
-.meta a {
+.rule{
+  width:120px;
+  height:1px;
+  background:var(--line);
+  margin:25px auto 30px auto;
+}
+
+.meta{
+  color:var(--muted);
+  margin:6px 0;
+}
+
+a{
   color:var(--text);
   text-decoration:none;
   border-bottom:1px solid transparent;
 }
 
-.meta a:hover {
+a:hover{
   border-color:var(--text);
 }
 
-.links {
+/* CLIENT MESSAGE */
+.clients{
+  max-width:600px;
+  margin:60px auto;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* PROCESS */
+.process{
+  max-width:650px;
+  margin:80px auto;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.process h2{
+  color:var(--text);
+  margin-bottom:20px;
+}
+
+/* SERVICES */
+.services{
+  margin:100px auto;
+  max-width:900px;
+}
+
+.services h2{
+  margin-bottom:40px;
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+}
+
+.service{
+  text-align:left;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.service h3{
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+@media(max-width:700px){
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* CALL TO ACTION */
+.cta{
+  margin:100px auto;
+  max-width:500px;
   display:flex;
-  flex-direction:column;
-  gap:15px;
-  margin:30px 0;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 0.6s;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
 }
 
-.button {
-  display:block;
-  padding:14px 25px;
-  background:var(--accent);
-  color:white;
+.button{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 28px;
+  border:1px solid var(--text);
   text-decoration:none;
-  border-radius:12px;
-  font-weight:bold;
-  box-shadow: 0 5px 15px var(--shadow);
-  transition: all 0.3s ease;
+  color:var(--text);
+  transition:all .25s ease;
 }
 
-.button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px var(--shadow);
-  background:var(--accent-hover);
+.button:hover{
+  background:var(--text);
+  color:white;
 }
 
-.portfolio {
-  column-count:2;
+/* PORTFOLIO */
+.portfolio{
+  column-count:4;
   column-gap:12px;
-  margin-top:40px;
+  margin-top:80px;
 }
 
-.portfolio img {
+.portfolio img{
   width:100%;
   margin-bottom:12px;
   display:block;
   break-inside:avoid;
   cursor:pointer;
-  border-radius:6px;
-  transition: transform 0.3s ease, opacity 0.25s ease;
-  opacity:0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards;
+  transition:opacity .25s ease;
 }
 
-.portfolio img:hover {
+.portfolio img:hover{
   opacity:.85;
-  transform: scale(1.03);
 }
 
-@media(max-width:600px){
-  .portfolio {
-    column-count:1;
+@media(max-width:1000px){
+  .portfolio{
+    column-count:3;
   }
 }
 
-/* Lightbox */
-.lightbox {
+@media(max-width:600px){
+  .portfolio{
+    column-count:2;
+  }
+}
+
+/* LIGHTBOX */
+.lightbox{
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   background:rgba(0,0,0,0.9);
   display:none;
   align-items:center;
@@ -140,85 +189,124 @@ p.tag {
   z-index:999;
 }
 
-.lightbox img {
+.lightbox img{
   max-width:90%;
   max-height:90%;
 }
 
-.lightbox.active {
+.lightbox.active{
   display:flex;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  to {
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* Sticky Mobile Button */
-.sticky-book {
-  display:none;
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--accent);
-  color:white;
-  padding:15px 30px;
-  border-radius:50px;
-  font-weight:bold;
-  box-shadow: 0 8px 25px var(--shadow);
-  z-index:1000;
-  transition:all 0.3s ease;
-  text-decoration:none;
-}
-
-.sticky-book:hover {
-  transform:translateX(-50%) scale(1.05);
-  background:var(--accent-hover);
-}
-
-@media(max-width:700px){
-  .sticky-book {
-    display:block;
-  }
+footer{
+  margin-top:80px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:14px;
 }
 </style>
 </head>
 <body>
-
 <div class="wrap">
-  <img src="your-photo.jpg" alt="Dombele" class="profile-pic">
 
-  <h1>Dombele</h1>
-  <p class="tag">Photographer · Fashion | Beauty | Portraits</p>
+<img src="black logo.png" class="logo">
 
-  <p class="meta">📍 UK</p>
-  <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-  <p class="meta"><a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a></p>
+<h1>DOMBELE</h1>
 
-  <div class="links">
-    <a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-    <a href="https://dombele.com/portfolio" class="button">View Portfolio</a>
-    <a href="https://instagram.com/dombele.studio" target="_blank" class="button">Instagram</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSxxxxxxx/viewform" target="_blank" class="button">Join Email List</a>
-  </div>
+<p class="tag">Photographer · Fashion | Beauty | Portraits</p>
 
-  <section class="portfolio">
-    <img src="website-1.jpg" alt="">
-    <img src="website-2.jpg" alt="">
-    <img src="website-3.jpg" alt="">
-    <img src="website-4.jpg" alt="">
-  </section>
+<div class="rule"></div>
+
+<p class="meta">📍 UK</p>
+<p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
+<p class="meta"><a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a></p>
+
+<div class="clients">
+I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand, attract clients and elevate your presence across websites and social media.
 </div>
 
-<!-- Sticky Book Button -->
-<a href="mailto:studio@dombele.com" class="sticky-book">Book a Shoot</a>
+<section class="process">
+<h2>The Process</h2>
+<p>Before every shoot I like to sit down with my clients and understand the objective of the project. Whether it's content for social media, advertising or personal branding, the goal is to create images that represent the brand clearly.</p>
+<p>Together we create a moodboard that defines the visual direction of the shoot. This helps align references, lighting style, mood and overall aesthetic before the shoot takes place.</p>
+<p>We then outline a simple shot list including poses, compositions and key visuals we want to capture. This gives structure to the shoot while still leaving space for creativity.</p>
+<p>By the time we begin shooting, everyone has a clear idea of the objective and the final deliverables we want to achieve.</p>
+</section>
+
+<section class="services">
+<h2>Services</h2>
+<div class="service-grid">
+<div class="service">
+<h3>Personal Branding</h3>
+<p>Photography for coaches, entrepreneurs and professionals who want strong visual content for their website and social media presence.</p>
+</div>
+<div class="service">
+<h3>Fitness & Gym Content</h3>
+<p>Professional imagery for personal trainers, gyms and fitness brands looking to create engaging content and promotional material.</p>
+</div>
+<div class="service">
+<h3>Social Media Content</h3>
+<p>Content focused shoots designed to give you a library of high quality images for Instagram and online marketing.</p>
+</div>
+<div class="service">
+<h3>Editorial & Commercial</h3>
+<p>Creative photography for campaigns, publications and brands looking for strong visual storytelling.</p>
+</div>
+</div>
+</section>
+
+<section class="cta">
+<a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
+<a href="https://instagram.com/dombele.studio" target="_blank" class="button">Instagram</a>
+</section>
+
+<section class="portfolio">
+<img src="website-1.jpg">
+<img src="website-2.jpg">
+<img src="website-3.jpg">
+<img src="website-4.jpg">
+<img src="website-5.jpg">
+<img src="website-6.jpg">
+<img src="website-7.jpg">
+<img src="website-8.jpg">
+<img src="website-9.jpg">
+<img src="website-10.jpg">
+<img src="website-11.jpg">
+<img src="website-12.jpg">
+<img src="website-13.jpg">
+<img src="website-14.jpg">
+<img src="website-15.jpg">
+<img src="website-16.jpg">
+<img src="website-17.jpg">
+<img src="website-18.jpg">
+<img src="website-19.jpg">
+<img src="website-20.jpg">
+<img src="website-21.jpg">
+<img src="website-22.jpg">
+<img src="website-23.jpg">
+<img src="website-24.jpg">
+<img src="website-25.jpg">
+<img src="website-26.jpg">
+<img src="website-27.jpg">
+<img src="website-28.jpg">
+<img src="website-29.jpg">
+<img src="website-30.jpg">
+<img src="website-31.jpg">
+<img src="website-32.jpg">
+<img src="website-33.jpg">
+<img src="website-34.jpg">
+<img src="website-35.jpg">
+</section>
+
+<footer>
+© 2026 Dombele Chindandy — All rights reserved.
+</footer>
+
+</div>
 
 <div class="lightbox" id="lightbox">
-  <img id="lightbox-img">
+<img id="lightbox-img">
 </div>
 
 <script>
@@ -226,18 +314,16 @@ const images = document.querySelectorAll(".portfolio img")
 const lightbox = document.getElementById("lightbox")
 const lightboxImg = document.getElementById("lightbox-img")
 
-images.forEach((img, index)=>{
-  img.style.animationDelay = `${0.2 + index * 0.1}s`;
-  img.addEventListener("click",()=>{
-    lightbox.classList.add("active")
-    lightboxImg.src = img.src
-  })
+images.forEach(img=>{
+img.addEventListener("click",()=>{
+lightbox.classList.add("active")
+lightboxImg.src = img.src
+})
 })
 
 lightbox.addEventListener("click",()=>{
-  lightbox.classList.remove("active")
+lightbox.classList.remove("active")
 })
 </script>
-
 </body>
 </html>
