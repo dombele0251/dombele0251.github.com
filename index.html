@@ -69,12 +69,91 @@ a:hover{
 border-color:var(--text);
 }
 
-/* MASONRY PORTFOLIO */
+/* CLIENT MESSAGE */
+
+.clients{
+max-width:600px;
+margin:60px auto;
+color:var(--muted);
+line-height:1.6;
+}
+
+/* PROCESS */
+
+.process{
+max-width:650px;
+margin:80px auto;
+color:var(--muted);
+line-height:1.7;
+}
+
+.process h2{
+color:var(--text);
+margin-bottom:20px;
+}
+
+/* SERVICES */
+
+.services{
+margin:100px auto;
+max-width:900px;
+}
+
+.services h2{
+margin-bottom:40px;
+}
+
+.service-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:30px;
+}
+
+.service{
+text-align:left;
+color:var(--muted);
+line-height:1.6;
+}
+
+.service h3{
+color:var(--text);
+margin-bottom:8px;
+}
+
+@media(max-width:700px){
+.service-grid{
+grid-template-columns:1fr;
+}
+}
+
+/* CALL TO ACTION */
+
+.cta{
+margin:100px auto;
+max-width:500px;
+}
+
+.button{
+display:inline-block;
+margin-top:20px;
+padding:12px 28px;
+border:1px solid var(--text);
+text-decoration:none;
+color:var(--text);
+transition:all .25s ease;
+}
+
+.button:hover{
+background:var(--text);
+color:white;
+}
+
+/* PORTFOLIO */
 
 .portfolio{
 column-count:4;
 column-gap:12px;
-margin-top:60px;
+margin-top:80px;
 }
 
 .portfolio img{
@@ -82,6 +161,7 @@ width:100%;
 margin-bottom:12px;
 display:block;
 break-inside:avoid;
+cursor:pointer;
 transition:opacity .25s ease;
 }
 
@@ -89,15 +169,11 @@ transition:opacity .25s ease;
 opacity:.85;
 }
 
-/* TABLET */
-
 @media(max-width:1000px){
 .portfolio{
 column-count:3;
 }
 }
-
-/* PHONE */
 
 @media(max-width:600px){
 .portfolio{
@@ -105,8 +181,32 @@ column-count:2;
 }
 }
 
+/* LIGHTBOX */
+
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:90%;
+}
+
+.lightbox.active{
+display:flex;
+}
+
 footer{
-margin-top:60px;
+margin-top:80px;
 padding-top:20px;
 border-top:1px solid var(--line);
 color:var(--muted);
@@ -132,6 +232,70 @@ font-size:14px;
 <p class="meta">📍 UK</p>
 <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
 <p class="meta"><a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a></p>
+
+<div class="clients">
+I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand, attract clients and elevate your presence across websites and social media.
+</div>
+
+<section class="process">
+
+<h2>The Process</h2>
+
+<p>
+Before every shoot I like to sit down with my clients and understand the objective of the project. Whether it's content for social media, advertising or personal branding, the goal is to create images that represent the brand clearly.
+</p>
+
+<p>
+Together we create a moodboard that defines the visual direction of the shoot. This helps align references, lighting style, mood and overall aesthetic before the shoot takes place.
+</p>
+
+<p>
+We then outline a simple shot list including poses, compositions and key visuals we want to capture. This gives structure to the shoot while still leaving space for creativity.
+</p>
+
+<p>
+By the time we begin shooting, everyone has a clear idea of the objective and the final deliverables we want to achieve.
+</p>
+
+</section>
+
+<section class="services">
+
+<h2>Services</h2>
+
+<div class="service-grid">
+
+<div class="service">
+<h3>Personal Branding</h3>
+<p>Photography for coaches, entrepreneurs and professionals who want strong visual content for their website and social media presence.</p>
+</div>
+
+<div class="service">
+<h3>Fitness & Gym Content</h3>
+<p>Professional imagery for personal trainers, gyms and fitness brands looking to create engaging content and promotional material.</p>
+</div>
+
+<div class="service">
+<h3>Social Media Content</h3>
+<p>Content focused shoots designed to give you a library of high quality images for Instagram and online marketing.</p>
+</div>
+
+<div class="service">
+<h3>Editorial & Commercial</h3>
+<p>Creative photography for campaigns, publications and brands looking for strong visual storytelling.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="cta">
+
+<p>If you're looking to create strong visuals for your brand or business, feel free to get in touch and tell me about your project.</p>
+
+<a href="mailto:studio@dombele.com" class="button">Start a Project</a>
+
+</section>
 
 <section class="portfolio">
 
@@ -178,6 +342,29 @@ font-size:14px;
 </footer>
 
 </div>
+
+<div class="lightbox" id="lightbox">
+<img id="lightbox-img">
+</div>
+
+<script>
+
+const images = document.querySelectorAll(".portfolio img")
+const lightbox = document.getElementById("lightbox")
+const lightboxImg = document.getElementById("lightbox-img")
+
+images.forEach(img=>{
+img.addEventListener("click",()=>{
+lightbox.classList.add("active")
+lightboxImg.src = img.src
+})
+})
+
+lightbox.addEventListener("click",()=>{
+lightbox.classList.remove("active")
+})
+
+</script>
 
 </body>
 </html>
