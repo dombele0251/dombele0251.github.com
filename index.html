@@ -17,49 +17,30 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:var(--text);
   text-align:center;
+  overflow-x:hidden;
 }
 .wrap{
   max-width:1200px;
   margin:auto;
   padding:60px 20px;
 }
-.logo{
-  width:90px;
-  margin-bottom:25px;
-}
-h1{
-  letter-spacing:6px;
-  font-size:48px;
-  margin:0;
-}
-.tag{
-  color:var(--muted);
-  margin:10px 0 30px 0;
-}
-.rule{
-  width:120px;
-  height:1px;
-  background:var(--line);
-  margin:25px auto 30px auto;
-}
-.meta{
-  color:var(--muted);
-  margin:6px 0;
-}
-a{
-  color:var(--text);
-  text-decoration:none;
-  border-bottom:1px solid transparent;
-}
-a:hover{
-  border-color:var(--text);
-}
+.logo{ width:90px; margin-bottom:25px; }
+h1{ letter-spacing:6px; font-size:48px; margin:0; }
+.tag{ color:var(--muted); margin:10px 0 30px 0; }
+.rule{ width:120px; height:1px; background:var(--line); margin:25px auto 30px auto; }
+.meta{ color:var(--muted); margin:6px 0; }
+a{ color:var(--text); text-decoration:none; border-bottom:1px solid transparent; }
+a:hover{ border-color:var(--text); }
+
+/* CLIENT MESSAGE */
+.clients{ max-width:600px; margin:60px auto; color:var(--muted); line-height:1.6; }
 
 /* PORTFOLIO */
 .portfolio{
   column-count:4;
   column-gap:12px;
   margin-top:80px;
+  position:relative;
 }
 .portfolio img{
   width:100%;
@@ -67,133 +48,61 @@ a:hover{
   display:block;
   break-inside:avoid;
   cursor:pointer;
-  transition:transform .25s ease, opacity .25s ease;
+  opacity:1;
+  transition:transform .25s ease, opacity .5s ease;
 }
-.portfolio img:hover{
-  opacity:.9;
-  transform:scale(1.02);
-}
-@media(max-width:1000px){
-  .portfolio{column-count:3;}
-}
-@media(max-width:600px){
-  .portfolio{column-count:2;}
-}
+.portfolio img.fade-out{ opacity:0; }
+.portfolio img:hover{ transform:scale(1.02); }
+@media(max-width:1000px){ .portfolio{ column-count:3; } }
+@media(max-width:600px){ .portfolio{ column-count:2; } }
 
 /* LIGHTBOX */
 .lightbox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  position:fixed; top:0; left:0; width:100%; height:100%;
   background:rgba(0,0,0,0.9);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-  cursor:zoom-out;
+  display:none; align-items:center; justify-content:center;
+  z-index:999; cursor:zoom-out;
 }
-.lightbox img{
-  max-width:90%;
-  max-height:90%;
-  transition:opacity .25s ease;
-}
-.lightbox.active{
-  display:flex;
-}
+.lightbox img{ max-width:90%; max-height:90%; transition:opacity .25s ease; }
+.lightbox.active{ display:flex; }
 .nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:60px;
-  color:white;
-  cursor:pointer;
-  padding:20px;
-  opacity:.7;
-  user-select:none;
-  transition:opacity .25s ease;
+  position:absolute; top:50%; transform:translateY(-50%);
+  font-size:60px; color:white; cursor:pointer; padding:20px;
+  opacity:.7; user-select:none; transition:opacity .25s ease;
 }
-.nav:hover{
-  opacity:1;
-}
-.prev{left:20px;}
-.next{right:20px;}
+.nav:hover{ opacity:1; }
+.prev{left:20px;} .next{right:20px;}
 
 /* POPUP */
 #offer-popup{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  position:fixed; top:0; left:0; width:100%; height:100%;
   background:rgba(0,0,0,0.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
+  display:none; align-items:center; justify-content:center; z-index:1000;
 }
 #offer-popup .popup-content{
-  background:white;
-  padding:30px;
-  max-width:400px;
-  width:90%;
-  text-align:left;
-  border-radius:6px;
+  background:white; padding:30px; max-width:400px; width:90%;
+  text-align:left; border-radius:6px; position:relative;
 }
-#offer-popup .popup-content h3{
-  margin-top:0;
-}
-#offer-popup .popup-content ul{
-  list-style:none;
-  padding:0;
-  margin:10px 0;
-}
-#offer-popup .popup-content ul li{
-  margin:5px 0;
-}
-#offer-popup input, #offer-popup textarea{
-  width:100%;
-  margin-bottom:12px;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:4px;
-}
+#offer-popup .popup-content h3{ margin-top:0; }
+#offer-popup .popup-content ul{ list-style:none; padding:0; margin:10px 0; }
+#offer-popup .popup-content ul li{ margin:5px 0; }
 #offer-popup button{
-  padding:12px 20px;
-  border:none;
-  background:#0e0e0e;
-  color:white;
-  cursor:pointer;
-  transition:.25s;
+  padding:12px 20px; border:none; background:#0e0e0e;
+  color:white; cursor:pointer; transition:.25s; margin-top:10px;
 }
-#offer-popup button:hover{
-  background:#444;
-}
+#offer-popup button:hover{ background:#444; }
 
 /* FIXED ENQUIRE BUTTON */
 #fixed-enquire{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  z-index:999;
-  background:#0e0e0e;
-  color:white;
-  padding:12px 20px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  transition:.25s;
+  position:fixed; bottom:20px; right:20px; z-index:999;
+  background:#0e0e0e; color:white; padding:12px 20px;
+  border:none; border-radius:6px; cursor:pointer; transition:.25s;
 }
-#fixed-enquire:hover{
-  background:#444;
-}
+#fixed-enquire:hover{ background:#444; }
+
 footer{
-  margin-top:80px;
-  padding-top:20px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:14px;
+  margin-top:80px; padding-top:20px;
+  border-top:1px solid var(--line); color:var(--muted); font-size:14px;
 }
 </style>
 </head>
@@ -227,7 +136,7 @@ I create professional photography for brands, personal trainers and businesses w
 <div class="nav next" id="next">&#10095;</div>
 </div>
 
-<!-- OFFER POPUP -->
+<!-- Unified Offer Popup -->
 <div id="offer-popup">
 <div class="popup-content">
 <h3>Limited Offer: £90 Intro Shoot</h3>
@@ -247,37 +156,40 @@ I create professional photography for brands, personal trainers and businesses w
 </div>
 </div>
 
-<!-- FIXED ENQUIRE BUTTON -->
+<!-- Fixed Enquire Button -->
 <button id="fixed-enquire">Enquire</button>
 
 <script>
-// --- Portfolio: 15 random images auto-rotate from 35 ---
+// --- Portfolio Auto-Rotate 15/35 with Fade ---
 const allImages=[];
 for(let i=1;i<=35;i++){ allImages.push(`website-${i}.jpg`); }
-let currentSet=[]; // current 15 images
 const portfolio=document.getElementById("portfolio");
-function loadPortfolio(){
-  // shuffle
-  for(let i=allImages.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [allImages[i],allImages[j]]=[allImages[j],allImages[i]];
-  }
-  currentSet=allImages.slice(0,15);
-  portfolio.innerHTML="";
-  currentSet.forEach(src=>{
-    const img=document.createElement("img");
-    img.src=src;
-    img.loading="lazy";
-    portfolio.appendChild(img);
-  });
-  images=document.querySelectorAll(".portfolio img");
-  setupLightbox();
+let images=[];
+function showNewPortfolio(){
+  // fade out old images
+  images.forEach(img=>img.classList.add("fade-out"));
+  setTimeout(()=>{
+    // shuffle and pick 15
+    for(let i=allImages.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [allImages[i],allImages[j]]=[allImages[j],allImages[i]];
+    }
+    const currentSet=allImages.slice(0,15);
+    portfolio.innerHTML="";
+    currentSet.forEach(src=>{
+      const img=document.createElement("img");
+      img.src=src;
+      img.loading="lazy";
+      portfolio.appendChild(img);
+    });
+    images=document.querySelectorAll(".portfolio img");
+    setupLightbox();
+  },500); // fade duration
 }
-loadPortfolio();
-setInterval(loadPortfolio,7000); // rotate every 7 seconds
+showNewPortfolio();
+setInterval(showNewPortfolio,7000); // every 7 seconds
 
 // --- Lightbox ---
-let images=document.querySelectorAll(".portfolio img");
 const lightbox=document.getElementById("lightbox");
 const lightboxImg=document.getElementById("lightbox-img");
 const nextBtn=document.getElementById("next");
@@ -294,6 +206,7 @@ function setupLightbox(){
     }
   });
 }
+
 function showImage(){
   lightboxImg.style.opacity=0;
   setTimeout(()=>{ lightboxImg.src=images[currentIndex].src; lightboxImg.style.opacity=1; },150);
@@ -322,9 +235,8 @@ const popupClose=document.getElementById("popup-close");
 fixedEnquire.onclick=()=>offerPopup.style.display="flex";
 popupClose.onclick=()=>offerPopup.style.display="none";
 
-// Book a Shoot button inside popup
+// Book a Shoot button
 document.getElementById("popup-book").onclick=()=>window.location.href="mailto:studio@dombele.com";
-
 </script>
 </body>
 </html>
