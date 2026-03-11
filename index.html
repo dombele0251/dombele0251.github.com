@@ -1,262 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOMBELE — Photographer</title>
-<style>
-:root{
-  --bg:#f6f5f3;
-  --text:#0e0e0e;
-  --muted:#6b6b6b;
-  --line:#e6e4e0;
-}
-body{
-  margin:0;
-  background:var(--bg);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text);
-  text-align:center;
-  scroll-behavior: smooth;
-}
-.wrap{
-  max-width:1200px;
-  margin:auto;
-  padding:60px 20px;
-}
-.logo{ width:90px; margin-bottom:25px; }
-h1{ letter-spacing:6px; font-size:48px; margin:0; }
-.tag{ color:var(--muted); margin:10px 0 30px 0; }
-.rule{ width:120px; height:1px; background:var(--line); margin:25px auto 30px auto; }
-.meta{ color:var(--muted); margin:6px 0; }
-a{ color:var(--text); text-decoration:none; border-bottom:1px solid transparent; }
-a:hover{ border-color:var(--text); }
+<form 
+  class="contact-form"
+  action="https://formspree.io/f/xpqyddel"
+  method="POST"
+>
 
-/* CLIENT MESSAGE */
-.clients{ max-width:600px; margin:60px auto; color:var(--muted); line-height:1.6; }
+<h3>Enquire About a Shoot</h3>
 
-/* PORTFOLIO GRID */
-.portfolio{
-  column-count:4;
-  column-gap:12px;
-  margin-top:80px;
-}
-.portfolio img{
-  width:100%;
-  margin-bottom:12px;
-  display:block;
-  break-inside:avoid;
-  cursor:pointer;
-  transition: transform .25s ease, opacity .5s ease;
-}
-.portfolio img:hover{ transform: scale(1.03); }
-@media(max-width:1000px){ .portfolio{ column-count:3; } }
-@media(max-width:600px){ .portfolio{ column-count:2; } }
+<input type="hidden" name="_subject" value="New Dombele Website Enquiry">
 
-/* OFFER + FORM */
-.offer-form{
-  max-width:900px;
-  margin:100px auto;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:40px;
-  align-items:flex-start;
-}
-.offer-box{
-  border:1px solid var(--line);
-  padding:30px;
-  max-width:400px;
-  flex:1 1 300px;
-}
-.offer-box h2{ margin-top:0; }
-.offer-box ul{ list-style:none; padding:0; margin:20px 0; }
-.offer-box ul li{ margin:6px 0; }
-.offer-box a.button{
-  display:inline-block;
-  margin-top:15px;
-  padding:12px 26px;
-  border:1px solid var(--text);
-  text-decoration:none;
-  color:var(--text);
-  transition:all .25s ease;
-}
-.offer-box a.button:hover{ background:var(--text); color:white; }
+<input 
+  type="text" 
+  name="name"
+  placeholder="Your Name" 
+  required
+>
 
-/* FORM */
-.contact-form{
-  border:1px solid var(--line);
-  padding:30px;
-  max-width:400px;
-  flex:1 1 300px;
-  text-align:left;
-  border-radius:6px;
-}
-.contact-form input, .contact-form textarea{
-  width:100%;
-  margin-bottom:12px;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:4px;
-}
-.contact-form button{
-  padding:12px 20px;
-  border:none;
-  background:#0e0e0e;
-  color:white;
-  cursor:pointer;
-  transition:.25s;
-}
-.contact-form button:hover{ background:#444; }
+<input 
+  type="email" 
+  name="email"
+  placeholder="Your Email" 
+  required
+>
 
-/* FIXED ENQUIRE BUTTON */
-#fixed-enquire{
-  position:fixed; bottom:20px; right:20px; z-index:999;
-  background:#0e0e0e; color:white; padding:12px 20px;
-  border:none; border-radius:6px; cursor:pointer; transition:.25s;
-}
-#fixed-enquire:hover{ background:#444; }
+<textarea 
+  name="message"
+  placeholder="Your Message" 
+  rows="5" 
+  required
+></textarea>
 
-footer{
-  margin-top:80px;
-  padding-top:20px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:14px;
-}
+<button type="submit">Send Enquiry</button>
 
-/* LIGHTBOX */
-.lightbox{
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none; align-items:center; justify-content:center;
-  z-index:999; cursor:zoom-out;
-}
-.lightbox img{ max-width:90%; max-height:90%; transition:opacity .25s ease; }
-.lightbox.active{ display:flex; }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-<img src="black logo.png" class="logo">
-<h1>DOMBELE</h1>
-<p class="tag">Photographer · Fashion | Beauty | Portraits</p>
-<div class="rule"></div>
-<p class="meta">📍 UK</p>
-<p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-<p class="meta"><a href="https://instagram.com/dombele.studio">@dombele.studio</a></p>
-
-<div class="clients">
-I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
-</div>
-
-<!-- Portfolio -->
-<section class="portfolio" id="portfolio"></section>
-
-<!-- Offer + Form -->
-<section class="offer-form" id="contact-section">
-  <div class="offer-box">
-    <h2>£90 Intro Shoot</h2>
-    <ul>
-      <li>45 minute session</li>
-      <li>8 professionally edited photos</li>
-      <li>Delivered within 48 hours</li>
-    </ul>
-    <p>Optional add-ons:</p>
-    <ul>
-      <li>+5 photos — £40</li>
-      <li>+10 photos — £70</li>
-    </ul>
-    <p>Ideal for trainers, models and brands looking for strong visual content.</p>
-    <a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-  </div>
-
-  <form class="contact-form" id="contact-form">
-    <h3>Enquire About a Shoot</h3>
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea placeholder="Your Message" rows="5" required></textarea>
-    <button type="submit">Send Enquiry</button>
-  </form>
-</section>
-
-<footer>
-© 2026 Dombele Chindandy — All rights reserved.
-</footer>
-</div>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-<img id="lightbox-img">
-</div>
-
-<!-- Fixed Enquire Button -->
-<button id="fixed-enquire">Enquire</button>
-
-<script>
-// --- Portfolio 15-photo dynamic replacement ---
-const portfolio=document.getElementById("portfolio");
-const allImages=[];
-for(let i=1;i<=35;i++){ allImages.push(`website-${i}.jpg`); }
-
-// Randomly pick 15 images to show initially
-let displayed=[];
-while(displayed.length<15){
-  let candidate=allImages[Math.floor(Math.random()*allImages.length)];
-  if(!displayed.includes(candidate)) displayed.push(candidate);
-}
-
-// Render portfolio
-displayed.forEach(src=>{
-  const img=document.createElement("img");
-  img.src=src;
-  img.loading="lazy";
-  portfolio.appendChild(img);
-});
-
-// Replace one random image every 7 seconds
-setInterval(()=>{
-  const imgs=portfolio.querySelectorAll("img");
-  const idx=Math.floor(Math.random()*imgs.length);
-
-  let newSrc;
-  do{ newSrc=allImages[Math.floor(Math.random()*allImages.length)]; } while(displayed.includes(newSrc));
-  
-  imgs[idx].style.opacity=0;
-  setTimeout(()=>{
-    imgs[idx].src=newSrc;
-    imgs[idx].style.opacity=1;
-
-    // Update displayed array
-    displayed[idx]=newSrc;
-  },500);
-},7000);
-
-// --- Lightbox ---
-const lightbox=document.getElementById("lightbox");
-const lightboxImg=document.getElementById("lightbox-img");
-
-portfolio.addEventListener("click",(e)=>{
-  if(e.target.tagName==="IMG"){
-    lightboxImg.src=e.target.src;
-    lightbox.classList.add("active");
-  }
-});
-
-lightbox.addEventListener("click",(e)=>{ if(e.target===lightbox) lightbox.classList.remove("active"); });
-
-// --- Contact form submit ---
-document.getElementById("contact-form").addEventListener("submit",function(e){
-  e.preventDefault();
-  alert("Thank you! Your enquiry has been sent.");
-  this.reset();
-});
-
-// --- Fixed Enquire Button scroll ---
-document.getElementById("fixed-enquire").addEventListener("click",()=>{
-  document.getElementById("contact-section").scrollIntoView({behavior:"smooth"});
-});
-</script>
-</body>
-</html>
+</form>
