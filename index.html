@@ -4,83 +4,130 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DOMBELE — Photographer</title>
-
 <style>
 :root{
 --bg:#f6f5f3;
---text:#0e0e0e;
+--text:#ffffff;
 --muted:#6b6b6b;
 --line:#e6e4e0;
 }
 
 body{
 margin:0;
-background:var(--bg);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 color:var(--text);
 text-align:center;
 scroll-behavior:smooth;
+background:var(--bg);
 }
 
+/* HERO SLIDESHOW */
+#hero-slideshow{
+position:relative;
+width:100%;
+height:80vh;
+overflow:hidden;
+}
+
+#hero-slideshow .slide{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+opacity:0;
+transition:opacity 1.5s ease-in-out;
+}
+
+#hero-slideshow .slide.active{
+opacity:1;
+}
+
+#hero-slideshow::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.3);
+z-index:1;
+}
+
+/* HERO CONTENT */
+#hero-content{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:2;
+text-align:center;
+color:white;
+}
+
+#hero-content *{
+opacity:0;
+transform:translateY(20px);
+transition:opacity 1.2s ease, transform 1.2s ease;
+}
+
+#hero-content.fade-in img{
+transition-delay:0.3s;
+opacity:1;
+transform:translateY(0);
+}
+
+#hero-content.fade-in h1{
+transition-delay:0.6s;
+opacity:1;
+transform:translateY(0);
+}
+
+#hero-content.fade-in .tag{
+transition-delay:0.9s;
+opacity:1;
+transform:translateY(0);
+}
+
+#hero-content img.logo{
+width:90px;
+margin-bottom:20px;
+}
+
+#hero-content h1{
+font-size:48px;
+letter-spacing:6px;
+margin:0;
+}
+
+#hero-content .tag{
+color:#f0f0f0;
+margin:10px 0 30px 0;
+}
+
+/* MAIN WRAP */
 .wrap{
 max-width:1200px;
 margin:auto;
 padding:60px 20px;
 }
 
-.logo{
-width:90px;
-margin-bottom:25px;
-}
-
-h1{
-letter-spacing:6px;
-font-size:48px;
-margin:0;
-}
-
-.tag{
-color:var(--muted);
-margin:10px 0 30px 0;
-}
-
-.rule{
-width:120px;
-height:1px;
-background:var(--line);
-margin:25px auto 30px auto;
-}
-
-.meta{
-color:var(--muted);
-margin:6px 0;
-}
-
-a{
-color:var(--text);
-text-decoration:none;
-border-bottom:1px solid transparent;
-}
-
-a:hover{
-border-color:var(--text);
-}
-
+/* CLIENT MESSAGE */
 .clients{
 max-width:600px;
 margin:60px auto;
-color:var(--muted);
+color:#0e0e0e;
 line-height:1.6;
 }
 
 /* PORTFOLIO */
-
 .portfolio{
 column-count:4;
 column-gap:12px;
 margin-top:80px;
 }
-
 .portfolio img{
 width:100%;
 margin-bottom:12px;
@@ -91,26 +138,15 @@ opacity:0;
 transform:translateY(10px);
 transition:opacity .6s ease, transform .6s ease;
 }
-
 .portfolio img.loaded{
 opacity:1;
 transform:translateY(0);
 }
+.portfolio img:hover{transform:scale(1.03);}
+@media(max-width:1000px){.portfolio{column-count:3;}}
+@media(max-width:600px){.portfolio{column-count:2;}}
 
-.portfolio img:hover{
-transform:scale(1.03);
-}
-
-@media(max-width:1000px){
-.portfolio{column-count:3;}
-}
-
-@media(max-width:600px){
-.portfolio{column-count:2;}
-}
-
-/* OFFER + FORM */
-
+/* OFFER + CONTACT */
 .offer-form{
 max-width:900px;
 margin:100px auto;
@@ -122,26 +158,15 @@ align-items:flex-start;
 }
 
 .offer-box{
-border:1px solid var(--line);
+border:1px solid #e6e4e0;
 padding:30px;
 max-width:400px;
 flex:1 1 300px;
 }
 
-.offer-box h2{
-margin-top:0;
-}
-
-.offer-box ul{
-list-style:none;
-padding:0;
-margin:20px 0;
-}
-
-.offer-box ul li{
-margin:6px 0;
-}
-
+.offer-box h2{margin-top:0;}
+.offer-box ul{list-style:none;padding:0;margin:20px 0;}
+.offer-box ul li{margin:6px 0;}
 .offer-box a.button{
 display:inline-block;
 margin-top:15px;
@@ -151,32 +176,18 @@ text-decoration:none;
 color:var(--text);
 transition:.25s;
 }
-
-.offer-box a.button:hover{
-background:var(--text);
-color:white;
-}
-
-/* CONTACT SECTION */
+.offer-box a.button:hover{background:var(--text); color:white;}
 
 .contact-form{
-border:1px solid var(--line);
+border:1px solid #e6e4e0;
 padding:30px;
 max-width:400px;
 flex:1 1 300px;
 text-align:left;
 border-radius:6px;
 }
-
-.contact-form h3{
-margin-top:0;
-}
-
-.contact-form p{
-color:var(--muted);
-margin-bottom:20px;
-}
-
+.contact-form h3{margin-top:0;}
+.contact-form p{color:#0e0e0e;margin-bottom:20px;}
 .contact-form .button{
 display:block;
 padding:12px 20px;
@@ -187,14 +198,9 @@ text-align:center;
 margin-bottom:12px;
 transition:.25s;
 }
+.contact-form .button:hover{background:var(--text); color:white;}
 
-.contact-form .button:hover{
-background:var(--text);
-color:white;
-}
-
-/* FIXED BUTTON */
-
+/* FIXED ENQUIRE BUTTON */
 #fixed-enquire{
 position:fixed;
 bottom:20px;
@@ -207,58 +213,45 @@ border:none;
 border-radius:6px;
 cursor:pointer;
 }
+#fixed-enquire:hover{background:#444;}
 
-#fixed-enquire:hover{
-background:#444;
-}
-
+/* FOOTER */
 footer{
 margin-top:80px;
 padding-top:20px;
-border-top:1px solid var(--line);
-color:var(--muted);
+border-top:1px solid #e6e4e0;
+color:#6b6b6b;
 font-size:14px;
 }
 
 /* LIGHTBOX */
-
 .lightbox{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+position:fixed; top:0; left:0; width:100%; height:100%;
 background:rgba(0,0,0,0.9);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
-cursor:zoom-out;
+display:none; align-items:center; justify-content:center;
+z-index:999; cursor:zoom-out;
 }
-
-.lightbox img{
-max-width:90%;
-max-height:90%;
-}
-
-.lightbox.active{
-display:flex;
-}
-
+.lightbox img{max-width:90%; max-height:90%;}
+.lightbox.active{display:flex;}
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
+<section id="hero-slideshow">
+  <div class="slide active" style="background-image:url('hero1.jpg')"></div>
+  <div class="slide" style="background-image:url('hero2.jpg')"></div>
+  <div class="slide" style="background-image:url('hero3.jpg')"></div>
+
+  <div id="hero-content">
+    <img src="black logo.png" class="logo">
+    <h1>DOMBELE</h1>
+    <p class="tag">Photographer · Fashion | Beauty | Portraits</p>
+  </div>
+</section>
+
 <div class="wrap">
-
-<img src="black logo.png" class="logo">
-
-<h1>DOMBELE</h1>
-
-<p class="tag">Photographer · Fashion | Beauty | Portraits</p>
-
-<div class="rule"></div>
 
 <p class="meta">📍 UK</p>
 <p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
@@ -268,42 +261,33 @@ display:flex;
 I create professional photography for brands, personal trainers and businesses who want to stand out online. Strong visuals help communicate your brand and elevate your presence across websites and social media.
 </div>
 
+<!-- Portfolio -->
 <section class="portfolio" id="portfolio"></section>
 
+<!-- Offer + Contact -->
 <section class="offer-form" id="contact-section">
 
 <div class="offer-box">
-
 <h2>£90 Intro Shoot</h2>
-
 <ul>
 <li>45 minute session</li>
 <li>8 professionally edited photos</li>
 <li>Delivered within 48 hours</li>
 </ul>
-
 <p>Optional add-ons:</p>
-
 <ul>
 <li>+5 photos — £40</li>
 <li>+10 photos — £70</li>
 </ul>
-
 <p>Ideal for trainers, models and brands looking for strong visual content.</p>
-
 <a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-
 </div>
 
 <div class="contact-form">
-
 <h3>Enquire About a Shoot</h3>
-
 <p>For bookings or enquiries, send a message using the options below.</p>
-
 <a href="mailto:studio@dombele.com" class="button">Send an Email</a>
 <a href="https://instagram.com/dombele.studio" target="_blank" class="button">Send a DM on Instagram</a>
-
 </div>
 
 </section>
@@ -311,97 +295,84 @@ I create professional photography for brands, personal trainers and businesses w
 <footer>
 © 2026 Dombele Chindandy — All rights reserved.
 </footer>
-
 </div>
 
-<div class="lightbox" id="lightbox">
-<img id="lightbox-img">
-</div>
-
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox"><img id="lightbox-img"></div>
 <button id="fixed-enquire">Enquire</button>
 
 <script>
-// --- Portfolio setup ---
+// HERO SLIDESHOW
+const slides = document.querySelectorAll("#hero-slideshow .slide");
+let currentSlide = 0;
+setInterval(()=>{
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide+1)%slides.length;
+  slides[currentSlide].classList.add("active");
+},5000);
+
+// HERO STAGGERED FADE-IN
+const heroContent = document.getElementById("hero-content");
+window.addEventListener("load", () => {
+  heroContent.classList.add("fade-in");
+});
+
+// PORTFOLIO
 const portfolio = document.getElementById("portfolio")
-const allImages = []
-
-for(let i=1;i<=35;i++){
-  allImages.push(`website-${i}.jpg`)
-}
-
-let displayed = []
-
+const allImages=[]
+for(let i=1;i<=35;i++){allImages.push(`website-${i}.jpg`)}
+let displayed=[]
 while(displayed.length<15){
-  let candidate = allImages[Math.floor(Math.random()*allImages.length)]
+  let candidate=allImages[Math.floor(Math.random()*allImages.length)]
   if(!displayed.includes(candidate)) displayed.push(candidate)
 }
-
 displayed.forEach(src=>{
-  const img = document.createElement("img")
-  img.src = src
-  img.loading = "lazy"
-  img.onload = ()=> img.classList.add("loaded")
+  const img=document.createElement("img")
+  img.src=src
+  img.loading="lazy"
+  img.onload=()=>img.classList.add("loaded")
   portfolio.appendChild(img)
 })
-
-// Rotate images every 7s
 setInterval(()=>{
-  const imgs = portfolio.querySelectorAll("img")
-  const idx = Math.floor(Math.random()*imgs.length)
+  const imgs=portfolio.querySelectorAll("img")
+  const idx=Math.floor(Math.random()*imgs.length)
   let newSrc
-  do {
-    newSrc = allImages[Math.floor(Math.random()*allImages.length)]
-  } while(displayed.includes(newSrc))
-
-  const img = imgs[idx]
+  do{newSrc=allImages[Math.floor(Math.random()*allImages.length)]}while(displayed.includes(newSrc))
+  const img=imgs[idx]
   img.classList.remove("loaded")
   setTimeout(()=>{
-    img.src = newSrc
-    img.onload = ()=> img.classList.add("loaded")
-    displayed[idx] = newSrc
+    img.src=newSrc
+    img.onload=()=>img.classList.add("loaded")
+    displayed[idx]=newSrc
   },300)
 },7000)
 
-// --- Lightbox ---
-const lightbox = document.getElementById("lightbox")
-const lightboxImg = document.getElementById("lightbox-img")
-let currentIndex = 0
-
+// LIGHTBOX
+const lightbox=document.getElementById("lightbox")
+const lightboxImg=document.getElementById("lightbox-img")
+let currentIndex=0
 portfolio.addEventListener("click",(e)=>{
   if(e.target.tagName==="IMG"){
-    const imgs = Array.from(portfolio.querySelectorAll("img"))
-    currentIndex = imgs.indexOf(e.target)
-    lightboxImg.src = imgs[currentIndex].src
+    const imgs=Array.from(portfolio.querySelectorAll("img"))
+    currentIndex=imgs.indexOf(e.target)
+    lightboxImg.src=imgs[currentIndex].src
     lightbox.classList.add("active")
   }
 })
-
 document.addEventListener("keydown",(e)=>{
-  const imgs = portfolio.querySelectorAll("img")
+  const imgs=portfolio.querySelectorAll("img")
   if(lightbox.classList.contains("active")){
-    if(e.key==="ArrowRight"){
-      currentIndex = (currentIndex+1)%imgs.length
-      lightboxImg.src = imgs[currentIndex].src
-    }
-    if(e.key==="ArrowLeft"){
-      currentIndex = (currentIndex-1+imgs.length)%imgs.length
-      lightboxImg.src = imgs[currentIndex].src
-    }
-    if(e.key==="Escape"){
-      lightbox.classList.remove("active")
-    }
+    if(e.key==="ArrowRight"){currentIndex=(currentIndex+1)%imgs.length; lightboxImg.src=imgs[currentIndex].src}
+    if(e.key==="ArrowLeft"){currentIndex=(currentIndex-1+imgs.length)%imgs.length; lightboxImg.src=imgs[currentIndex].src}
+    if(e.key==="Escape"){lightbox.classList.remove("active")}
   }
 })
+lightbox.addEventListener("click",(e)=>{if(e.target===lightbox) lightbox.classList.remove("active")})
 
-lightbox.addEventListener("click",(e)=>{
-  if(e.target===lightbox) lightbox.classList.remove("active")
-})
-
-// --- Fixed enquire button ---
+// FIXED ENQUIRE BUTTON
 document.getElementById("fixed-enquire").addEventListener("click",()=>{
   document.getElementById("contact-section").scrollIntoView({behavior:"smooth"})
 })
 </script>
-
 </body>
 </html>
