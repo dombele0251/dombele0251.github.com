@@ -4,94 +4,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOMBELE — Photographer</title>
+<title>DOMBELE</title>
 
 <style>
 :root{
---bg:#f6f5f3;
---text:#0e0e0e;
---muted:#6b6b6b;
---line:#e6e4e0;
+--bg:#f8f7f5;
+--text:#111;
+--muted:#777;
 }
 
 body{
 margin:0;
 background:var(--bg);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 color:var(--text);
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
 text-align:center;
-scroll-behavior:smooth;
 }
 
-.wrap{
-max-width:1200px;
-margin:auto;
-padding:60px 20px;
+.hero img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.85);
 }
 
-.logo{
-width:90px;
-margin-bottom:25px;
+.hero-content{
+position:relative;
+z-index:2;
+color:white;
 }
 
-h1{
-letter-spacing:6px;
-font-size:48px;
+.hero h1{
+font-size:56px;
+letter-spacing:10px;
 margin:0;
+font-weight:500;
 }
 
-.tag{
-color:var(--muted);
-margin:10px 0 30px 0;
+.hero p{
+margin-top:12px;
+font-size:14px;
+letter-spacing:2px;
+opacity:.85;
 }
 
-.rule{
-width:120px;
-height:1px;
-background:var(--line);
-margin:25px auto 30px auto;
+/* SECTION */
+
+.section{
+max-width:1100px;
+margin:120px auto;
+padding:0 20px;
 }
 
-.meta{
-color:var(--muted);
-margin:6px 0;
-}
-
-a{
-color:var(--text);
-text-decoration:none;
-border-bottom:1px solid transparent;
-}
-
-a:hover{
-border-color:var(--text);
-}
-
-.clients{
-max-width:600px;
-margin:60px auto;
-color:var(--muted);
-line-height:1.6;
-}
-
-/* PORTFOLIO */
+/* GRID */
 
 .portfolio{
-column-count:4;
-column-gap:12px;
-margin-top:80px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
 }
 
 .portfolio img{
 width:100%;
-margin-bottom:12px;
-display:block;
-break-inside:avoid;
+height:100%;
+object-fit:cover;
 cursor:pointer;
 opacity:0;
-transform:translateY(10px);
-transition:opacity .6s ease, transform .6s ease;
-will-change: transform;
+transform:translateY(20px);
+transition:all .8s ease;
 }
 
 .portfolio img.loaded{
@@ -99,127 +90,15 @@ opacity:1;
 transform:translateY(0);
 }
 
-.portfolio img:hover{
-transform:scale(1.03);
+/* MOBILE */
+
+@media(max-width:900px){
+.portfolio{
+grid-template-columns:repeat(2,1fr);
 }
-
-@media(max-width:1000px){
-.portfolio{column-count:3;}
+.hero h1{
+font-size:40px;
 }
-
-@media(max-width:600px){
-.portfolio{column-count:2;}
-}
-
-/* OFFER + FORM */
-
-.offer-form{
-max-width:900px;
-margin:100px auto;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:40px;
-align-items:flex-start;
-}
-
-.offer-box{
-border:1px solid var(--line);
-padding:30px;
-max-width:400px;
-flex:1 1 300px;
-}
-
-.offer-box h2{
-margin-top:0;
-}
-
-.offer-box ul{
-list-style:none;
-padding:0;
-margin:20px 0;
-}
-
-.offer-box ul li{
-margin:6px 0;
-}
-
-.offer-box a.button{
-display:inline-block;
-margin-top:15px;
-padding:12px 26px;
-border:1px solid var(--text);
-text-decoration:none;
-color:var(--text);
-transition:.25s;
-}
-
-.offer-box a.button:hover{
-background:var(--text);
-color:white;
-}
-
-/* CONTACT SECTION */
-
-.contact-form{
-border:1px solid var(--line);
-padding:30px;
-max-width:400px;
-flex:1 1 300px;
-text-align:left;
-border-radius:6px;
-}
-
-.contact-form h3{
-margin-top:0;
-}
-
-.contact-form p{
-color:var(--muted);
-margin-bottom:20px;
-}
-
-.contact-form .button{
-display:block;
-padding:12px 20px;
-border:1px solid var(--text);
-text-decoration:none;
-color:var(--text);
-text-align:center;
-margin-bottom:12px;
-transition:.25s;
-}
-
-.contact-form .button:hover{
-background:var(--text);
-color:white;
-}
-
-/* FIXED BUTTON */
-
-#fixed-enquire{
-position:fixed;
-bottom:20px;
-right:20px;
-z-index:999;
-background:#0e0e0e;
-color:white;
-padding:12px 20px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-
-#fixed-enquire:hover{
-background:#444;
-}
-
-footer{
-margin-top:80px;
-padding-top:20px;
-border-top:1px solid var(--line);
-color:var(--muted);
-font-size:14px;
 }
 
 /* LIGHTBOX */
@@ -230,12 +109,11 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.95);
+background:rgba(0,0,0,.95);
 display:none;
 align-items:center;
 justify-content:center;
 z-index:999;
-cursor:zoom-out;
 }
 
 .lightbox img{
@@ -246,115 +124,104 @@ max-height:90%;
 .lightbox.active{
 display:flex;
 }
+
+/* FOOTER */
+
+.footer{
+text-align:center;
+margin:120px 0 60px;
+color:var(--muted);
+font-size:13px;
+letter-spacing:1px;
+}
 </style>
 
 </head>
 
 <body>
 
-<div class="wrap">
+<!-- HERO -->
 
-<img src="black logo.png" class="logo">
-
+<section class="hero">
+<img src="website-1.jpg">
+<div class="hero-content">
 <h1>DOMBELE</h1>
-
-<p class="tag">Photographer · Fashion | Beauty | Portraits</p>
-
-<div class="rule"></div>
-
-<p class="meta">📍 UK</p>
-<p class="meta"><a href="mailto:studio@dombele.com">studio@dombele.com</a></p>
-<p class="meta"><a href="https://instagram.com/dombele.studio">@dombele.studio</a></p>
-
-<div class="clients">
-I create professional photography for brands, personal trainers and businesses who want to stand out online.
+<p>PHOTOGRAPHER</p>
 </div>
-
-<section class="portfolio" id="portfolio"></section>
-
-<section class="offer-form" id="contact-section">
-
-<div class="offer-box">
-<h2>£90 Intro Shoot</h2>
-<ul>
-<li>45 minute session</li>
-<li>8 edited photos</li>
-<li>Delivered in 48h</li>
-</ul>
-<a href="mailto:studio@dombele.com" class="button">Book a Shoot</a>
-</div>
-
-<div class="contact-form">
-<h3>Enquire</h3>
-<a href="mailto:studio@dombele.com" class="button">Email</a>
-<a href="https://instagram.com/dombele.studio" target="_blank" class="button">Instagram</a>
-</div>
-
 </section>
 
-<footer>
-© 2026 Dombele Chindandy
-</footer>
+<!-- PORTFOLIO -->
 
+<section class="section">
+<div class="portfolio" id="portfolio"></div>
+</section>
+
+<div class="footer">
+© 2026 DOMBELE
 </div>
+
+<!-- LIGHTBOX -->
 
 <div class="lightbox" id="lightbox">
 <img id="lightbox-img">
 </div>
 
-<button id="fixed-enquire">Enquire</button>
-
 <script>
+// CONFIG
 const TOTAL_IMAGES = 242
-const INITIAL_LOAD = 20
-const LOAD_MORE = 20
+const INITIAL_LOAD = 12
+const LOAD_MORE = 12
 
 const portfolio = document.getElementById("portfolio")
 let loaded = 0
 
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("loaded")
+}
+})
+})
+
 function createImage(src){
-  const img = document.createElement("img")
-  img.src = src
-  img.loading = "lazy"
-  img.decoding = "async"
-  img.onload = () => img.classList.add("loaded")
-  return img
+const img = document.createElement("img")
+img.src = src
+img.loading = "lazy"
+observer.observe(img)
+return img
 }
 
 function loadImages(count){
-  for(let i=0;i<count;i++){
-    if(loaded >= TOTAL_IMAGES) return
-    const src = `website-${loaded+1}.jpg`
-    portfolio.appendChild(createImage(src))
-    loaded++
-  }
+for(let i=0;i<count;i++){
+if(loaded >= TOTAL_IMAGES) return
+const src = `website-${loaded+1}.jpg`
+portfolio.appendChild(createImage(src))
+loaded++
+}
 }
 
 loadImages(INITIAL_LOAD)
 
 window.addEventListener("scroll", ()=>{
-  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 300){
-    loadImages(LOAD_MORE)
-  }
+if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 300){
+loadImages(LOAD_MORE)
+}
 })
 
+// LIGHTBOX
 const lightbox = document.getElementById("lightbox")
 const lightboxImg = document.getElementById("lightbox-img")
 
 portfolio.addEventListener("click",(e)=>{
-  if(e.target.tagName==="IMG"){
-    lightboxImg.src = e.target.src
-    lightbox.classList.add("active")
-  }
+if(e.target.tagName==="IMG"){
+lightboxImg.src = e.target.src
+lightbox.classList.add("active")
+}
 })
 
 lightbox.addEventListener("click",()=>{
-  lightbox.classList.remove("active")
+lightbox.classList.remove("active")
 })
-
-document.getElementById("fixed-enquire").onclick = ()=>{
-  document.getElementById("contact-section").scrollIntoView({behavior:"smooth"})
-}
 </script>
 
 </body>
