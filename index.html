@@ -69,14 +69,14 @@ opacity:.85;
 /* SECTION */
 .section{
 max-width:1000px;
-margin:140px auto;
+margin:120px auto;
 padding:0 20px;
 }
 
 .section h2{
 font-size:12px;
 letter-spacing:3px;
-margin-bottom:40px;
+margin-bottom:30px;
 color:var(--muted);
 }
 
@@ -92,11 +92,8 @@ width:100%;
 cursor:pointer;
 opacity:0;
 transform:translateY(30px);
-transition:all 1.2s cubic-bezier(.2,.7,.2,1);
+transition:all 1s ease;
 }
-
-.portfolio img:nth-child(odd){transition-delay:.1s;}
-.portfolio img:nth-child(even){transition-delay:.25s;}
 
 .portfolio img.loaded{
 opacity:1;
@@ -135,7 +132,7 @@ display:flex;
 /* FOOTER */
 .footer{
 text-align:center;
-margin:140px 0 60px;
+margin:120px 0 60px;
 color:var(--muted);
 font-size:12px;
 letter-spacing:2px;
@@ -146,8 +143,6 @@ letter-spacing:2px;
 
 <body>
 
-<!-- HERO -->
-
 <section class="hero">
 <img src="website-1.jpg">
 <div class="hero-content">
@@ -156,21 +151,15 @@ letter-spacing:2px;
 </div>
 </section>
 
-<!-- FASHION -->
-
 <section class="section">
 <h2>FASHION</h2>
 <div class="portfolio" id="fashion"></div>
 </section>
 
-<!-- CONCERT -->
-
 <section class="section">
 <h2>CONCERT</h2>
 <div class="portfolio" id="concert"></div>
 </section>
-
-<!-- GYM -->
 
 <section class="section">
 <h2>GYM</h2>
@@ -181,18 +170,16 @@ letter-spacing:2px;
 STUDIO@DOMBELE.COM<br>© 2026
 </div>
 
-<!-- LIGHTBOX -->
-
 <div class="lightbox" id="lightbox">
 <img id="lightbox-img">
 </div>
 
 <script>
-// IMAGE GROUPS
+// WAIT FOR PAGE LOAD (fixes most issues)
+window.addEventListener("DOMContentLoaded", () => {
 
-const fashion = [
-87,90,93,94,95,107,108,109,110
-]
+// IMAGE GROUPS
+const fashion = [87,90,93,94,95,107,108,109,110]
 
 const concert = [
 91,92,96,97,98,99,100,101,102,103,
@@ -205,78 +192,54 @@ const gym = [
 202,203,204,234
 ]
 
-// BUILD PATHS
-function buildList(arr){
-  return arr.map(n => `website-${n}.jpg`)
-}
+// HELPER
+const build = arr => arr.map(n => `website-${n}.jpg`)
 
-const fashionList = buildList(fashion)
-const concertList = buildList(concert)
-const gymList = buildList(gym)
-
-// FADE-IN OBSERVER
+// OBSERVER
 const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("loaded")
-    }
-  })
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("loaded")
+}
+})
 },{threshold:0.2})
 
-// LOAD GROUP
-function loadGroup(containerId, list){
-  const container = document.getElementById(containerId)
+// LOAD FUNCTION
+function load(containerId, list){
+const el = document.getElementById(containerId)
+if(!el) return
 
-  list.forEach(src=>{
-    const img = document.createElement("img")
-    img.src = src
-    img.loading = "lazy"
-
-    observer.observe(img)
-    container.appendChild(img)
-  })
+list.forEach(src=>{
+const img = document.createElement("img")
+img.src = src
+img.loading = "lazy"
+observer.observe(img)
+el.appendChild(img)
+})
 }
 
 // LOAD ALL
-loadGroup("fashion", fashionList)
-loadGroup("concert", concertList)
-loadGroup("gym", gymList)
+load("fashion", build(fashion))
+load("concert", build(concert))
+load("gym", build(gym))
 
 // LIGHTBOX
 const lightbox = document.getElementById("lightbox")
 const lightboxImg = document.getElementById("lightbox-img")
-let currentIndex = 0
-let currentImages = []
 
 document.querySelectorAll(".portfolio").forEach(section=>{
-  section.addEventListener("click",(e)=>{
-    if(e.target.tagName==="IMG"){
-      currentImages = Array.from(section.querySelectorAll("img"))
-      currentIndex = currentImages.indexOf(e.target)
-      lightboxImg.src = currentImages[currentIndex].src
-      lightbox.classList.add("active")
-    }
-  })
+section.addEventListener("click",(e)=>{
+if(e.target.tagName==="IMG"){
+lightboxImg.src = e.target.src
+lightbox.classList.add("active")
+}
 })
-
-document.addEventListener("keydown",(e)=>{
-  if(lightbox.classList.contains("active")){
-    if(e.key==="ArrowRight"){
-      currentIndex = (currentIndex+1)%currentImages.length
-      lightboxImg.src = currentImages[currentIndex].src
-    }
-    if(e.key==="ArrowLeft"){
-      currentIndex = (currentIndex-1+currentImages.length)%currentImages.length
-      lightboxImg.src = currentImages[currentIndex].src
-    }
-    if(e.key==="Escape"){
-      lightbox.classList.remove("active")
-    }
-  }
 })
 
 lightbox.addEventListener("click",()=>{
-  lightbox.classList.remove("active")
+lightbox.classList.remove("active")
+})
+
 })
 </script>
 
