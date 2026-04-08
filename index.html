@@ -1,496 +1,420 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dombele — Photographer</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 :root{
 --bg:#ffffff;
---text:#111111;
---muted:#888888;
+--text:#111;
+--muted:#888;
 --line:#e8e8e8;
 }
 
 body{
 background:var(--bg);
 font-family:"Inter",sans-serif;
-font-weight:300;
-color:var(--text);
 font-size:11px;
 letter-spacing:.04em;
+color:var(--text);
+overflow-x:hidden;
 }
 
-/* ─── NAV ─── */
+/* FADE TRANSITION */
+.fade{
+opacity:0;
+transform:translateY(10px);
+transition:opacity .6s ease, transform .6s ease;
+}
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* NAV */
 header{
 position:fixed;
-top:0;left:0;right:0;
-z-index:200;
-background:var(--bg);
-border-bottom:1px solid var(--line);
+top:0;
+left:0;
+right:0;
+height:48px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 28px;
-height:48px;
+border-bottom:1px solid var(--line);
+background:white;
+z-index:100;
 }
 
 .logo{
 font-family:"Cormorant Garamond",serif;
-font-weight:300;
 font-size:18px;
 letter-spacing:.12em;
-text-transform:uppercase;
-color:var(--text);
-text-decoration:none;
 cursor:pointer;
 }
 
 nav{display:flex;gap:28px;}
 
 nav a{
-color:var(--muted);
 text-decoration:none;
+color:var(--muted);
 font-size:10px;
 letter-spacing:.14em;
 text-transform:uppercase;
-transition:color .2s;
 }
-nav a:hover,nav a.active{color:var(--text);}
+nav a.active{color:var(--text);}
 
-/* ─── MAIN ─── */
-main{
-padding-top:48px;
-min-height:100vh;
-}
+/* MAIN */
+main{padding-top:48px;}
 
-/* ─── HOME: category index ─── */
-#home{display:block;}
-
-.category-list{
-padding:0;
-}
-
+/* HOME */
 .category-row{
 border-bottom:1px solid var(--line);
 display:flex;
 align-items:center;
+height:64px;
 cursor:pointer;
 overflow:hidden;
-height:64px;
 transition:height .4s ease;
-position:relative;
 }
 
-.category-row:first-child{border-top:1px solid var(--line);}
-
-.category-row:hover{height:220px;}
+.category-row:hover{height:200px;}
 
 .category-row__label{
 width:220px;
-flex-shrink:0;
 padding:0 28px;
-display:flex;
-align-items:center;
-gap:16px;
-}
-
-.cat-name{
 font-family:"Cormorant Garamond",serif;
-font-weight:300;
 font-size:28px;
-letter-spacing:.06em;
-color:var(--text);
-transition:opacity .2s;
-}
-
-.cat-count{
-font-size:10px;
-color:var(--muted);
-letter-spacing:.1em;
-padding-top:6px;
 }
 
 .category-row__preview{
 display:flex;
 gap:4px;
-overflow:hidden;
 flex:1;
-height:100%;
-padding:8px 8px 8px 0;
 opacity:0;
-transform:translateY(6px);
-transition:opacity .35s ease .05s, transform .35s ease .05s;
+transition:.4s;
 }
 
 .category-row:hover .category-row__preview{
 opacity:1;
-transform:translateY(0);
 }
 
 .category-row__preview img{
-height:100%;
-width:auto;
-object-fit:cover;
-flex-shrink:0;
+height:180px;
 }
 
-/* ─── SECTION: photo grid ─── */
+/* SECTIONS */
 .section{display:none;}
 .section.active{display:block;}
 
 .section-header{
-padding:20px 28px 16px;
+padding:20px 28px;
 border-bottom:1px solid var(--line);
 display:flex;
-align-items:baseline;
 gap:16px;
 }
 
 .section-title{
 font-family:"Cormorant Garamond",serif;
-font-weight:300;
 font-size:22px;
-letter-spacing:.08em;
 }
 
 .section-back{
-font-size:10px;
-letter-spacing:.12em;
-color:var(--muted);
-text-transform:uppercase;
 cursor:pointer;
-border:none;
 background:none;
-padding:0;
-font-family:inherit;
-transition:color .2s;
+border:none;
+font-size:10px;
+color:var(--muted);
 }
-.section-back:hover{color:var(--text);}
 
-/* ─── GRIDS ─── */
+/* GRID */
 .photo-grid{
-padding:3px;
 display:grid;
-gap:3px;
+gap:6px;
+padding:6px;
 }
 
-.photo-grid.fashion{grid-template-columns:repeat(4,1fr);}
-.photo-grid.concert{grid-template-columns:repeat(5,1fr);}
-.photo-grid.studio{grid-template-columns:repeat(3,1fr);}
-.photo-grid.gym{grid-template-columns:repeat(2,1fr);}
-
-/* fashion layout: make every 5th image span 2 cols */
-.photo-grid.fashion .span2{grid-column:span 2;}
+.fashion{grid-template-columns:repeat(4,1fr);}
+.concert{grid-template-columns:repeat(5,1fr);}
+.studio{grid-template-columns:repeat(3,1fr);}
+.gym{grid-template-columns:repeat(2,1fr);}
 
 .photo-grid figure{
-margin:0;
-overflow:hidden;
-cursor:pointer;
 aspect-ratio:2/3;
-background:#f2f2f2;
-position:relative;
+overflow:hidden;
+background:#eee;
+cursor:pointer;
 }
 
-.photo-grid.concert figure{aspect-ratio:3/4;}
-.photo-grid.studio figure{aspect-ratio:3/4;}
-.photo-grid.gym figure{aspect-ratio:4/5;}
-
-.photo-grid figure img{
+.photo-grid img{
 width:100%;
 height:100%;
 object-fit:cover;
-display:block;
-transition:transform .6s ease, opacity .3s;
+opacity:0;
+transform:scale(1.02);
+transition:opacity .6s ease, transform .8s ease;
 }
 
-.photo-grid figure:hover img{transform:scale(1.04);}
+.photo-grid img.loaded{
+opacity:1;
+transform:scale(1);
+}
 
-/* ─── LIGHTBOX ─── */
+.photo-grid figure:hover img{
+transform:scale(1.04);
+}
+
+/* LIGHTBOX */
 .lightbox{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.94);
-z-index:900;
+background:black;
 display:none;
 align-items:center;
 justify-content:center;
+z-index:500;
 }
+
 .lightbox.open{display:flex;}
 
 .lightbox img{
-max-width:88vw;
-max-height:90vh;
-object-fit:contain;
+max-width:90%;
+max-height:90%;
 }
 
 .lightbox-close{
 position:absolute;
-top:20px;right:24px;
-color:rgba(255,255,255,.6);
-font-size:11px;
-letter-spacing:.14em;
-text-transform:uppercase;
+top:20px;
+right:20px;
+color:white;
+background:none;
+border:none;
 cursor:pointer;
-border:none;background:none;
-font-family:inherit;
-transition:color .2s;
 }
-.lightbox-close:hover{color:#fff;}
 
 .lightbox-nav{
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-background:none;border:none;
-color:rgba(255,255,255,.5);
-font-size:22px;
+color:white;
+background:none;
+border:none;
+font-size:30px;
 cursor:pointer;
-padding:12px 20px;
-transition:color .2s;
 }
-.lightbox-nav:hover{color:#fff;}
-.lightbox-prev{left:8px;}
-.lightbox-next{right:8px;}
 
-/* ─── FOOTER ─── */
+.prev{left:20px;}
+.next{right:20px;}
+
+/* FOOTER */
 footer{
-padding:32px 28px;
+padding:30px;
 border-top:1px solid var(--line);
 display:flex;
 justify-content:space-between;
-align-items:center;
-margin-top:40px;
-}
-footer span{
-font-size:10px;
-color:var(--muted);
-letter-spacing:.1em;
 }
 
-/* ─── RESPONSIVE ─── */
+/* MOBILE */
 @media(max-width:700px){
-.photo-grid.fashion{grid-template-columns:repeat(2,1fr);}
-.photo-grid.concert{grid-template-columns:repeat(2,1fr);}
-.photo-grid.studio{grid-template-columns:repeat(2,1fr);}
-.photo-grid.gym{grid-template-columns:1fr;}
-.category-row__label{width:140px;padding:0 16px;}
-.cat-name{font-size:20px;}
-header{padding:0 16px;}
-.photo-grid{padding:2px;gap:2px;}
+.fashion,.concert,.studio{grid-template-columns:repeat(2,1fr);}
+.gym{grid-template-columns:1fr;}
 }
 </style>
+
 </head>
+
 <body>
 
 <header>
-<span class="logo" onclick="goHome()">Dombele</span>
+<div class="logo" onclick="goHome()">DOMBELE</div>
 <nav>
-<a href="#" onclick="openSection('fashion');return false;" id="nav-fashion">Fashion</a>
-<a href="#" onclick="openSection('concert');return false;" id="nav-concert">Concert</a>
-<a href="#" onclick="openSection('studio');return false;" id="nav-studio">Studio</a>
-<a href="#" onclick="openSection('gym');return false;" id="nav-gym">Gym</a>
+<a onclick="openSection('fashion')">Fashion</a>
+<a onclick="openSection('concert')">Concert</a>
+<a onclick="openSection('studio')">Studio</a>
+<a onclick="openSection('gym')">Gym</a>
 </nav>
 </header>
 
 <main>
 
-<!-- HOME -->
 <div id="home">
-  <div class="category-list">
-
-    <div class="category-row" onclick="openSection('fashion')">
-      <div class="category-row__label">
-        <div>
-          <div class="cat-name">Fashion</div>
-          <div class="cat-count">9 images</div>
-        </div>
-      </div>
-      <div class="category-row__preview" id="prev-fashion"></div>
-    </div>
-
-    <div class="category-row" onclick="openSection('concert')">
-      <div class="category-row__label">
-        <div>
-          <div class="cat-name">Concert</div>
-          <div class="cat-count">10 images</div>
-        </div>
-      </div>
-      <div class="category-row__preview" id="prev-concert"></div>
-    </div>
-
-    <div class="category-row" onclick="openSection('studio')">
-      <div class="category-row__label">
-        <div>
-          <div class="cat-name">Studio</div>
-          <div class="cat-count">9 images</div>
-        </div>
-      </div>
-      <div class="category-row__preview" id="prev-studio"></div>
-    </div>
-
-    <div class="category-row" onclick="openSection('gym')">
-      <div class="category-row__label">
-        <div>
-          <div class="cat-name">Gym</div>
-          <div class="cat-count">6 images</div>
-        </div>
-      </div>
-      <div class="category-row__preview" id="prev-gym"></div>
-    </div>
-
-  </div>
+<div class="category-row" onclick="openSection('fashion')">
+<div class="category-row__label">Fashion</div>
+<div class="category-row__preview" id="prev-fashion"></div>
 </div>
 
-<!-- FASHION -->
-<div id="fashion" class="section">
-  <div class="section-header">
-    <button class="section-back" onclick="goHome()">← Index</button>
-    <span class="section-title">Fashion</span>
-  </div>
-  <div class="photo-grid fashion" id="fashion-grid"></div>
+<div class="category-row" onclick="openSection('concert')">
+<div class="category-row__label">Concert</div>
+<div class="category-row__preview" id="prev-concert"></div>
 </div>
 
-<!-- CONCERT -->
-<div id="concert" class="section">
-  <div class="section-header">
-    <button class="section-back" onclick="goHome()">← Index</button>
-    <span class="section-title">Concert</span>
-  </div>
-  <div class="photo-grid concert" id="concert-grid"></div>
+<div class="category-row" onclick="openSection('studio')">
+<div class="category-row__label">Studio</div>
+<div class="category-row__preview" id="prev-studio"></div>
 </div>
 
-<!-- STUDIO -->
-<div id="studio" class="section">
-  <div class="section-header">
-    <button class="section-back" onclick="goHome()">← Index</button>
-    <span class="section-title">Studio</span>
-  </div>
-  <div class="photo-grid studio" id="studio-grid"></div>
+<div class="category-row" onclick="openSection('gym')">
+<div class="category-row__label">Gym</div>
+<div class="category-row__preview" id="prev-gym"></div>
+</div>
 </div>
 
-<!-- GYM -->
-<div id="gym" class="section">
-  <div class="section-header">
-    <button class="section-back" onclick="goHome()">← Index</button>
-    <span class="section-title">Gym</span>
-  </div>
-  <div class="photo-grid gym" id="gym-grid"></div>
+<!-- SECTIONS -->
+
+<div id="fashion" class="section fade">
+<div class="section-header">
+<button class="section-back" onclick="goHome()">← Index</button>
+<div class="section-title">Fashion</div>
+</div>
+<div class="photo-grid fashion" id="fashion-grid"></div>
+</div>
+
+<div id="concert" class="section fade">
+<div class="section-header">
+<button class="section-back" onclick="goHome()">← Index</button>
+<div class="section-title">Concert</div>
+</div>
+<div class="photo-grid concert" id="concert-grid"></div>
+</div>
+
+<div id="studio" class="section fade">
+<div class="section-header">
+<button class="section-back" onclick="goHome()">← Index</button>
+<div class="section-title">Studio</div>
+</div>
+<div class="photo-grid studio" id="studio-grid"></div>
+</div>
+
+<div id="gym" class="section fade">
+<div class="section-header">
+<button class="section-back" onclick="goHome()">← Index</button>
+<div class="section-title">Gym</div>
+</div>
+<div class="photo-grid gym" id="gym-grid"></div>
 </div>
 
 </main>
 
 <footer>
-  <span>© Dombele</span>
-  <span>Photographer</span>
+<span>© Dombele</span>
+<span>Photographer</span>
 </footer>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">Close ×</button>
-  <button class="lightbox-nav lightbox-prev" onclick="shiftLightbox(-1);event.stopPropagation();">‹</button>
-  <img id="lightbox-img" src="" alt="">
-  <button class="lightbox-nav lightbox-next" onclick="shiftLightbox(1);event.stopPropagation();">›</button>
+<div class="lightbox" id="lightbox">
+<button class="lightbox-close" onclick="closeLightbox()">Close</button>
+<button class="lightbox-nav prev" onclick="shift(-1)">‹</button>
+<img id="lb-img">
+<button class="lightbox-nav next" onclick="shift(1)">›</button>
 </div>
 
 <script>
-const DATA = {
-  fashion:[87,90,93,94,95,107,108,109,110],
-  concert:[91,92,96,97,98,99,100,101,102,103],
-  studio:[161,162,163,164,165,166,167,169,170],
-  gym:[138,139,140,141,142,143]
+const DATA={
+fashion:[87,90,93,94,95,107,108,109,110],
+concert:[91,92,96,97,98,99,100,101,102,103],
+studio:[146,147,148,150,151,153,155,156,157],
+gym:[200,201,202,203,204,234]
 };
 
-let currentSrcs=[];
-let currentIdx=0;
+let current=[],index=0;
 
 function src(n){return `website-${n}.jpg`;}
 
-function buildGrid(gridId,nums,gridClass){
-  const grid=document.getElementById(gridId);
-  nums.forEach((n,i)=>{
-    const fig=document.createElement("figure");
-    if(gridClass==="fashion" && i%5===2) fig.classList.add("span2");
-    const img=document.createElement("img");
-    img.src=src(n);
-    img.loading="lazy";
-    img.alt="";
-    fig.appendChild(img);
-    fig.onclick=()=>openLightbox(gridId,i);
-    grid.appendChild(fig);
-  });
+/* BUILD */
+function build(id,data){
+const grid=document.getElementById(id);
+grid.innerHTML="";
+data.forEach((n,i)=>{
+const fig=document.createElement("figure");
+const img=document.createElement("img");
+img.src=src(n);
+
+img.onload=()=>img.classList.add("loaded");
+img.onerror=()=>fig.remove();
+
+fig.appendChild(img);
+fig.onclick=()=>openLB(id,i);
+
+grid.appendChild(fig);
+});
 }
 
-function buildPreviews(){
-  Object.entries(DATA).forEach(([key,nums])=>{
-    const container=document.getElementById(`prev-${key}`);
-    nums.slice(0,5).forEach(n=>{
-      const img=document.createElement("img");
-      img.src=src(n);
-      img.alt="";
-      container.appendChild(img);
-    });
-  });
+function previews(){
+Object.entries(DATA).forEach(([k,v])=>{
+const el=document.getElementById("prev-"+k);
+el.innerHTML="";
+v.slice(0,6).forEach(n=>{
+const img=document.createElement("img");
+img.src=src(n);
+el.appendChild(img);
+});
+});
 }
 
-buildGrid("fashion-grid",DATA.fashion,"fashion");
-buildGrid("concert-grid",DATA.concert,"concert");
-buildGrid("studio-grid",DATA.studio,"studio");
-buildGrid("gym-grid",DATA.gym,"gym");
-buildPreviews();
+build("fashion-grid",DATA.fashion);
+build("concert-grid",DATA.concert);
+build("studio-grid",DATA.studio);
+build("gym-grid",DATA.gym);
+previews();
 
+/* NAV */
 function openSection(id){
-  document.getElementById("home").style.display="none";
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll("nav a").forEach(a=>a.classList.remove("active"));
-  const navEl=document.getElementById(`nav-${id}`);
-  if(navEl) navEl.classList.add("active");
-  window.scrollTo(0,0);
+document.getElementById("home").style.display="none";
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+
+const sec=document.getElementById(id);
+sec.classList.add("active");
+
+setTimeout(()=>sec.classList.add("show"),50);
+
+window.scrollTo(0,0);
 }
 
 function goHome(){
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.getElementById("home").style.display="block";
-  document.querySelectorAll("nav a").forEach(a=>a.classList.remove("active"));
-  closeLightbox();
-  window.scrollTo(0,0);
+document.querySelectorAll(".section").forEach(s=>{
+s.classList.remove("active","show");
+});
+document.getElementById("home").style.display="block";
+closeLightbox();
 }
 
-function openLightbox(gridId,idx){
-  const imgs=document.querySelectorAll(`#${gridId} figure img`);
-  currentSrcs=Array.from(imgs).map(i=>i.src);
-  currentIdx=idx;
-  showLightboxImg();
-  document.getElementById("lightbox").classList.add("open");
+/* LIGHTBOX */
+function openLB(gridId,i){
+const imgs=document.querySelectorAll(`#${gridId} img`);
+current=[...imgs].map(i=>i.src);
+index=i;
+updateLB();
+document.getElementById("lightbox").classList.add("open");
 }
 
-function showLightboxImg(){
-  document.getElementById("lightbox-img").src=currentSrcs[currentIdx];
+function updateLB(){
+document.getElementById("lb-img").src=current[index];
 }
 
-function shiftLightbox(dir){
-  currentIdx=(currentIdx+dir+currentSrcs.length)%currentSrcs.length;
-  showLightboxImg();
+function shift(dir){
+index=(index+dir+current.length)%current.length;
+updateLB();
 }
 
 function closeLightbox(){
-  document.getElementById("lightbox").classList.remove("open");
-}
-
-function handleLightboxClick(e){
-  if(e.target===document.getElementById("lightbox")) closeLightbox();
+document.getElementById("lightbox").classList.remove("open");
 }
 
 document.addEventListener("keydown",e=>{
-  if(!document.getElementById("lightbox").classList.contains("open")) return;
-  if(e.key==="ArrowRight") shiftLightbox(1);
-  if(e.key==="ArrowLeft") shiftLightbox(-1);
-  if(e.key==="Escape") closeLightbox();
+if(!document.getElementById("lightbox").classList.contains("open")) return;
+if(e.key==="ArrowRight") shift(1);
+if(e.key==="ArrowLeft") shift(-1);
+if(e.key==="Escape") closeLightbox();
 });
 </script>
+
 </body>
 </html>
