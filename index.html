@@ -3,275 +3,294 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dombele — Photographer</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Dombele — Photography</title>
+<link href="https://googleapis.com" rel="stylesheet">
 
 <style>
-:root{
---bg:#f5f4f1;
---text:#111;
---muted:#777;
---line:#e5e5e5;
+:root {
+    --bg: #ffffff;
+    --text: #000000;
+    --accent: #666;
+    --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-body{
-margin:0;
-background:var(--bg);
-font-family:Inter, sans-serif;
-color:var(--text);
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
 }
 
-/* NAV */
-nav{
-position:fixed;
-top:0;
-width:100%;
-padding:20px 40px;
-display:flex;
-justify-content:space-between;
-z-index:100;
-mix-blend-mode:difference;
+/* NAVIGATION */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    mix-blend-mode: difference;
+    color: white;
 }
 
-nav a{
-color:white;
-text-decoration:none;
-font-size:12px;
-letter-spacing:3px;
+nav a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
-/* HERO */
-.hero{
-height:100vh;
-position:relative;
+/* HERO / LANDING */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #000;
+    overflow: hidden;
 }
 
-.hero img{
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(.8);
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
 }
 
-.hero h1{
-position:absolute;
-bottom:40px;
-left:40px;
-color:white;
-font-size:80px;
-font-family:"Cormorant Garamond", serif;
-font-weight:300;
+.hero h1 {
+    position: relative;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(60px, 12vw, 180px);
+    font-weight: 300;
+    color: white;
+    margin: 0;
+    letter-spacing: -0.02em;
 }
 
-/* ALBUM GRID */
-.albums{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:2px;
-margin-top:-2px;
+/* CATEGORY SELECTOR (The "Home" Grid) */
+.albums {
+    display: flex;
+    flex-direction: column;
 }
 
-.album{
-position:relative;
-cursor:pointer;
-height:50vh;
-overflow:hidden;
+.album {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.album img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:transform .8s ease;
+.album img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+    transform: scale(1.02);
 }
 
-.album:hover img{
-transform:scale(1.05);
+.album:hover img {
+    transform: scale(1);
+    filter: brightness(0.7);
 }
 
-.album-title{
-position:absolute;
-bottom:20px;
-left:20px;
-color:white;
-font-size:28px;
-font-family:"Cormorant Garamond";
+.album-title {
+    position: absolute;
+    font-family: "Cormorant Garamond";
+    font-size: 80px;
+    color: white;
+    z-index: 2;
+    pointer-events: none;
+    transition: var(--transition);
+    opacity: 0.8;
 }
 
-/* SECTIONS */
-.section{
-display:none;
-padding:80px 40px;
+.album:hover .album-title {
+    opacity: 1;
+    letter-spacing: 5px;
 }
 
-.section.active{
-display:block;
+/* EDITORIAL GRID (Inside Sections) */
+.section {
+    display: none;
+    padding: 150px 10% 100px;
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 
-/* GRID TYPES */
-.grid{
-display:grid;
-gap:12px;
+.section.active {
+    display: block;
+    opacity: 1;
 }
 
-.fashion{grid-template-columns:repeat(12,1fr);}
-.fashion img:nth-child(3n){grid-column:span 7;}
-.fashion img{grid-column:span 5;}
-
-.concert{grid-template-columns:repeat(4,1fr);}
-
-.studio{grid-template-columns:repeat(3,1fr);}
-
-.gym{grid-template-columns:repeat(2,1fr);}
-
-/* IMAGES */
-.grid img{
-width:100%;
-cursor:pointer;
+.editorial-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
 }
+
+.editorial-flow img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Varying widths for that "Appelgren" feel */
+.editorial-flow img:nth-child(even) { width: 60%; align-self: flex-start; }
+.editorial-flow img:nth-child(odd) { width: 80%; align-self: flex-end; }
+.editorial-flow img:nth-child(3n) { width: 100%; align-self: center; }
 
 /* BACK BUTTON */
-.back{
-margin-bottom:30px;
-cursor:pointer;
-font-size:12px;
-letter-spacing:2px;
-color:var(--muted);
+.back-btn {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: black;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: none;
 }
 
-/* LIGHTBOX */
-.lightbox{
-position:fixed;
-inset:0;
-background:black;
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
+/* LIGHTBOX (Minimal) */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
 }
 
-.lightbox img{
-max-width:90%;
-max-height:90%;
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .album-title { font-size: 40px; }
+    .editorial-flow img { width: 100% !important; }
 }
 </style>
 </head>
-
 <body>
 
 <nav>
-<a href="#">DOMBELE</a>
-<a href="#" onclick="goHome()">HOME</a>
+    <a href="#" onclick="goHome()">Dombele</a>
+    <a href="#" onclick="goHome()">Archive</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-<img src="website-1.jpg">
-<h1>Dombele</h1>
-</section>
+<div class="back-btn" id="backBtn" onclick="goHome()">CLOSE PROJECT</div>
 
-<!-- ALBUM SELECT -->
-<section class="albums" id="albums">
+<!-- LANDING -->
+<div id="home-view">
+    <section class="hero">
+        <img src="website-1.jpg" alt="Hero">
+        <h1>Dombele</h1>
+    </section>
 
-<div class="album" onclick="openSection('fashion')">
-<img src="website-90.jpg">
-<div class="album-title">Fashion</div>
+    <section class="albums">
+        <div class="album" onclick="openSection('fashion')">
+            <img src="website-90.jpg">
+            <div class="album-title">Fashion</div>
+        </div>
+        <div class="album" onclick="openSection('concert')">
+            <img src="website-98.jpg">
+            <div class="album-title">Concert</div>
+        </div>
+        <div class="album" onclick="openSection('studio')">
+            <img src="website-161.jpg">
+            <div class="album-title">Studio</div>
+        </div>
+        <div class="album" onclick="openSection('gym')">
+            <img src="website-140.jpg">
+            <div class="album-title">Gym</div>
+        </div>
+    </section>
 </div>
 
-<div class="album" onclick="openSection('concert')">
-<img src="website-98.jpg">
-<div class="album-title">Concert</div>
-</div>
-
-<div class="album" onclick="openSection('studio')">
-<img src="website-161.jpg">
-<div class="album-title">Studio</div>
-</div>
-
-<div class="album" onclick="openSection('gym')">
-<img src="website-140.jpg">
-<div class="album-title">Gym</div>
-</div>
-
-</section>
-
-<!-- SECTIONS -->
-
+<!-- PROJECT SECTIONS -->
 <section id="fashion" class="section">
-<div class="back" onclick="goHome()">← BACK</div>
-<div class="grid fashion" id="fashion-grid"></div>
+    <div class="editorial-flow" id="fashion-grid"></div>
 </section>
 
 <section id="concert" class="section">
-<div class="back" onclick="goHome()">← BACK</div>
-<div class="grid concert" id="concert-grid"></div>
+    <div class="editorial-flow" id="concert-grid"></div>
 </section>
 
 <section id="studio" class="section">
-<div class="back" onclick="goHome()">← BACK</div>
-<div class="grid studio" id="studio-grid"></div>
+    <div class="editorial-flow" id="studio-grid"></div>
 </section>
 
 <section id="gym" class="section">
-<div class="back" onclick="goHome()">← BACK</div>
-<div class="grid gym" id="gym-grid"></div>
+    <div class="editorial-flow" id="gym-grid"></div>
 </section>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-<img id="lightbox-img">
+<div class="lightbox" id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img">
 </div>
 
 <script>
+const data = {
+    fashion: [87,90,93,94,95,107,108,109,110],
+    concert: [91,92,96,97,98,99,100,101,102,103],
+    studio: [161,162,163,164,165,166,167,169,170],
+    gym: [138,139,140,141,142,143]
+};
 
-// DATA
-const fashion = [87,90,93,94,95,107,108,109,110];
-const concert = [91,92,96,97,98,99,100,101,102,103];
-const studio = [161,162,163,164,165,166,167,169,170];
-const gym = [138,139,140,141,142,143];
-
-// BUILD
-function build(id, arr){
-const grid = document.getElementById(id);
-arr.forEach(n=>{
-const img=document.createElement("img");
-img.src=`website-${n}.jpg`;
-img.onclick=()=>openLightbox(img.src);
-grid.appendChild(img);
-});
+function buildGrids() {
+    for (const [category, ids] of Object.entries(data)) {
+        const container = document.getElementById(`${category}-grid`);
+        ids.forEach(n => {
+            const img = document.createElement('img');
+            img.src = `website-${n}.jpg`;
+            img.loading = "lazy";
+            img.onclick = () => {
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').style.display = 'flex';
+            };
+            container.appendChild(img);
+        });
+    }
 }
 
-build("fashion-grid",fashion);
-build("concert-grid",concert);
-build("studio-grid",studio);
-build("gym-grid",gym);
-
-// NAVIGATION
-function openSection(id){
-document.getElementById("albums").style.display="none";
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-window.scrollTo(0,0);
+function openSection(id) {
+    document.getElementById('home-view').style.display = 'none';
+    document.getElementById('backBtn').style.display = 'block';
+    const sec = document.getElementById(id);
+    sec.classList.add('active');
+    window.scrollTo(0,0);
 }
 
-function goHome(){
-document.getElementById("albums").style.display="grid";
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-window.scrollTo(0,0);
+function goHome() {
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('backBtn').style.display = 'none';
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    window.scrollTo(0,0);
 }
 
-// LIGHTBOX
-function openLightbox(src){
-document.getElementById("lightbox").style.display="flex";
-document.getElementById("lightbox-img").src=src;
-}
-
-function closeLightbox(){
-document.getElementById("lightbox").style.display="none";
-}
-
+buildGrids();
 </script>
 
 </body>
