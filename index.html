@@ -21,7 +21,6 @@ color:var(--text);
 }
 
 /* HERO */
-
 .hero{
 height:100vh;
 position:relative;
@@ -68,7 +67,6 @@ opacity:.85;
 }
 
 /* SECTION */
-
 .section{
 max-width:1000px;
 margin:140px auto;
@@ -76,7 +74,6 @@ padding:0 20px;
 }
 
 /* GRID */
-
 .portfolio{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -85,20 +82,14 @@ gap:40px;
 
 .portfolio img{
 width:100%;
-height:auto;
 cursor:pointer;
 opacity:0;
 transform:translateY(30px);
 transition:all 1.2s cubic-bezier(.2,.7,.2,1);
 }
 
-/* stagger effect */
-.portfolio img:nth-child(odd){
-transition-delay:.1s;
-}
-.portfolio img:nth-child(even){
-transition-delay:.25s;
-}
+.portfolio img:nth-child(odd){transition-delay:.1s;}
+.portfolio img:nth-child(even){transition-delay:.25s;}
 
 .portfolio img.loaded{
 opacity:1;
@@ -106,19 +97,12 @@ transform:translateY(0);
 }
 
 /* MOBILE */
-
 @media(max-width:700px){
-.portfolio{
-grid-template-columns:1fr;
-gap:24px;
-}
-.hero h1{
-font-size:40px;
-}
+.portfolio{grid-template-columns:1fr;}
+.hero h1{font-size:40px;}
 }
 
 /* LIGHTBOX */
-
 .lightbox{
 position:fixed;
 top:0;
@@ -142,7 +126,6 @@ display:flex;
 }
 
 /* FOOTER */
-
 .footer{
 text-align:center;
 margin:140px 0 60px;
@@ -183,8 +166,23 @@ STUDIO@DOMBELE.COM<br>© 2026
 </div>
 
 <script>
-// CONFIG (curation matters at this level)
-const TOTAL_IMAGES = 120
+// TOTAL FILES IN REPO
+const TOTAL_IMAGES = 242
+
+// EXCLUDED IMAGES (your list)
+const excluded = [
+3,5,20,36,47,76,88,89,137,144,149,152,154,160,188,205,206,229
+]
+
+// BUILD FINAL IMAGE LIST
+const imageList = []
+for(let i=1;i<=TOTAL_IMAGES;i++){
+  if(!excluded.includes(i)){
+    imageList.push(`website-${i}.jpg`)
+  }
+}
+
+// LOAD SETTINGS
 const INITIAL_LOAD = 8
 const LOAD_MORE = 8
 
@@ -192,36 +190,39 @@ const portfolio = document.getElementById("portfolio")
 let loaded = 0
 
 const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("loaded")
-}
-})
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("loaded")
+    }
+  })
 },{threshold:0.2})
 
 function createImage(src){
-const img = document.createElement("img")
-img.src = src
-img.loading = "lazy"
-observer.observe(img)
-return img
+  const img = document.createElement("img")
+  img.src = src
+  img.loading = "lazy"
+  observer.observe(img)
+  return img
 }
 
 function loadImages(count){
-for(let i=0;i<count;i++){
-if(loaded >= TOTAL_IMAGES) return
-const src = `website-${loaded+1}.jpg`
-portfolio.appendChild(createImage(src))
-loaded++
-}
+  for(let i=0;i<count;i++){
+    if(loaded >= imageList.length) return
+
+    const src = imageList[loaded]
+    portfolio.appendChild(createImage(src))
+    loaded++
+  }
 }
 
+// INITIAL LOAD
 loadImages(INITIAL_LOAD)
 
+// INFINITE SCROLL
 window.addEventListener("scroll", ()=>{
-if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
-loadImages(LOAD_MORE)
-}
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
+    loadImages(LOAD_MORE)
+  }
 })
 
 // LIGHTBOX
@@ -230,33 +231,33 @@ const lightboxImg = document.getElementById("lightbox-img")
 let currentIndex = 0
 
 portfolio.addEventListener("click",(e)=>{
-if(e.target.tagName==="IMG"){
-const imgs = Array.from(portfolio.querySelectorAll("img"))
-currentIndex = imgs.indexOf(e.target)
-lightboxImg.src = imgs[currentIndex].src
-lightbox.classList.add("active")
-}
+  if(e.target.tagName==="IMG"){
+    const imgs = Array.from(portfolio.querySelectorAll("img"))
+    currentIndex = imgs.indexOf(e.target)
+    lightboxImg.src = imgs[currentIndex].src
+    lightbox.classList.add("active")
+  }
 })
 
 document.addEventListener("keydown",(e)=>{
-const imgs = portfolio.querySelectorAll("img")
-if(lightbox.classList.contains("active")){
-if(e.key==="ArrowRight"){
-currentIndex = (currentIndex+1)%imgs.length
-lightboxImg.src = imgs[currentIndex].src
-}
-if(e.key==="ArrowLeft"){
-currentIndex = (currentIndex-1+imgs.length)%imgs.length
-lightboxImg.src = imgs[currentIndex].src
-}
-if(e.key==="Escape"){
-lightbox.classList.remove("active")
-}
-}
+  const imgs = portfolio.querySelectorAll("img")
+  if(lightbox.classList.contains("active")){
+    if(e.key==="ArrowRight"){
+      currentIndex = (currentIndex+1)%imgs.length
+      lightboxImg.src = imgs[currentIndex].src
+    }
+    if(e.key==="ArrowLeft"){
+      currentIndex = (currentIndex-1+imgs.length)%imgs.length
+      lightboxImg.src = imgs[currentIndex].src
+    }
+    if(e.key==="Escape"){
+      lightbox.classList.remove("active")
+    }
+  }
 })
 
 lightbox.addEventListener("click",()=>{
-lightbox.classList.remove("active")
+  lightbox.classList.remove("active")
 })
 </script>
 
