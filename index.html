@@ -1,203 +1,191 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dombele</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Dombele — Loewe Style</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:"Inter",sans-serif;
-background:#f5f5f5;
-color:#111;
+  background:#fff;
+  font-family:Helvetica, Arial, sans-serif;
+  color:#111;
 }
 
-/* HEADER */
+/* ─── HEADER ─── */
 header{
-text-align:center;
-padding:50px 20px 20px;
+  padding:50px 40px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.logo img{
-height:40px;
-margin-bottom:20px;
+.logo{
+  font-size:14px;
+  letter-spacing:.25em;
 }
 
-nav{
-display:flex;
-justify-content:center;
-gap:30px;
-flex-wrap:wrap;
+.nav{
+  display:flex;
+  gap:30px;
+  font-size:11px;
+  letter-spacing:.2em;
 }
 
-nav a{
-font-size:11px;
-letter-spacing:.2em;
-text-transform:uppercase;
-color:#666;
-cursor:pointer;
+.nav span{
+  opacity:.4;
+  cursor:pointer;
 }
 
-/* GRID */
-.container{
-max-width:1300px;
-margin:auto;
-padding:40px 20px;
+.nav span:hover{
+  opacity:1;
 }
 
-.grid{
-display:grid;
-grid-template-columns:2fr 1fr 1fr;
-gap:30px;
-margin-bottom:40px;
+/* ─── MASONRY ─── */
+.masonry{
+  column-count:4;
+  column-gap:14px;
+  padding:0 40px 60px;
 }
 
-.grid img{
-width:100%;
-display:block;
-object-fit:cover;
+@media(max-width:1000px){
+  .masonry{column-count:3;}
+}
+@media(max-width:700px){
+  .masonry{column-count:2;}
+}
+@media(max-width:500px){
+  .masonry{column-count:1;}
 }
 
-/* BIG IMAGE */
-.big{
-grid-row:span 2;
+.item{
+  break-inside:avoid;
+  margin-bottom:14px;
+  position:relative;
 }
 
-/* SMALL GRID */
-.small-stack{
-display:grid;
-gap:30px;
+.item img{
+  width:100%;
+  display:block;
+  filter:contrast(1.02) brightness(.98);
+  transition:transform .8s ease, filter .6s ease;
+  cursor:pointer;
 }
 
-.small-stack img{
-height:100%;
+.item:hover img{
+  transform:scale(1.025);
+  filter:contrast(1.08) brightness(1);
 }
 
-/* LIGHTBOX */
+/* subtle caption (Loewe feel) */
+.caption{
+  position:absolute;
+  bottom:10px;
+  left:12px;
+  font-size:9px;
+  letter-spacing:.18em;
+  color:#fff;
+  opacity:0;
+  transition:opacity .3s;
+}
+
+.item:hover .caption{
+  opacity:.8;
+}
+
+/* ─── LIGHTBOX ─── */
 .lightbox{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.95);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:999;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.96);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
 }
 
-.lightbox.open{display:flex;}
+.lightbox.open{
+  display:flex;
+}
 
 .lightbox img{
-max-width:90%;
-max-height:90%;
+  max-width:90vw;
+  max-height:90vh;
 }
 
-/* MOBILE */
-@media(max-width:900px){
-.grid{
-grid-template-columns:1fr;
+.close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  color:#fff;
+  font-size:11px;
+  letter-spacing:.2em;
+  cursor:pointer;
+  opacity:.6;
 }
-.big{grid-row:auto;}
-}
+
+.close:hover{opacity:1;}
+
 </style>
-
 </head>
-
 <body>
 
 <header>
-<div class="logo">
-<img src="black logo.png">
-</div>
-
-<nav>
-<a>Overview</a>
-<a>Fashion</a>
-<a>Concert</a>
-<a>Studio</a>
-<a>Gym</a>
-</nav>
+  <div class="logo">DOMBELE</div>
+  <div class="nav">
+    <span>FASHION</span>
+    <span>CONCERT</span>
+    <span>STUDIO</span>
+    <span>GYM</span>
+  </div>
 </header>
 
-<div class="container" id="container"></div>
+<div class="masonry" id="grid"></div>
 
 <div class="lightbox" id="lightbox" onclick="closeLB()">
-<img id="lb-img">
+  <span class="close">CLOSE</span>
+  <img id="lb-img">
 </div>
 
 <script>
-const ALL = Array.from({length:242},(_,i)=>i+1);
+const images = [
+  9,12,31,40,41,43,53,
+  55,62,68,71,72,79,91,
+  136,142,179,197,227,234,236,
+  239,240,242
+];
 
-function src(n){
-return `website-${n}.jpg`;
-}
+const grid = document.getElementById("grid");
 
-/* BUILD EDITORIAL BLOCKS */
-function build(){
-const container=document.getElementById("container");
+images.forEach(n => {
+  const div = document.createElement("div");
+  div.className = "item";
 
-// shuffle all images
-let shuffled=[...ALL].sort(()=>0.5-Math.random());
+  const img = document.createElement("img");
+  img.src = `website-${n}.jpg`;
+  img.loading = "lazy";
 
-for(let i=0;i<shuffled.length;i+=5){
+  const cap = document.createElement("div");
+  cap.className = "caption";
+  cap.textContent = "DOMBELE";
 
-const block=document.createElement("div");
-block.className="grid";
+  img.onclick = () => openLB(img.src);
 
-/* BIG IMAGE */
-const big=document.createElement("img");
-big.src=src(shuffled[i]);
-big.className="big";
-big.onclick=()=>openLB(big.src);
-
-/* RIGHT SIDE */
-const stack1=document.createElement("div");
-stack1.className="small-stack";
-
-const stack2=document.createElement("div");
-stack2.className="small-stack";
-
-[1,2].forEach(j=>{
-if(shuffled[i+j]){
-let img=document.createElement("img");
-img.src=src(shuffled[i+j]);
-img.onclick=()=>openLB(img.src);
-stack1.appendChild(img);
-}
+  div.appendChild(img);
+  div.appendChild(cap);
+  grid.appendChild(div);
 });
-
-[3,4].forEach(j=>{
-if(shuffled[i+j]){
-let img=document.createElement("img");
-img.src=src(shuffled[i+j]);
-img.onclick=()=>openLB(img.src);
-stack2.appendChild(img);
-}
-});
-
-block.appendChild(big);
-block.appendChild(stack1);
-block.appendChild(stack2);
-
-container.appendChild(block);
-}
-}
 
 function openLB(src){
-document.getElementById("lb-img").src=src;
-document.getElementById("lightbox").classList.add("open");
+  document.getElementById("lb-img").src = src;
+  document.getElementById("lightbox").classList.add("open");
 }
 
 function closeLB(){
-document.getElementById("lightbox").classList.remove("open");
+  document.getElementById("lightbox").classList.remove("open");
 }
-
-build();
 </script>
 
 </body>
