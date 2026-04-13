@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dombele — Loewe Style</title>
-
+<title>Dombele — Photographer</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   background:#fff;
-  font-family:Helvetica, Arial, sans-serif;
+  font-family:Helvetica,Arial,sans-serif;
   color:#111;
 }
 
@@ -20,173 +19,387 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:100;
+  border-bottom:1px solid #f0f0f0;
 }
 
 .logo{
-  font-size:14px;
-  letter-spacing:.25em;
+  font-size:13px;
+  letter-spacing:.28em;
+  cursor:pointer;
 }
 
 .nav{
   display:flex;
   gap:30px;
-  font-size:11px;
+  font-size:10px;
   letter-spacing:.2em;
 }
 
 .nav span{
-  opacity:.4;
+  opacity:.35;
   cursor:pointer;
+  transition:opacity .2s;
+  padding-bottom:2px;
+  border-bottom:1px solid transparent;
 }
 
-.nav span:hover{
+.nav span:hover{opacity:1;}
+
+.nav span.active{
   opacity:1;
+  border-bottom:1px solid #111;
 }
+
+/* ─── PAGES ─── */
+.page{display:none;}
+.page.active{display:block;}
 
 /* ─── MASONRY ─── */
 .masonry{
   column-count:4;
-  column-gap:14px;
-  padding:0 40px 60px;
+  column-gap:10px;
+  padding:30px 40px 60px;
 }
 
-@media(max-width:1000px){
-  .masonry{column-count:3;}
-}
-@media(max-width:700px){
-  .masonry{column-count:2;}
-}
-@media(max-width:500px){
-  .masonry{column-count:1;}
-}
+@media(max-width:1000px){.masonry{column-count:3;}}
+@media(max-width:700px){.masonry{column-count:3;padding:20px 12px 40px;column-gap:6px;}}
+@media(max-width:440px){.masonry{column-count:3;padding:12px 8px 40px;column-gap:5px;}}
 
 .item{
   break-inside:avoid;
-  margin-bottom:14px;
-  position:relative;
+  margin-bottom:10px;
+  overflow:hidden;
 }
 
 .item img{
   width:100%;
   display:block;
-  filter:contrast(1.02) brightness(.98);
-  transition:transform .8s ease, filter .6s ease;
   cursor:pointer;
+  transition:transform .7s ease;
 }
 
-.item:hover img{
-  transform:scale(1.025);
-  filter:contrast(1.08) brightness(1);
+.item:hover img{transform:scale(1.03);}
+.item.hidden{display:none;}
+@media(max-width:700px){.item{margin-bottom:5px;}}
+
+/* ─── ABOUT ─── */
+.about-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:70px 40px 100px;
 }
 
-/* subtle caption (Loewe feel) */
-.caption{
-  position:absolute;
-  bottom:10px;
-  left:12px;
-  font-size:9px;
-  letter-spacing:.18em;
-  color:#fff;
-  opacity:0;
-  transition:opacity .3s;
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:80px;
 }
 
-.item:hover .caption{
-  opacity:.8;
+.about-grid img{
+  width:100%;
+  display:block;
 }
+
+.about-grid img:first-child{
+  margin-top:60px;
+}
+
+.about-text h2{
+  font-size:10px;
+  letter-spacing:.25em;
+  opacity:.4;
+  margin-bottom:28px;
+  font-weight:400;
+}
+
+.about-text p{
+  font-size:15px;
+  line-height:1.85;
+  color:#1a1a1a;
+  font-weight:300;
+  margin-bottom:20px;
+  max-width:500px;
+}
+
+.about-text .sig{
+  font-size:10px;
+  letter-spacing:.22em;
+  opacity:.4;
+  margin-top:36px;
+}
+
+hr.divider{
+  border:none;
+  border-top:1px solid #ebebeb;
+  margin:70px 0;
+}
+
+/* ─── CONTACT ─── */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+
+.contact-block h3{
+  font-size:10px;
+  letter-spacing:.25em;
+  opacity:.4;
+  font-weight:400;
+  margin-bottom:14px;
+}
+
+.contact-block a{
+  font-size:14px;
+  letter-spacing:.04em;
+  color:#111;
+  text-decoration:none;
+  border-bottom:1px solid #ddd;
+  padding-bottom:3px;
+  transition:border-color .2s;
+}
+
+.contact-block a:hover{border-color:#111;}
 
 /* ─── LIGHTBOX ─── */
 .lightbox{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.96);
+  background:rgba(0,0,0,.95);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
 }
 
-.lightbox.open{
-  display:flex;
-}
+.lightbox.open{display:flex;}
 
 .lightbox img{
-  max-width:90vw;
-  max-height:90vh;
+  max-width:88vw;
+  max-height:88vh;
+  object-fit:contain;
+  user-select:none;
 }
 
-.close{
+.lb-close{
   position:absolute;
-  top:30px;
-  right:40px;
+  top:28px;right:36px;
   color:#fff;
-  font-size:11px;
+  font-size:10px;
   letter-spacing:.2em;
   cursor:pointer;
-  opacity:.6;
+  opacity:.45;
+  transition:opacity .2s;
+  background:none;border:none;
+  font-family:inherit;
+}
+.lb-close:hover{opacity:1;}
+
+.lb-nav{
+  position:absolute;
+  top:50%;transform:translateY(-50%);
+  background:none;border:none;
+  color:rgba(255,255,255,.35);
+  font-size:30px;
+  cursor:pointer;
+  padding:16px 24px;
+  transition:color .2s;
+  line-height:1;
+}
+.lb-nav:hover{color:#fff;}
+.lb-prev{left:0;}
+.lb-next{right:0;}
+
+.lb-counter{
+  position:absolute;
+  bottom:28px;left:50%;
+  transform:translateX(-50%);
+  color:rgba(255,255,255,.25);
+  font-size:10px;
+  letter-spacing:.2em;
 }
 
-.close:hover{opacity:1;}
-
+/* ─── RESPONSIVE ─── */
+@media(max-width:700px){
+  header{padding:30px 20px 20px;}
+  .nav{gap:18px;}
+  .about-wrap{padding:40px 20px 60px;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-grid img:first-child{margin-top:0;}
+  .contact-grid{grid-template-columns:1fr;gap:32px;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">DOMBELE</div>
-  <div class="nav">
-    <span>FASHION</span>
-    <span>CONCERT</span>
-    <span>STUDIO</span>
-    <span>GYM</span>
+  <div class="logo" onclick="showPage('work','ALL')">DOMBELE</div>
+  <div class="nav" id="nav">
+    <span class="active" data-filter="ALL"   onclick="showPage('work','ALL')">ALL</span>
+    <span data-filter="FASHION"  onclick="showPage('work','FASHION')">FASHION</span>
+    <span data-filter="CONCERT"  onclick="showPage('work','CONCERT')">CONCERT</span>
+    <span data-filter="STUDIO"   onclick="showPage('work','STUDIO')">STUDIO</span>
+    <span data-filter="GYM"      onclick="showPage('work','GYM')">GYM</span>
+    <span data-page="about"      onclick="showPage('about')">ABOUT</span>
   </div>
 </header>
 
-<div class="masonry" id="grid"></div>
+<!-- WORK -->
+<div id="page-work" class="page active">
+  <div class="masonry" id="grid"></div>
+</div>
 
-<div class="lightbox" id="lightbox" onclick="closeLB()">
-  <span class="close">CLOSE</span>
-  <img id="lb-img">
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="about-wrap">
+
+    <div class="about-grid">
+      <img src="A67D.jpg" alt="Dombele on location in London setting up a lighting rig">
+      <img src="D52.jpg"  alt="Dombele shooting on the streets of London">
+    </div>
+
+    <div class="about-text">
+      <h2>ABOUT</h2>
+      <p>Dombele is a UK-based photographer working across fashion, editorial, and live music. The work grew out of a background in photo editing and retouching — years spent inside other people's images before picking up the camera to make his own.</p>
+      <p>That eye for post-production informs everything on set: an instinct for light, tone, and what will hold in the edit. The shooting process is where it all comes together.</p>
+      <p>Available for commissions across the UK.</p>
+      <div class="sig">DOMBELE STUDIO — LONDON</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h3>EMAIL</h3>
+        <a href="mailto:studio@dombele.com">studio@dombele.com</a>
+      </div>
+      <div class="contact-block">
+        <h3>INSTAGRAM</h3>
+        <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="handleLBClick(event)">
+  <button class="lb-close" onclick="closeLB()">CLOSE ×</button>
+  <button class="lb-nav lb-prev" onclick="shiftLB(-1);event.stopPropagation()">&#8249;</button>
+  <img id="lb-img" alt="">
+  <button class="lb-nav lb-next" onclick="shiftLB(1);event.stopPropagation()">&#8250;</button>
+  <div class="lb-counter" id="lb-counter"></div>
 </div>
 
 <script>
-const images = [
-  9,12,31,40,41,43,53,
-  55,62,68,71,72,79,91,
-  136,142,179,197,227,234,236,
-  239,240,242
+const DATA = [
+  {n:9,  cat:"FASHION"},
+  {n:12, cat:"FASHION"},
+  {n:31, cat:"FASHION"},
+  {n:40, cat:"CONCERT"},
+  {n:41, cat:"CONCERT"},
+  {n:43, cat:"CONCERT"},
+  {n:53, cat:"CONCERT"},
+  {n:55, cat:"CONCERT"},
+  {n:62, cat:"STUDIO"},
+  {n:68, cat:"STUDIO"},
+  {n:71, cat:"STUDIO"},
+  {n:72, cat:"STUDIO"},
+  {n:79, cat:"GYM"},
+  {n:91, cat:"GYM"},
+  {n:136,cat:"GYM"},
+  {n:142,cat:"GYM"},
+  {n:179,cat:"FASHION"},
+  {n:197,cat:"FASHION"},
+  {n:227,cat:"CONCERT"},
+  {n:234,cat:"CONCERT"},
+  {n:236,cat:"STUDIO"},
+  {n:239,cat:"STUDIO"},
+  {n:240,cat:"FASHION"},
+  {n:242,cat:"FASHION"},
 ];
 
 const grid = document.getElementById("grid");
+let visibleSrcs = [];
+let lbIdx = 0;
 
-images.forEach(n => {
+DATA.forEach(({n, cat}) => {
   const div = document.createElement("div");
   div.className = "item";
-
+  div.dataset.cat = cat;
   const img = document.createElement("img");
   img.src = `website-${n}.jpg`;
   img.loading = "lazy";
-
-  const cap = document.createElement("div");
-  cap.className = "caption";
-  cap.textContent = "DOMBELE";
-
+  img.alt = cat.charAt(0) + cat.slice(1).toLowerCase() + " — Dombele";
   img.onclick = () => openLB(img.src);
-
   div.appendChild(img);
-  div.appendChild(cap);
   grid.appendChild(div);
 });
 
+function filterGrid(cat){
+  grid.querySelectorAll(".item").forEach(item => {
+    item.classList.toggle("hidden", cat !== "ALL" && item.dataset.cat !== cat);
+  });
+}
+
+function setActiveNav(filter, page){
+  document.querySelectorAll(".nav span").forEach(s => s.classList.remove("active"));
+  if(page === "about"){
+    document.querySelector(".nav span[data-page='about']").classList.add("active");
+  } else {
+    const el = document.querySelector(`.nav span[data-filter='${filter}']`);
+    if(el) el.classList.add("active");
+  }
+}
+
+function showPage(page, filter){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(`page-${page}`).classList.add("active");
+  if(page === "work") filterGrid(filter || "ALL");
+  setActiveNav(filter, page);
+  window.scrollTo(0,0);
+}
+
+function getVisible(){
+  return Array.from(grid.querySelectorAll(".item:not(.hidden) img")).map(i => i.src);
+}
+
 function openLB(src){
-  document.getElementById("lb-img").src = src;
+  visibleSrcs = getVisible();
+  lbIdx = visibleSrcs.indexOf(src);
+  renderLB();
   document.getElementById("lightbox").classList.add("open");
+}
+
+function renderLB(){
+  document.getElementById("lb-img").src = visibleSrcs[lbIdx];
+  document.getElementById("lb-counter").textContent = (lbIdx+1) + " / " + visibleSrcs.length;
+}
+
+function shiftLB(dir){
+  lbIdx = (lbIdx + dir + visibleSrcs.length) % visibleSrcs.length;
+  renderLB();
 }
 
 function closeLB(){
   document.getElementById("lightbox").classList.remove("open");
 }
-</script>
 
+function handleLBClick(e){
+  if(e.target === document.getElementById("lightbox")) closeLB();
+}
+
+document.addEventListener("keydown", e => {
+  if(!document.getElementById("lightbox").classList.contains("open")) return;
+  if(e.key === "ArrowRight") shiftLB(1);
+  if(e.key === "ArrowLeft")  shiftLB(-1);
+  if(e.key === "Escape")     closeLB();
+});
+</script>
 </body>
 </html>
