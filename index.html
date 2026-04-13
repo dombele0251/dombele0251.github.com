@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dombele — Photographer</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -13,7 +14,7 @@ body{
   color:#111;
 }
 
-/* ─── HEADER ─── */
+/* HEADER */
 header{
   padding:50px 40px 30px;
   display:flex;
@@ -26,9 +27,8 @@ header{
   border-bottom:1px solid #f0f0f0;
 }
 
-.logo{
-  font-size:13px;
-  letter-spacing:.28em;
+.logo img{
+  height:14px;
   cursor:pointer;
 }
 
@@ -42,7 +42,7 @@ header{
 .nav span{
   opacity:.35;
   cursor:pointer;
-  transition:opacity .2s;
+  transition:.2s;
   padding-bottom:2px;
   border-bottom:1px solid transparent;
 }
@@ -54,11 +54,11 @@ header{
   border-bottom:1px solid #111;
 }
 
-/* ─── PAGES ─── */
+/* PAGES */
 .page{display:none;}
 .page.active{display:block;}
 
-/* ─── MASONRY ─── */
+/* GRID */
 .masonry{
   column-count:4;
   column-gap:10px;
@@ -66,13 +66,12 @@ header{
 }
 
 @media(max-width:1000px){.masonry{column-count:3;}}
-@media(max-width:700px){.masonry{column-count:3;padding:20px 12px 40px;column-gap:6px;}}
-@media(max-width:440px){.masonry{column-count:3;padding:12px 8px 40px;column-gap:5px;}}
+@media(max-width:700px){.masonry{column-count:3;padding:20px 12px;column-gap:6px;}}
+@media(max-width:440px){.masonry{column-count:3;padding:12px 8px;column-gap:5px;}}
 
 .item{
   break-inside:avoid;
   margin-bottom:10px;
-  overflow:hidden;
 }
 
 .item img{
@@ -84,20 +83,17 @@ header{
 
 .item:hover img{transform:scale(1.03);}
 .item.hidden{display:none;}
-@media(max-width:700px){.item{margin-bottom:5px;}}
 
-/* ─── ABOUT ─── */
+/* ABOUT */
 .about-wrap{
   max-width:1100px;
-  margin:0 auto;
-  padding:70px 40px 100px;
+  margin:auto;
+  padding:70px 40px;
 }
 
 .about-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:80px;
+  max-width:500px;
+  margin-bottom:60px;
 }
 
 .about-grid img{
@@ -105,68 +101,56 @@ header{
   display:block;
 }
 
-.about-grid img:first-child{
-  margin-top:60px;
-}
-
 .about-text h2{
   font-size:10px;
   letter-spacing:.25em;
   opacity:.4;
   margin-bottom:28px;
-  font-weight:400;
 }
 
 .about-text p{
   font-size:15px;
-  line-height:1.85;
-  color:#1a1a1a;
-  font-weight:300;
-  margin-bottom:20px;
+  line-height:1.8;
+  margin-bottom:18px;
   max-width:500px;
 }
 
-.about-text .sig{
+.sig{
   font-size:10px;
   letter-spacing:.22em;
   opacity:.4;
-  margin-top:36px;
+  margin-top:30px;
 }
 
-hr.divider{
+hr{
+  margin:60px 0;
   border:none;
-  border-top:1px solid #ebebeb;
-  margin:70px 0;
+  border-top:1px solid #eee;
 }
 
-/* ─── CONTACT ─── */
+/* CONTACT */
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:60px;
+  gap:40px;
 }
 
 .contact-block h3{
   font-size:10px;
   letter-spacing:.25em;
   opacity:.4;
-  font-weight:400;
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
 
 .contact-block a{
-  font-size:14px;
-  letter-spacing:.04em;
-  color:#111;
   text-decoration:none;
+  color:#111;
   border-bottom:1px solid #ddd;
-  padding-bottom:3px;
-  transition:border-color .2s;
 }
 
 .contact-block a:hover{border-color:#111;}
 
-/* ─── LIGHTBOX ─── */
+/* LIGHTBOX */
 .lightbox{
   position:fixed;
   inset:0;
@@ -180,72 +164,64 @@ hr.divider{
 .lightbox.open{display:flex;}
 
 .lightbox img{
-  max-width:88vw;
-  max-height:88vh;
-  object-fit:contain;
-  user-select:none;
+  max-width:90vw;
+  max-height:90vh;
 }
 
 .lb-close{
   position:absolute;
-  top:28px;right:36px;
+  top:20px;
+  right:30px;
   color:#fff;
-  font-size:10px;
-  letter-spacing:.2em;
   cursor:pointer;
-  opacity:.45;
-  transition:opacity .2s;
-  background:none;border:none;
-  font-family:inherit;
 }
-.lb-close:hover{opacity:1;}
 
 .lb-nav{
   position:absolute;
-  top:50%;transform:translateY(-50%);
-  background:none;border:none;
-  color:rgba(255,255,255,.35);
+  top:50%;
+  transform:translateY(-50%);
   font-size:30px;
+  color:#fff;
   cursor:pointer;
-  padding:16px 24px;
-  transition:color .2s;
-  line-height:1;
+  background:none;
+  border:none;
 }
-.lb-nav:hover{color:#fff;}
-.lb-prev{left:0;}
-.lb-next{right:0;}
+
+.lb-prev{left:10px;}
+.lb-next{right:10px;}
 
 .lb-counter{
   position:absolute;
-  bottom:28px;left:50%;
-  transform:translateX(-50%);
-  color:rgba(255,255,255,.25);
+  bottom:20px;
+  color:#fff;
   font-size:10px;
-  letter-spacing:.2em;
+  opacity:.6;
 }
 
-/* ─── RESPONSIVE ─── */
+/* MOBILE */
 @media(max-width:700px){
-  header{padding:30px 20px 20px;}
+  header{padding:30px 20px;}
   .nav{gap:18px;}
-  .about-wrap{padding:40px 20px 60px;}
-  .about-grid{grid-template-columns:1fr;}
-  .about-grid img:first-child{margin-top:0;}
-  .contact-grid{grid-template-columns:1fr;gap:32px;}
+  .contact-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo" onclick="showPage('work','ALL')">DOMBELE</div>
-  <div class="nav" id="nav">
-    <span class="active" data-filter="ALL"   onclick="showPage('work','ALL')">ALL</span>
-    <span data-filter="FASHION"  onclick="showPage('work','FASHION')">FASHION</span>
-    <span data-filter="CONCERT"  onclick="showPage('work','CONCERT')">CONCERT</span>
-    <span data-filter="STUDIO"   onclick="showPage('work','STUDIO')">STUDIO</span>
-    <span data-filter="GYM"      onclick="showPage('work','GYM')">GYM</span>
-    <span data-page="about"      onclick="showPage('about')">ABOUT</span>
+  <div class="logo" onclick="showPage('work','ALL')">
+    <img src="black logo.png" alt="Dombele logo">
+  </div>
+
+  <div class="nav">
+    <span class="active" onclick="showPage('work','ALL')">ALL</span>
+    <span onclick="showPage('work','EDITORIAL')">EDITORIAL</span>
+    <span onclick="showPage('work','STUDIO')">STUDIO</span>
+    <span onclick="showPage('work','CONCERT')">CONCERT</span>
+    <span onclick="showPage('work','GYM')">GYM</span>
+    <span onclick="showPage('work','PRODUCT')">PRODUCT</span>
+    <span onclick="showPage('about')">ABOUT</span>
   </div>
 </header>
 
@@ -259,19 +235,18 @@ hr.divider{
   <div class="about-wrap">
 
     <div class="about-grid">
-      <img src="A67D.jpg" alt="Dombele on location in London setting up a lighting rig">
-      <img src="D52.jpg"  alt="Dombele shooting on the streets of London">
+      <img src="A67D.jpg" alt="Dombele portrait">
     </div>
 
     <div class="about-text">
       <h2>ABOUT</h2>
-      <p>Dombele is a UK-based photographer working across fashion, editorial, and live music. The work grew out of a background in photo editing and retouching — years spent inside other people's images before picking up the camera to make his own.</p>
-      <p>That eye for post-production informs everything on set: an instinct for light, tone, and what will hold in the edit. The shooting process is where it all comes together.</p>
+      <p>Dombele is a UK-based photographer working across fashion, editorial, and live music.</p>
+      <p>Background in photo editing and retouching informs a strong eye for light, tone, and final image.</p>
       <p>Available for commissions across the UK.</p>
       <div class="sig">DOMBELE STUDIO — LONDON</div>
     </div>
 
-    <hr class="divider">
+    <hr>
 
     <div class="contact-grid">
       <div class="contact-block">
@@ -280,7 +255,7 @@ hr.divider{
       </div>
       <div class="contact-block">
         <h3>INSTAGRAM</h3>
-        <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">@dombele.studio</a>
+        <a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a>
       </div>
     </div>
 
@@ -288,118 +263,107 @@ hr.divider{
 </div>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="handleLBClick(event)">
-  <button class="lb-close" onclick="closeLB()">CLOSE ×</button>
-  <button class="lb-nav lb-prev" onclick="shiftLB(-1);event.stopPropagation()">&#8249;</button>
-  <img id="lb-img" alt="">
-  <button class="lb-nav lb-next" onclick="shiftLB(1);event.stopPropagation()">&#8250;</button>
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <div class="lb-close">CLOSE</div>
+  <button class="lb-nav lb-prev" onclick="shiftLB(-1)">‹</button>
+  <img id="lb-img">
+  <button class="lb-nav lb-next" onclick="shiftLB(1)">›</button>
   <div class="lb-counter" id="lb-counter"></div>
 </div>
 
 <script>
 const DATA = [
-  {n:9,  cat:"FASHION"},
-  {n:12, cat:"FASHION"},
-  {n:31, cat:"FASHION"},
-  {n:40, cat:"CONCERT"},
-  {n:41, cat:"CONCERT"},
-  {n:43, cat:"CONCERT"},
-  {n:53, cat:"CONCERT"},
-  {n:55, cat:"CONCERT"},
-  {n:62, cat:"STUDIO"},
-  {n:68, cat:"STUDIO"},
-  {n:71, cat:"STUDIO"},
-  {n:72, cat:"STUDIO"},
-  {n:79, cat:"GYM"},
-  {n:91, cat:"GYM"},
-  {n:136,cat:"GYM"},
-  {n:142,cat:"GYM"},
-  {n:179,cat:"FASHION"},
-  {n:197,cat:"FASHION"},
-  {n:227,cat:"CONCERT"},
-  {n:234,cat:"CONCERT"},
-  {n:236,cat:"STUDIO"},
-  {n:239,cat:"STUDIO"},
-  {n:240,cat:"FASHION"},
-  {n:242,cat:"FASHION"},
+  {src:"website-179.jpg", cat:"STUDIO"},
+  {src:"website-197.jpg", cat:"STUDIO"},
+  {src:"website-227.jpg", cat:"STUDIO"},
+  {src:"website-236.jpg", cat:"STUDIO"},
+  {src:"website-239.jpg", cat:"STUDIO"},
+  {src:"website-240.jpg", cat:"STUDIO"},
+  {src:"website-242.jpg", cat:"STUDIO"},
+
+  {src:"website-79.jpg", cat:"PRODUCT"},
+
+  {src:"website-136.jpg", cat:"CONCERT"},
+  {src:"website-105.jpg", cat:"CONCERT"},
+  {src:"website-91.jpg",  cat:"CONCERT"},
+
+  {src:"DSC00913.jpg", cat:"GYM"},
+  {src:"DSC01057.jpg", cat:"GYM"},
+  {src:"DSC01516-Recovered.jpg", cat:"GYM"},
+  {src:"DSC01562.jpg", cat:"GYM"},
+  {src:"website-138.jpg", cat:"GYM"},
+  {src:"website-142.jpg", cat:"GYM"},
+  {src:"website-234.jpg", cat:"GYM"},
+
+  {src:"website-9.jpg",  cat:"EDITORIAL"},
+  {src:"website-12.jpg", cat:"EDITORIAL"},
+  {src:"website-31.jpg", cat:"EDITORIAL"},
+  {src:"website-40.jpg", cat:"EDITORIAL"},
+  {src:"website-41.jpg", cat:"EDITORIAL"},
+  {src:"website-43.jpg", cat:"EDITORIAL"},
+  {src:"website-53.jpg", cat:"EDITORIAL"},
+  {src:"website-55.jpg", cat:"EDITORIAL"},
+  {src:"website-62.jpg", cat:"EDITORIAL"},
+  {src:"website-68.jpg", cat:"EDITORIAL"},
+  {src:"website-71.jpg", cat:"EDITORIAL"},
+  {src:"website-72.jpg", cat:"EDITORIAL"},
+  {src:"website-158.jpg", cat:"EDITORIAL"},
+  {src:"website-174.jpg", cat:"EDITORIAL"},
 ];
 
 const grid = document.getElementById("grid");
-let visibleSrcs = [];
-let lbIdx = 0;
+let visible = [];
+let index = 0;
 
-DATA.forEach(({n, cat}) => {
+DATA.forEach(({src, cat})=>{
   const div = document.createElement("div");
-  div.className = "item";
-  div.dataset.cat = cat;
-  const img = document.createElement("img");
-  img.src = `website-${n}.jpg`;
-  img.loading = "lazy";
-  img.alt = cat.charAt(0) + cat.slice(1).toLowerCase() + " — Dombele";
-  img.onclick = () => openLB(img.src);
+  div.className="item";
+  div.dataset.cat=cat;
+
+  const img=document.createElement("img");
+  img.src=src;
+  img.onclick=()=>openLB(src);
+
   div.appendChild(img);
   grid.appendChild(div);
 });
 
-function filterGrid(cat){
-  grid.querySelectorAll(".item").forEach(item => {
-    item.classList.toggle("hidden", cat !== "ALL" && item.dataset.cat !== cat);
+function filter(cat){
+  document.querySelectorAll(".item").forEach(i=>{
+    i.classList.toggle("hidden", cat!=="ALL" && i.dataset.cat!==cat);
   });
 }
 
-function setActiveNav(filter, page){
-  document.querySelectorAll(".nav span").forEach(s => s.classList.remove("active"));
-  if(page === "about"){
-    document.querySelector(".nav span[data-page='about']").classList.add("active");
-  } else {
-    const el = document.querySelector(`.nav span[data-filter='${filter}']`);
-    if(el) el.classList.add("active");
-  }
-}
+function showPage(page,cat="ALL"){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page-"+page).classList.add("active");
+  if(page==="work") filter(cat);
 
-function showPage(page, filter){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(`page-${page}`).classList.add("active");
-  if(page === "work") filterGrid(filter || "ALL");
-  setActiveNav(filter, page);
-  window.scrollTo(0,0);
-}
-
-function getVisible(){
-  return Array.from(grid.querySelectorAll(".item:not(.hidden) img")).map(i => i.src);
+  document.querySelectorAll(".nav span").forEach(s=>s.classList.remove("active"));
+  event.target.classList.add("active");
 }
 
 function openLB(src){
-  visibleSrcs = getVisible();
-  lbIdx = visibleSrcs.indexOf(src);
+  visible=[...document.querySelectorAll(".item:not(.hidden) img")].map(i=>i.src);
+  index=visible.indexOf(src);
   renderLB();
   document.getElementById("lightbox").classList.add("open");
 }
 
 function renderLB(){
-  document.getElementById("lb-img").src = visibleSrcs[lbIdx];
-  document.getElementById("lb-counter").textContent = (lbIdx+1) + " / " + visibleSrcs.length;
+  document.getElementById("lb-img").src=visible[index];
+  document.getElementById("lb-counter").innerText=(index+1)+" / "+visible.length;
 }
 
-function shiftLB(dir){
-  lbIdx = (lbIdx + dir + visibleSrcs.length) % visibleSrcs.length;
+function shiftLB(d){
+  index=(index+d+visible.length)%visible.length;
   renderLB();
 }
 
 function closeLB(){
   document.getElementById("lightbox").classList.remove("open");
 }
-
-function handleLBClick(e){
-  if(e.target === document.getElementById("lightbox")) closeLB();
-}
-
-document.addEventListener("keydown", e => {
-  if(!document.getElementById("lightbox").classList.contains("open")) return;
-  if(e.key === "ArrowRight") shiftLB(1);
-  if(e.key === "ArrowLeft")  shiftLB(-1);
-  if(e.key === "Escape")     closeLB();
-});
 </script>
+
 </body>
 </html>
