@@ -1,47 +1,264 @@
-/* NAV CONTAINER */
-.nav {
-    display: flex;
-    gap: 12px; /* Reduced base gap */
-    justify-content: flex-end; /* Keeps desktop look */
-    align-items: center;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Dombele Studio | Photographer London, Bristol & Taunton</title>
+    <meta name="description" content="Editorial, Fashion, and Music Photographer based in London, Bristol, and Taunton. Expertise in high-end photo retouching.">
+    
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #111111;
+            --accent: #f8f8f8;
+            --transition: 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: var(--bg);
+            font-family: "Inter", -apple-system, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .logo img { height: 16px; cursor: pointer; transition: 0.3s; }
+        .logo img:hover { opacity: 0.5; }
+
+        .nav { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center;
+        }
+
+        .nav span {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .nav span.active, .nav span:hover { opacity: 1; }
+        .nav span.active { border-bottom: 1px solid var(--text); }
+
+        /* MASONRY GRID */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .masonry {
+            column-count: 4;
+            column-gap: 15px;
+            padding: 20px 60px 80px;
+        }
+
+        .item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .item img {
+            width: 100%;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .item:hover img { transform: scale(1.05); }
+
+        /* ABOUT SECTION */
+        .about-wrap { max-width: 1100px; margin: auto; padding: 100px 60px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .about-text h1 { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 30px; opacity: 0.5; text-transform: uppercase; }
+        .about-text p { font-size: 17px; line-height: 1.8; margin-bottom: 25px; font-weight: 300; }
+        
+        .contact-info { margin-top: 50px; display: flex; gap: 30px; }
+        .contact-info a { color: var(--text); text-decoration: none; font-size: 13px; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
+            display: none; align-items: center; justify-content: center; z-index: 2000;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+        .lb-nav { position: absolute; background: none; border: none; font-size: 30px; cursor: pointer; padding: 40px; top: 50%; transform: translateY(-50%); }
+        .lb-prev { left: 0; } .lb-next { right: 0; }
+        .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; }
+
+        /* MOBILE FIX: ENSURE NAV FITS ON SCREEN */
+        @media (max-width: 850px) {
+            header { padding: 25px 20px; flex-direction: column; gap: 20px; }
+            .nav { width: 100%; justify-content: space-between; gap: 0; }
+            .nav span { font-size: 8.5px; letter-spacing: 0.1em; }
+            .masonry { column-count: 2; padding: 15px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-wrap { padding: 40px 20px; }
+        }
+
+        @media (max-width: 380px) {
+            .nav span { font-size: 7.5px; letter-spacing: 0.05em; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="showCategory('ALL')">
+        <img src="black logo.png" alt="Dombele Studio Logo">
+    </div>
+    <nav class="nav">
+        <span class="active" data-cat="ALL" onclick="showCategory('ALL')">All</span>
+        <span data-cat="EDITORIAL" onclick="showCategory('EDITORIAL')">Editorial</span>
+        <span data-cat="STUDIO" onclick="showCategory('STUDIO')">Studio</span>
+        <span data-cat="CONCERT" onclick="showCategory('CONCERT')">Concert</span>
+        <span data-cat="GYM" onclick="showCategory('GYM')">Gym</span>
+        <span data-cat="PRODUCT" onclick="showCategory('PRODUCT')">Product</span>
+        <span data-cat="ABOUT" onclick="showAbout()">About</span>
+    </nav>
+</header>
+
+<main id="page-work" class="page active">
+    <div class="masonry" id="grid"></div>
+</main>
+
+<section id="page-about" class="page">
+    <div class="about-wrap">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="A67D.jpg" alt="Dombele Portrait" style="width:100%; display:block;">
+            </div>
+            <div class="about-text">
+                <h1>About the Studio</h1>
+                <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
+                <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
+                <p>Based in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
+                
+                <div class="contact-info">
+                    <a href="mailto:studio@dombele.com">studio@dombele.com</a>
+                    <a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
+    <div class="lb-close" onclick="closeLB()">CLOSE</div>
+    <button class="lb-nav lb-prev" onclick="shiftLB(-1)">‹</button>
+    <img id="lb-img" src="">
+    <button class="lb-nav lb-next" onclick="shiftLB(1)">›</button>
+    <div id="lb-counter" style="position:absolute; bottom:30px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
+</div>
+
+<script>
+const DATA = [
+    {src:"website-179.jpg", cat:"STUDIO"}, {src:"website-197.jpg", cat:"STUDIO"}, {src:"website-227.jpg", cat:"STUDIO"},
+    {src:"website-236.jpg", cat:"STUDIO"}, {src:"website-239.jpg", cat:"STUDIO"}, {src:"website-240.jpg", cat:"STUDIO"},
+    {src:"website-242.jpg", cat:"STUDIO"}, {src:"website-79.jpg", cat:"PRODUCT"}, {src:"website-136.jpg", cat:"CONCERT"}, 
+    {src:"website-105.jpg", cat:"CONCERT"}, {src:"website-91.jpg", cat:"CONCERT"}, {src:"DSC00913.jpg", cat:"GYM"}, 
+    {src:"DSC01057.jpg", cat:"GYM"}, {src:"DSC01516-Recovered.jpg", cat:"GYM"}, {src:"DSC01562.jpg", cat:"GYM"}, 
+    {src:"website-138.jpg", cat:"GYM"}, {src:"website-142.jpg", cat:"GYM"}, {src:"website-234.jpg", cat:"GYM"}, 
+    {src:"website-9.jpg", cat:"EDITORIAL"}, {src:"website-12.jpg", cat:"EDITORIAL"}, {src:"website-31.jpg", cat:"EDITORIAL"}, 
+    {src:"website-40.jpg", cat:"EDITORIAL"}, {src:"website-41.jpg", cat:"EDITORIAL"}, {src:"website-43.jpg", cat:"EDITORIAL"}, 
+    {src:"website-53.jpg", cat:"EDITORIAL"}, {src:"website-55.jpg", cat:"EDITORIAL"}, {src:"website-62.jpg", cat:"EDITORIAL"}, 
+    {src:"website-68.jpg", cat:"EDITORIAL"}, {src:"website-71.jpg", cat:"EDITORIAL"}, {src:"website-72.jpg", cat:"EDITORIAL"}, 
+    {src:"website-158.jpg", cat:"EDITORIAL"}, {src:"website-174.jpg", cat:"EDITORIAL"}
+];
+
+let visibleImages = [];
+let currentIndex = 0;
+
+function init() {
+    const grid = document.getElementById("grid");
+    DATA.forEach(imgData => {
+        const div = document.createElement("div");
+        div.className = `item ${imgData.cat}`;
+        const img = document.createElement("img");
+        img.src = imgData.src;
+        img.loading = "lazy";
+        img.onclick = () => openLB(imgData.src);
+        div.appendChild(img);
+        grid.appendChild(div);
+    });
 }
 
-.nav span {
-    font-size: 10px;
-    letter-spacing: 0.15em; /* Slightly tighter for better fit */
-    text-transform: uppercase;
-    cursor: pointer;
-    opacity: 0.35;
-    transition: var(--transition);
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    white-space: nowrap; /* Prevents titles from breaking into two lines */
+function showCategory(cat) {
+    document.getElementById("page-work").classList.add("active");
+    document.getElementById("page-about").classList.remove("active");
+    document.querySelectorAll(".item").forEach(item => {
+        item.style.display = (cat === 'ALL' || item.classList.contains(cat)) ? 'block' : 'none';
+    });
+    updateNav(cat);
 }
 
-/* MOBILE OPTIMIZATION */
-@media (max-width: 768px) {
-    header {
-        padding: 25px 15px;
-        flex-direction: column; 
-        gap: 15px;
-    }
-
-    .nav {
-        width: 100%;
-        gap: 0; /* Remove gap to let space-between work */
-        justify-content: space-between; /* Spreads items evenly across screen */
-    }
-
-    .nav span {
-        font-size: 8.5px; /* Scaled down for mobile */
-        letter-spacing: 0.1em; /* Tighter tracking for narrow screens */
-    }
+function showAbout() {
+    document.getElementById("page-work").classList.remove("active");
+    document.getElementById("page-about").classList.add("active");
+    updateNav("ABOUT");
 }
 
-/* For extremely small phones (iPhone SE size) */
-@media (max-width: 360px) {
-    .nav span {
-        font-size: 7.5px;
-        letter-spacing: 0.05em;
-    }
+function updateNav(cat) {
+    document.querySelectorAll(".nav span").forEach(s => {
+        s.classList.toggle("active", s.getAttribute("data-cat") === cat);
+    });
+    window.scrollTo(0,0);
 }
+
+function openLB(src) {
+    const activeItems = Array.from(document.querySelectorAll('.item:not([style*="none"]) img'));
+    visibleImages = activeItems.map(img => img.src);
+    currentIndex = visibleImages.findIndex(url => url.includes(src));
+    updateLB();
+    document.getElementById("lightbox").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function updateLB() {
+    document.getElementById("lb-img").src = visibleImages[currentIndex];
+    document.getElementById("lb-counter").innerText = `${currentIndex + 1} / ${visibleImages.length}`;
+}
+
+function shiftLB(n) {
+    currentIndex = (currentIndex + n + visibleImages.length) % visibleImages.length;
+    updateLB();
+}
+
+function closeLB() {
+    document.getElementById("lightbox").classList.remove("open");
+    document.body.style.overflow = "auto";
+}
+
+window.onkeydown = (e) => {
+    if (!document.getElementById("lightbox").classList.contains("open")) return;
+    if (e.key === "ArrowRight") shiftLB(1);
+    if (e.key === "ArrowLeft") shiftLB(-1);
+    if (e.key === "Escape") closeLB();
+};
+
+init();
+</script>
+</body>
+</html>
