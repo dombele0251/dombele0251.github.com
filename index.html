@@ -22,6 +22,9 @@
             font-family: "Inter", -apple-system, Helvetica, Arial, sans-serif;
             color: var(--text);
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* HEADER & NAVIGATION */
@@ -62,14 +65,19 @@
         .nav span.active, .nav span:hover { opacity: 1; }
         .nav span.active { border-bottom: 1px solid var(--text); }
 
-        /* MASONRY GRID */
+        /* MAIN CONTENT AREA */
+        main.content-area {
+            flex: 1;
+        }
+
         .page { display: none; }
         .page.active { display: block; }
 
+        /* MASONRY GRID */
         .masonry {
             column-count: 4;
             column-gap: 15px;
-            padding: 20px 60px 80px;
+            padding: 20px 60px 40px;
         }
 
         .item {
@@ -93,9 +101,33 @@
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
         .about-text h1 { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 30px; opacity: 0.5; text-transform: uppercase; }
         .about-text p { font-size: 17px; line-height: 1.8; margin-bottom: 25px; font-weight: 300; }
-        
-        .contact-info { margin-top: 50px; display: flex; gap: 30px; }
-        .contact-info a { color: var(--text); text-decoration: none; font-size: 13px; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
+
+        /* FOOTER */
+        footer {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: var(--bg);
+            border-top: 1px solid #f0f0f0;
+        }
+
+        footer a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        footer a:hover {
+            opacity: 1;
+            border-bottom: 1px solid var(--text);
+        }
 
         /* LIGHTBOX */
         .lightbox {
@@ -108,9 +140,10 @@
         .lb-prev { left: 0; } .lb-next { right: 0; }
         .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; }
 
-        /* MOBILE FIX: ENSURE NAV FITS ON SCREEN */
+        /* MOBILE FIXES */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
+            footer { padding: 30px 20px; gap: 20px; }
             .nav { width: 100%; justify-content: space-between; gap: 0; }
             .nav span { font-size: 8.5px; letter-spacing: 0.1em; }
             .masonry { column-count: 2; padding: 15px; }
@@ -120,6 +153,7 @@
 
         @media (max-width: 380px) {
             .nav span { font-size: 7.5px; letter-spacing: 0.05em; }
+            footer a { font-size: 9px; }
         }
     </style>
 </head>
@@ -140,30 +174,32 @@
     </nav>
 </header>
 
-<main id="page-work" class="page active">
-    <div class="masonry" id="grid"></div>
-</main>
+<main class="content-area">
+    <div id="page-work" class="page active">
+        <div class="masonry" id="grid"></div>
+    </div>
 
-<section id="page-about" class="page">
-    <div class="about-wrap">
-        <div class="about-grid">
-            <div class="about-image">
-                <img src="A67D.jpg" alt="Dombele Portrait" style="width:100%; display:block;">
-            </div>
-            <div class="about-text">
-                <h1>About the Studio</h1>
-                <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
-                <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
-                <p>Based in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
-                
-                <div class="contact-info">
-                    <a href="mailto:studio@dombele.com">studio@dombele.com</a>
-                    <a href="https://instagram.com/dombele.studio" target="_blank">@dombele.studio</a>
+    <section id="page-about" class="page">
+        <div class="about-wrap">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="A67D.jpg" alt="Dombele Portrait" style="width:100%; display:block;">
+                </div>
+                <div class="about-text">
+                    <h1>About the Studio</h1>
+                    <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
+                    <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
+                    <p>Based in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
+
+<footer>
+    <a href="mailto:studio@dombele.com">studio@dombele.com</a>
+    <a href="https://instagram.com/dombele.studio" target="_blank">Instagram</a>
+</footer>
 
 <div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
     <div class="lb-close" onclick="closeLB()">CLOSE</div>
