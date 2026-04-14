@@ -101,6 +101,21 @@
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
         .about-text h1 { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 30px; opacity: 0.5; text-transform: uppercase; }
         .about-text p { font-size: 17px; line-height: 1.8; margin-bottom: 25px; font-weight: 300; }
+        
+        /* New About CTA Button */
+        .about-cta {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .about-cta:hover { background: #444; color: #fff; }
 
         /* FOOTER */
         footer {
@@ -140,6 +155,24 @@
         .lb-prev { left: 0; } .lb-next { right: 0; }
         .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; }
 
+        /* FLOATING CONTACT BUTTON (MOBILE) */
+        .mobile-contact-fab {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text);
+            color: var(--bg);
+            padding: 15px 20px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
         /* MOBILE FIXES */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
@@ -149,6 +182,7 @@
             .masonry { column-count: 2; padding: 15px; }
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .about-wrap { padding: 40px 20px; }
+            .mobile-contact-fab { display: block; } /* Show FAB on mobile */
         }
 
         @media (max-width: 380px) {
@@ -190,14 +224,18 @@
                     <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
                     <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
                     <p>Based in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
+                    
+                    <a href="mailto:studio@dombele.com?subject=Booking%20Inquiry" class="about-cta">Book a Shoot</a>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
+<a href="mailto:studio@dombele.com?subject=Booking%20Inquiry" class="mobile-contact-fab">Email for Bookings</a>
+
 <footer>
-    <a href="mailto:studio@dombele.com">studio@dombele.com</a>
+    <a href="mailto:studio@dombele.com?subject=Inquiry">studio@dombele.com</a>
     <a href="https://instagram.com/dombele.studio" target="_blank">Instagram</a>
 </footer>
 
