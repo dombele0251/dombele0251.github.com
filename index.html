@@ -5,7 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Dombele Studio | Photographer working in London, Bristol & Taunton</title>
-    <meta name="description" content="Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton. Expertise in high-end photo retouching.">
+    <meta name="description" content="Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton. High-end photo retouching, concert, and studio photography across the UK.">
+    <meta name="keywords" content="London photographer, Bristol editorial photographer, Taunton studio photography, concert photographer UK, fashion photo retouching">
+    <link rel="canonical" href="https://dombele.com">
+
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dombele Studio | Editorial & Music Photographer">
+    <meta property="og:description" content="Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton. Expertise in high-end retouching and commercial photography.">
+    <meta property="og:image" content="https://dombele.com/A67D.jpg">
+    <meta property="og:url" content="https://dombele.com">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dombele Studio | Photographer London, Bristol & Taunton">
+    <meta name="twitter:description" content="Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton.">
+    <meta name="twitter:image" content="https://dombele.com/A67D.jpg">
+
+    <!-- Structured Data (JSON-LD for Local SEO & Search Engines) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Photographer",
+      "name": "Dombele Studio",
+      "url": "https://dombele.com",
+      "logo": "https://dombele.com/black%20logo.png",
+      "image": "https://dombele.com/A67D.jpg",
+      "description": "Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton.",
+      "areaServed": [
+        { "@type": "City", "name": "London" },
+        { "@type": "City", "name": "Bristol" },
+        { "@type": "City", "name": "Taunton" }
+      ],
+      "knowsAbout": [
+        "Editorial Photography",
+        "Concert Photography",
+        "Studio Photography",
+        "Fashion Photography",
+        "Photo Retouching"
+      ],
+      "email": "studio@dombele.com",
+      "sameAs": [
+        "https://instagram.com/dombele.studio"
+      ]
+    }
+    </script>
     
     <style>
         :root {
@@ -100,7 +144,7 @@
             overflow: hidden;
             background: var(--accent);
             cursor: pointer;
-            min-height: 200px; /* Prevents severe layout collapses while loading */
+            min-height: 200px; /* Reduces layout shift during image load */
         }
 
         .item img {
@@ -159,12 +203,13 @@
         .lightbox {
             position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
             display: none; align-items: center; justify-content: center; z-index: 2000;
+            user-select: none;
         }
         .lightbox.open { display: flex; }
         .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
         .lb-nav { position: absolute; background: none; border: none; font-size: 30px; cursor: pointer; padding: 40px; top: 50%; transform: translateY(-50%); }
         .lb-prev { left: 0; } .lb-next { right: 0; }
-        .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; }
+        .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; border: none; background: transparent; }
 
         /* FLOATING CONTACT BUTTON (MOBILE ONLY) */
         .mobile-contact-fab {
@@ -206,19 +251,19 @@
 <body>
 
 <header>
-    <div class="logo" onclick="showCategory('ALL')">
+    <div class="logo" onclick="navigateTo('all')">
         <img src="black logo.png" alt="Dombele Studio Logo">
     </div>
     <nav class="nav">
-        <span class="active" tabindex="0" role="button" data-cat="ALL" onclick="showCategory('ALL')">All</span>
-        <span tabindex="0" role="button" data-cat="EDITORIAL" onclick="showCategory('EDITORIAL')">Editorial</span>
-        <span tabindex="0" role="button" data-cat="STUDIO" onclick="showCategory('STUDIO')">Studio</span>
-        <span tabindex="0" role="button" data-cat="CONCERT" onclick="showCategory('CONCERT')">Concert</span>
-        <span tabindex="0" role="button" data-cat="GYM" onclick="showCategory('GYM')">Gym</span>
-        <span tabindex="0" role="button" data-cat="PRODUCT" onclick="showCategory('PRODUCT')">Product</span>
-        <span tabindex="0" role="button" data-cat="BTS" onclick="showCategory('BTS')">BTS</span>
-        <span tabindex="0" role="button" data-cat="ABOUT" onclick="showAbout()">About</span>
-        <a href="mailto:studio@dombele.com?subject=Booking%20Inquiry" class="nav-book">Inquire</a>
+        <span class="active" tabindex="0" role="button" data-cat="ALL" onclick="navigateTo('all')">All</span>
+        <span tabindex="0" role="button" data-cat="EDITORIAL" onclick="navigateTo('editorial')">Editorial</span>
+        <span tabindex="0" role="button" data-cat="STUDIO" onclick="navigateTo('studio')">Studio</span>
+        <span tabindex="0" role="button" data-cat="CONCERT" onclick="navigateTo('concert')">Concert</span>
+        <span tabindex="0" role="button" data-cat="GYM" onclick="navigateTo('gym')">Gym</span>
+        <span tabindex="0" role="button" data-cat="PRODUCT" onclick="navigateTo('product')">Product</span>
+        <span tabindex="0" role="button" data-cat="BTS" onclick="navigateTo('bts')">BTS</span>
+        <span tabindex="0" role="button" data-cat="ABOUT" onclick="navigateTo('about')">About</span>
+        <a href="mailto:studio@dombele.com?subject=Booking%20Inquiry%20-%20Dombele%20Studio" class="nav-book">Inquire</a>
     </nav>
 </header>
 
@@ -231,22 +276,22 @@
         <div class="about-wrap">
             <div class="about-grid">
                 <div class="about-image">
-                    <img src="A67D.jpg" alt="Dombele Portrait" style="width:100%; display:block;" loading="lazy">
+                    <img src="A67D.jpg" alt="Dombele Studio Portrait - Photographer in London, Bristol, and Taunton" style="width:100%; display:block;" loading="lazy" decoding="async">
                 </div>
                 <div class="about-text">
                     <h1>About the Studio</h1>
                     <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
                     <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
-                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
+                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial, fashion, music, and commercial commissions across the UK.</p>
                     
-                    <a href="mailto:studio@dombele.com?subject=Booking%20Inquiry" class="about-cta">Book a Shoot</a>
+                    <a href="mailto:studio@dombele.com?subject=Booking%20Inquiry%20-%20Dombele%20Studio" class="about-cta">Book a Shoot</a>
                 </div>
             </div>
         </div>
     </section>
 </main>
 
-<a href="mailto:studio@dombele.com?subject=Booking%20Inquiry" class="mobile-contact-fab">Email for Bookings</a>
+<a href="mailto:studio@dombele.com?subject=Booking%20Inquiry%20-%20Dombele%20Studio" class="mobile-contact-fab">Email for Bookings</a>
 
 <footer>
     <a href="mailto:studio@dombele.com?subject=Inquiry">studio@dombele.com</a>
@@ -256,7 +301,7 @@
 <div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
     <button class="lb-close" onclick="closeLB()" aria-label="Close Lightbox">CLOSE</button>
     <button class="lb-nav lb-prev" onclick="shiftLB(-1)" aria-label="Previous Image">‹</button>
-    <img id="lb-img" src="" alt="Portfolio Preview">
+    <img id="lb-img" src="" alt="Dombele Studio Portfolio Preview">
     <button class="lb-nav lb-next" onclick="shiftLB(1)" aria-label="Next Image">›</button>
     <div id="lb-counter" style="position:absolute; bottom:30px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
 </div>
@@ -264,39 +309,82 @@
 <script>
 const DATA = [
     // STUDIO
-    {src:"website-179.jpg", cat:"STUDIO"}, {src:"website-197.jpg", cat:"STUDIO"}, {src:"website-227.jpg", cat:"STUDIO"},
-    {src:"website-236.jpg", cat:"STUDIO"}, {src:"website-239.jpg", cat:"STUDIO"}, {src:"website-240.jpg", cat:"STUDIO"},
-    {src:"website-173.jpg", cat:"STUDIO"}, {src:"website-162.jpg", cat:"STUDIO"},
-    {src:"website-153.jpg", cat:"STUDIO"}, {src:"website-148.jpg", cat:"STUDIO"},
-    {src:"outdoor-8.jpg", cat:"STUDIO"}, {src:"outdoor-9.jpg", cat:"STUDIO"},
+    {src:"website-179.jpg", cat:"STUDIO", alt:"Studio portrait photography in London"},
+    {src:"website-197.jpg", cat:"STUDIO", alt:"Studio portrait photo session Bristol"},
+    {src:"website-227.jpg", cat:"STUDIO", alt:"High-key creative studio portrait shoot"},
+    {src:"website-236.jpg", cat:"STUDIO", alt:"High-end editorial studio lighting portrait"},
+    {src:"website-239.jpg", cat:"STUDIO", alt:"Fashion studio portrait photograph"},
+    {src:"website-240.jpg", cat:"STUDIO", alt:"Studio retouched fashion photography"},
+    {src:"website-173.jpg", cat:"STUDIO", alt:"Studio photography Taunton model portrait"},
+    {src:"website-162.jpg", cat:"STUDIO", alt:"Minimalist studio portrait shoot UK"},
+    {src:"website-153.jpg", cat:"STUDIO", alt:"Creative directional lighting studio portrait"},
+    {src:"website-148.jpg", cat:"STUDIO", alt:"Professional model studio portfolio photo"},
+    {src:"outdoor-8.jpg", cat:"STUDIO", alt:"Location studio lighting editorial photo"},
+    {src:"outdoor-9.jpg", cat:"STUDIO", alt:"Outdoor studio lighting portrait Bristol"},
+
     // PRODUCT
-    {src:"website-79.jpg", cat:"PRODUCT"},
+    {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
+
     // CONCERT
-    {src:"website-136.jpg", cat:"CONCERT"}, {src:"website-105.jpg", cat:"CONCERT"}, {src:"website-91.jpg", cat:"CONCERT"},
-    {src:"website-131.jpg", cat:"CONCERT"}, {src:"website-96.jpg", cat:"CONCERT"}, {src:"website-120.jpg", cat:"CONCERT"},
-    {src:"website-125.jpg", cat:"CONCERT"},
+    {src:"website-136.jpg", cat:"CONCERT", alt:"Live music concert photographer London"},
+    {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
+    {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
+    {src:"website-131.jpg", cat:"CONCERT", alt:"Stage music performance photography UK"},
+    {src:"website-96.jpg", cat:"CONCERT", alt:"Band concert photography venue shot"},
+    {src:"website-120.jpg", cat:"CONCERT", alt:"Live concert artist lighting photo"},
+    {src:"website-125.jpg", cat:"CONCERT", alt:"Music festival event photography UK"},
+
     // GYM
-    {src:"DSC00913.jpg", cat:"GYM"}, {src:"DSC01057.jpg", cat:"GYM"}, {src:"DSC01516-Recovered.jpg", cat:"GYM"},
-    {src:"DSC01562.jpg", cat:"GYM"}, {src:"website-138.jpg", cat:"GYM"}, {src:"website-142.jpg", cat:"GYM"},
-    {src:"website-234.jpg", cat:"GYM"}, {src:"1website-19.jpg", cat:"GYM"},
+    {src:"DSC00913.jpg", cat:"GYM", alt:"Fitness and gym editorial photography"},
+    {src:"DSC01057.jpg", cat:"GYM", alt:"Athletic sports portrait shoot Bristol"},
+    {src:"DSC01516-Recovered.jpg", cat:"GYM", alt:"Gym fitness athlete editorial portrait"},
+    {src:"DSC01562.jpg", cat:"GYM", alt:"Commercial fitness photography London"},
+    {src:"website-138.jpg", cat:"GYM", alt:"Athletic model fitness portrait photo"},
+    {src:"website-142.jpg", cat:"GYM", alt:"Gym photoshoot lighting photography"},
+    {src:"website-234.jpg", cat:"GYM", alt:"High-contrast athletic movement photo"},
+    {src:"1website-19.jpg", cat:"GYM", alt:"Fitness activewear commercial shoot"},
+
     // EDITORIAL
-    {src:"website-9.jpg", cat:"EDITORIAL"}, {src:"website-12.jpg", cat:"EDITORIAL"}, {src:"website-31.jpg", cat:"EDITORIAL"},
-    {src:"website-40.jpg", cat:"EDITORIAL"}, {src:"website-41.jpg", cat:"EDITORIAL"}, {src:"website-43.jpg", cat:"EDITORIAL"},
-    {src:"website-53.jpg", cat:"EDITORIAL"}, {src:"website-55.jpg", cat:"EDITORIAL"}, {src:"website-62.jpg", cat:"EDITORIAL"},
-    {src:"website-68.jpg", cat:"EDITORIAL"}, {src:"website-71.jpg", cat:"EDITORIAL"}, {src:"website-72.jpg", cat:"EDITORIAL"},
-    {src:"website-158.jpg", cat:"EDITORIAL"}, {src:"website-174.jpg", cat:"EDITORIAL"},
-    {src:"website-11.jpg", cat:"EDITORIAL"}, {src:"website-45.jpg", cat:"EDITORIAL"}, {src:"website-60.jpg", cat:"EDITORIAL"},
-    {src:"outdoor-1.jpg", cat:"EDITORIAL"}, {src:"outdoor-2.jpg", cat:"EDITORIAL"}, {src:"outdoor-3.jpg", cat:"EDITORIAL"},
-    {src:"outdoor-4.jpg", cat:"EDITORIAL"}, {src:"outdoor-5.jpg", cat:"EDITORIAL"}, {src:"outdoor-6.jpg", cat:"EDITORIAL"},
-    {src:"outdoor-7.jpg", cat:"EDITORIAL"},
+    {src:"website-9.jpg", cat:"EDITORIAL", alt:"Editorial fashion photography shoot London"},
+    {src:"website-12.jpg", cat:"EDITORIAL", alt:"Fashion editorial retouched portrait Bristol"},
+    {src:"website-31.jpg", cat:"EDITORIAL", alt:"High fashion editorial narrative photography"},
+    {src:"website-40.jpg", cat:"EDITORIAL", alt:"Creative fashion shoot location UK"},
+    {src:"website-41.jpg", cat:"EDITORIAL", alt:"Fashion magazine editorial style portrait"},
+    {src:"website-43.jpg", cat:"EDITORIAL", alt:"Location fashion photography UK"},
+    {src:"website-53.jpg", cat:"EDITORIAL", alt:"High-contrast editorial portrait photograph"},
+    {src:"website-55.jpg", cat:"EDITORIAL", alt:"Contemporary fashion model photography"},
+    {src:"website-62.jpg", cat:"EDITORIAL", alt:"Creative portrait editorial photography Taunton"},
+    {src:"website-68.jpg", cat:"EDITORIAL", alt:"High-end photo retouched editorial portrait"},
+    {src:"website-71.jpg", cat:"EDITORIAL", alt:"Fashion editorial model photography Bristol"},
+    {src:"website-72.jpg", cat:"EDITORIAL", alt:"London editorial fashion photoshoot"},
+    {src:"website-158.jpg", cat:"EDITORIAL", alt:"Editorial story fashion photography"},
+    {src:"website-174.jpg", cat:"EDITORIAL", alt:"Location editorial portrait fashion shot"},
+    {src:"website-11.jpg", cat:"EDITORIAL", alt:"High-fashion model editorial shoot"},
+    {src:"website-45.jpg", cat:"EDITORIAL", alt:"Fashion photography retouched style"},
+    {src:"website-60.jpg", cat:"EDITORIAL", alt:"Commercial fashion editorial photography"},
+    {src:"outdoor-1.jpg", cat:"EDITORIAL", alt:"Natural light outdoor editorial photoshoot"},
+    {src:"outdoor-2.jpg", cat:"EDITORIAL", alt:"Outdoor fashion portrait shoot Bristol"},
+    {src:"outdoor-3.jpg", cat:"EDITORIAL", alt:"Location editorial photography London"},
+    {src:"outdoor-4.jpg", cat:"EDITORIAL", alt:"Outdoor model portrait photography"},
+    {src:"outdoor-5.jpg", cat:"EDITORIAL", alt:"Natural backdrop fashion editorial photo"},
+    {src:"outdoor-6.jpg", cat:"EDITORIAL", alt:"Creative outdoor fashion portrait shoot"},
+    {src:"outdoor-7.jpg", cat:"EDITORIAL", alt:"Editorial portrait photography Taunton"},
+
     // BTS
-    {src:"bts 1.JPG", cat:"BTS"}, {src:"bts 2.JPG", cat:"BTS"}, {src:"bts 3.JPG", cat:"BTS"},
-    {src:"bts 4.jpg", cat:"BTS"}, {src:"bts 5.JPG", cat:"BTS"}, {src:"bts 6.JPG", cat:"BTS"}
+    {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
+    {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
+    {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
+    {src:"bts 4.jpg", cat:"BTS", alt:"Behind the scenes editorial production shoot"},
+    {src:"bts 5.JPG", cat:"BTS", alt:"Behind the scenes photo retouching process"},
+    {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
 ];
 
 let visibleImages = [];
 let currentIndex = 0;
-let currentCat = 'ALL';
+
+// TOUCH / SWIPE CONTROLS FOR MOBILE LIGHTBOX
+let touchStartX = 0;
+let touchEndX = 0;
 
 function init() {
     const grid = document.getElementById("grid");
@@ -307,7 +395,7 @@ function init() {
 
         const img = document.createElement("img");
         img.src = imgData.src;
-        img.alt = `${imgData.cat} photo`;
+        img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
         img.loading = "lazy";
         img.decoding = "async";
         img.onclick = () => openLB(imgData.src);
@@ -316,7 +404,7 @@ function init() {
         grid.appendChild(div);
     });
 
-    // Support keyboard activation for navigation items
+    // Keyboard accessibility for menu items
     document.querySelectorAll('.nav span').forEach(el => {
         el.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -326,7 +414,40 @@ function init() {
         });
     });
 
-    showCategory('ALL');
+    // Mobile Swipe Listeners for Lightbox
+    const lb = document.getElementById("lightbox");
+    lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+    lb.addEventListener('touchend', e => { 
+        touchEndX = e.changedTouches[0].screenX; 
+        handleSwipe(); 
+    }, {passive: true});
+
+    // URL Routing Initialization
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+}
+
+function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) { // minimum distance threshold
+        if (diff > 0) shiftLB(1);  // swipe left -> next
+        else shiftLB(-1);          // swipe right -> prev
+    }
+}
+
+function navigateTo(route) {
+    window.location.hash = route;
+}
+
+function handleRouting() {
+    const route = window.location.hash.replace('#', '').toLowerCase();
+    if (route === 'about') {
+        showAbout();
+    } else if (['editorial', 'studio', 'concert', 'gym', 'product', 'bts'].includes(route)) {
+        showCategory(route.toUpperCase());
+    } else {
+        showCategory('ALL');
+    }
 }
 
 function shuffleGrid() {
@@ -340,7 +461,6 @@ function shuffleGrid() {
 }
 
 function showCategory(cat) {
-    currentCat = cat;
     document.getElementById("page-work").classList.add("active");
     document.getElementById("page-about").classList.remove("active");
     
@@ -372,11 +492,11 @@ function updateNav(cat) {
 }
 
 function openLB(src) {
-    const gridItems = Array.from(document.querySelectorAll('.item')).filter(item => {
+    const activeItems = Array.from(document.querySelectorAll('.item')).filter(item => {
         return item.style.display !== 'none';
     });
     
-    visibleImages = gridItems.map(item => item.dataset.src);
+    visibleImages = activeItems.map(item => item.dataset.src);
     currentIndex = visibleImages.indexOf(src);
     if (currentIndex === -1) currentIndex = 0;
 
@@ -386,7 +506,13 @@ function openLB(src) {
 }
 
 function updateLB() {
-    document.getElementById("lb-img").src = visibleImages[currentIndex];
+    const currentSrc = visibleImages[currentIndex];
+    const imgObj = DATA.find(d => d.src === currentSrc);
+    
+    const lbImg = document.getElementById("lb-img");
+    lbImg.src = currentSrc;
+    lbImg.alt = imgObj ? imgObj.alt : "Dombele Studio Portfolio Photo";
+    
     document.getElementById("lb-counter").innerText = `${currentIndex + 1} / ${visibleImages.length}`;
 }
 
