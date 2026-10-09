@@ -288,7 +288,7 @@ const DATA = [
     {src:"outdoor-1.jpg", cat:"EDITORIAL"}, {src:"outdoor-2.jpg", cat:"EDITORIAL"}, {src:"outdoor-3.jpg", cat:"EDITORIAL"},
     {src:"outdoor-4.jpg", cat:"EDITORIAL"}, {src:"outdoor-5.jpg", cat:"EDITORIAL"}, {src:"outdoor-6.jpg", cat:"EDITORIAL"},
     {src:"outdoor-7.jpg", cat:"EDITORIAL"},
-    // BTS (Hidden from ALL section)
+    // BTS
     {src:"bts 1.JPG", cat:"BTS"}, {src:"bts 2.JPG", cat:"BTS"}, {src:"bts 3.JPG", cat:"BTS"},
     {src:"bts 4.jpg", cat:"BTS"}, {src:"bts 5.JPG", cat:"BTS"}, {src:"bts 6.JPG", cat:"BTS"}
 ];
@@ -311,9 +311,25 @@ function init() {
     showCategory('ALL');
 }
 
+function shuffleGrid() {
+    const grid = document.getElementById("grid");
+    const items = Array.from(grid.children);
+    
+    // Fisher-Yates Shuffle
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        grid.appendChild(items[j]);
+    }
+}
+
 function showCategory(cat) {
     document.getElementById("page-work").classList.add("active");
     document.getElementById("page-about").classList.remove("active");
+    
+    if (cat === 'ALL') {
+        shuffleGrid();
+    }
+
     document.querySelectorAll(".item").forEach(item => {
         if (cat === 'ALL') {
             item.style.display = item.classList.contains('BTS') ? 'none' : 'block';
