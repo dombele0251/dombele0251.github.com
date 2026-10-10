@@ -185,6 +185,7 @@
             padding: 40px 60px;
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 40px;
             background: var(--bg);
             border-top: 1px solid #f0f0f0;
@@ -203,6 +204,7 @@
             background: none;
             border: none;
             cursor: pointer;
+            font-family: inherit;
         }
 
         footer a:hover, footer button:hover { opacity: 1; border-bottom: 1px solid var(--text); }
@@ -223,17 +225,17 @@
         .mobile-contact-fab {
             display: none;
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 25px;
+            right: 20px;
             background: var(--text);
             color: var(--bg);
-            padding: 15px 20px;
+            padding: 12px 18px;
             font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             text-decoration: none;
             z-index: 3000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: var(--transition);
             border: none;
             cursor: pointer;
@@ -317,10 +319,15 @@
             display: none;
         }
 
-        /* MOBILE FIXES */
+        /* MOBILE OVERLAP FIX & PADDING */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
-            footer { padding: 30px 20px; gap: 20px; }
+            footer { 
+                padding: 40px 20px 120px 20px; /* Generous bottom space prevents overlap with FAB */
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 15px; 
+            }
             .nav { width: 100%; justify-content: space-between; gap: 0; }
             .nav span { font-size: 8.5px; letter-spacing: 0.1em; }
             .nav-book { display: none; }
@@ -382,7 +389,7 @@
 <button onclick="openModal()" class="mobile-contact-fab">Email for Bookings</button>
 
 <footer>
-    <button onclick="openModal()">Inquire Direct</button>
+    <a href="mailto:studio@dombele.com?subject=Inquiry">studio@dombele.com</a>
     <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">Instagram</a>
 </footer>
 
