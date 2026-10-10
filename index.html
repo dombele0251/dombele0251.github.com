@@ -85,7 +85,7 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .logo img { height: 16px; cursor: pointer; transition: 0.3s; }
+        .logo img { height: 16px; cursor: pointer; transition: 0.3s; display: block; }
         .logo img:hover { opacity: 0.5; }
 
         .nav { 
@@ -152,7 +152,7 @@
         .item img {
             width: 100%;
             display: block;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.6s ease-in-out, transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
@@ -239,7 +239,7 @@
             cursor: pointer;
         }
 
-        /* INQUIRY CONTACT MODAL (CRO ENHANCEMENT) */
+        /* INQUIRY CONTACT MODAL */
         .contact-modal {
             position: fixed;
             inset: 0;
@@ -253,4 +253,483 @@
         .contact-modal.open { display: flex; }
         .modal-content {
             width: 100%;
-            max-width
+            max-width: 500px;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            cursor: pointer;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            border: none;
+            background: transparent;
+        }
+        .modal-content h2 {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0.6;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            background: #fafafa;
+            font-family: inherit;
+            font-size: 12px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--text);
+            background: #fff;
+        }
+        .contact-form button[type="submit"] {
+            padding: 15px;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .contact-form button[type="submit"]:hover { background: #444; }
+        .form-status {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* MOBILE FIXES */
+        @media (max-width: 850px) {
+            header { padding: 25px 20px; flex-direction: column; gap: 20px; }
+            footer { padding: 30px 20px; gap: 20px; }
+            .nav { width: 100%; justify-content: space-between; gap: 0; }
+            .nav span { font-size: 8.5px; letter-spacing: 0.1em; }
+            .nav-book { display: none; }
+            .masonry { column-count: 2; padding: 15px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-wrap { padding: 40px 20px; }
+            .mobile-contact-fab { display: block; }
+        }
+
+        @media (max-width: 380px) {
+            .nav span { font-size: 7.5px; letter-spacing: 0.05em; }
+            footer a, footer button { font-size: 9px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="navigateTo('all')">
+        <img src="black logo.png" alt="Dombele Studio Logo" onerror="this.style.display='none'; this.parentNode.innerText='DOMBELE STUDIO';">
+    </div>
+    <nav class="nav">
+        <span class="active" tabindex="0" role="button" data-cat="ALL" onclick="navigateTo('all')">All</span>
+        <span tabindex="0" role="button" data-cat="EDITORIAL" onclick="navigateTo('editorial')">Editorial</span>
+        <span tabindex="0" role="button" data-cat="STUDIO" onclick="navigateTo('studio')">Studio</span>
+        <span tabindex="0" role="button" data-cat="CONCERT" onclick="navigateTo('concert')">Concert</span>
+        <span tabindex="0" role="button" data-cat="GYM" onclick="navigateTo('gym')">Gym</span>
+        <span tabindex="0" role="button" data-cat="PRODUCT" onclick="navigateTo('product')">Product</span>
+        <span tabindex="0" role="button" data-cat="BTS" onclick="navigateTo('bts')">BTS</span>
+        <span tabindex="0" role="button" data-cat="ABOUT" onclick="navigateTo('about')">About</span>
+        <button onclick="openModal()" class="nav-book">Inquire</button>
+    </nav>
+</header>
+
+<main class="content-area">
+    <div id="page-work" class="page active">
+        <div class="masonry" id="grid"></div>
+    </div>
+
+    <section id="page-about" class="page">
+        <div class="about-wrap">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="A67D.jpg" alt="Dombele Studio Portrait - Photographer in London, Bristol, and Taunton" style="width:100%; display:block;" loading="lazy" decoding="async">
+                </div>
+                <div class="about-text">
+                    <h1>About the Studio</h1>
+                    <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
+                    <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
+                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial, fashion, music, and commercial commissions across the UK.</p>
+                    
+                    <button onclick="openModal()" class="about-cta">Book a Shoot</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<button onclick="openModal()" class="mobile-contact-fab">Email for Bookings</button>
+
+<footer>
+    <button onclick="openModal()">Inquire Direct</button>
+    <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">Instagram</a>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
+    <button class="lb-close" onclick="closeLB()" aria-label="Close Lightbox">CLOSE</button>
+    <button class="lb-nav lb-prev" onclick="shiftLB(-1)" aria-label="Previous Image">‹</button>
+    <img id="lb-img" src="" alt="Dombele Studio Portfolio Preview">
+    <button class="lb-nav lb-next" onclick="shiftLB(1)" aria-label="Next Image">›</button>
+    <div id="lb-counter" style="position:absolute; bottom:30px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
+</div>
+
+<!-- INQUIRY CONTACT MODAL -->
+<div class="contact-modal" id="contactModal" onclick="if(event.target===this) closeModal()">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">CLOSE</button>
+        <h2>Booking & Commission Inquiry</h2>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xpqyddel" method="POST">
+            <input type="text" name="name" placeholder="YOUR NAME *" required>
+            <input type="email" name="email" placeholder="YOUR EMAIL *" required>
+            <select name="type" required>
+                <option value="" disabled selected>PROJECT TYPE *</option>
+                <option value="Editorial">Editorial / Fashion</option>
+                <option value="Studio">Studio Portraiture</option>
+                <option value="Concert">Live Music / Concert</option>
+                <option value="Commercial">Commercial / Brand</option>
+                <option value="Retouching">Photo Retouching Only</option>
+            </select>
+            <input type="text" name="location" placeholder="LOCATION (e.g. London, Bristol, Taunton)">
+            <textarea name="message" rows="4" placeholder="TELL US ABOUT THE SHOOT (Dates, concept, budget range) *" required></textarea>
+            <button type="submit" id="formSubmitBtn">Send Inquiry</button>
+            <div class="form-status" id="formStatus"></div>
+        </form>
+    </div>
+</div>
+
+<script>
+const DATA = [
+    // STUDIO
+    {src:"website-179.jpg", cat:"STUDIO", alt:"Studio portrait photography in London"},
+    {src:"website-197.jpg", cat:"STUDIO", alt:"Studio portrait photo session Bristol"},
+    {src:"website-227.jpg", cat:"STUDIO", alt:"High-key creative studio portrait shoot"},
+    {src:"website-236.jpg", cat:"STUDIO", alt:"High-end editorial studio lighting portrait"},
+    {src:"website-239.jpg", cat:"STUDIO", alt:"Fashion studio portrait photograph"},
+    {src:"website-240.jpg", cat:"STUDIO", alt:"Studio retouched fashion photography"},
+    {src:"website-173.jpg", cat:"STUDIO", alt:"Studio photography Taunton model portrait"},
+    {src:"website-162.jpg", cat:"STUDIO", alt:"Minimalist studio portrait shoot UK"},
+    {src:"website-153.jpg", cat:"STUDIO", alt:"Creative directional lighting studio portrait"},
+    {src:"website-148.jpg", cat:"STUDIO", alt:"Professional model studio portfolio photo"},
+    {src:"outdoor-8.jpg", cat:"STUDIO", alt:"Location studio lighting editorial photo"},
+    {src:"outdoor-9.jpg", cat:"STUDIO", alt:"Outdoor studio lighting portrait Bristol"},
+
+    // PRODUCT
+    {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
+
+    // CONCERT
+    {src:"website-136.jpg", cat:"CONCERT", alt:"Live music concert photographer London"},
+    {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
+    {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
+    {src:"website-131.jpg", cat:"CONCERT", alt:"Stage music performance photography UK"},
+    {src:"website-96.jpg", cat:"CONCERT", alt:"Band concert photography venue shot"},
+    {src:"website-120.jpg", cat:"CONCERT", alt:"Live concert artist lighting photo"},
+    {src:"website-125.jpg", cat:"CONCERT", alt:"Music festival event photography UK"},
+
+    // GYM
+    {src:"DSC00913.jpg", cat:"GYM", alt:"Fitness and gym editorial photography"},
+    {src:"DSC01057.jpg", cat:"GYM", alt:"Athletic sports portrait shoot Bristol"},
+    {src:"DSC01516-Recovered.jpg", cat:"GYM", alt:"Gym fitness athlete editorial portrait"},
+    {src:"DSC01562.jpg", cat:"GYM", alt:"Commercial fitness photography London"},
+    {src:"website-138.jpg", cat:"GYM", alt:"Athletic model fitness portrait photo"},
+    {src:"website-142.jpg", cat:"GYM", alt:"Gym photoshoot lighting photography"},
+    {src:"website-234.jpg", cat:"GYM", alt:"High-contrast athletic movement photo"},
+    {src:"1website-19.jpg", cat:"GYM", alt:"Fitness activewear commercial shoot"},
+
+    // EDITORIAL
+    {src:"website-9.jpg", cat:"EDITORIAL", alt:"Editorial fashion photography shoot London"},
+    {src:"website-12.jpg", cat:"EDITORIAL", alt:"Fashion editorial retouched portrait Bristol"},
+    {src:"website-31.jpg", cat:"EDITORIAL", alt:"High fashion editorial narrative photography"},
+    {src:"website-40.jpg", cat:"EDITORIAL", alt:"Creative fashion shoot location UK"},
+    {src:"website-41.jpg", cat:"EDITORIAL", alt:"Fashion magazine editorial style portrait"},
+    {src:"website-43.jpg", cat:"EDITORIAL", alt:"Location fashion photography UK"},
+    {src:"website-53.jpg", cat:"EDITORIAL", alt:"High-contrast editorial portrait photograph"},
+    {src:"website-55.jpg", cat:"EDITORIAL", alt:"Contemporary fashion model photography"},
+    {src:"website-62.jpg", cat:"EDITORIAL", alt:"Creative portrait editorial photography Taunton"},
+    {src:"website-68.jpg", cat:"EDITORIAL", alt:"High-end photo retouched editorial portrait"},
+    {src:"website-71.jpg", cat:"EDITORIAL", alt:"Fashion editorial model photography Bristol"},
+    {src:"website-72.jpg", cat:"EDITORIAL", alt:"London editorial fashion photoshoot"},
+    {src:"website-158.jpg", cat:"EDITORIAL", alt:"Editorial story fashion photography"},
+    {src:"website-174.jpg", cat:"EDITORIAL", alt:"Location editorial portrait fashion shot"},
+    {src:"website-11.jpg", cat:"EDITORIAL", alt:"High-fashion model editorial shoot"},
+    {src:"website-45.jpg", cat:"EDITORIAL", alt:"Fashion photography retouched style"},
+    {src:"website-60.jpg", cat:"EDITORIAL", alt:"Commercial fashion editorial photography"},
+    {src:"outdoor-1.jpg", cat:"EDITORIAL", alt:"Natural light outdoor editorial photoshoot"},
+    {src:"outdoor-2.jpg", cat:"EDITORIAL", alt:"Outdoor fashion portrait shoot Bristol"},
+    {src:"outdoor-3.jpg", cat:"EDITORIAL", alt:"Location editorial photography London"},
+    {src:"outdoor-4.jpg", cat:"EDITORIAL", alt:"Outdoor model portrait photography"},
+    {src:"outdoor-5.jpg", cat:"EDITORIAL", alt:"Natural backdrop fashion editorial photo"},
+    {src:"outdoor-6.jpg", cat:"EDITORIAL", alt:"Creative outdoor fashion portrait shoot"},
+    {src:"outdoor-7.jpg", cat:"EDITORIAL", alt:"Editorial portrait photography Taunton"},
+
+    // BTS
+    {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
+    {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
+    {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
+    {src:"bts 4.jpg", cat:"BTS", alt:"Behind the scenes editorial production shoot"},
+    {src:"bts 5.JPG", cat:"BTS", alt:"Behind the scenes photo retouching process"},
+    {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
+];
+
+let visibleImages = [];
+let currentIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function init() {
+    const grid = document.getElementById("grid");
+    if (!grid) return;
+
+    DATA.forEach(imgData => {
+        const div = document.createElement("div");
+        div.className = `item ${imgData.cat}`;
+        div.dataset.src = imgData.src;
+
+        const img = document.createElement("img");
+        img.src = imgData.src;
+        img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.onclick = () => openLB(imgData.src);
+
+        div.appendChild(img);
+        grid.appendChild(div);
+    });
+
+    // Keyboard navigation
+    document.querySelectorAll('.nav span').forEach(el => {
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
+
+    // Mobile swipe for Lightbox
+    const lb = document.getElementById("lightbox");
+    if (lb) {
+        lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        lb.addEventListener('touchend', e => { 
+            touchEndX = e.changedTouches[0].screenX; 
+            handleSwipe(); 
+        }, {passive: true});
+    }
+
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+    
+    // Asynchronous Formspree Submission
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm) {
+        contactForm.addEventListener("submit", handleFormSubmit);
+    }
+}
+
+function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+        if (diff > 0) shiftLB(1);
+        else shiftLB(-1);
+    }
+}
+
+function navigateTo(route) {
+    window.location.hash = route;
+}
+
+function handleRouting() {
+    const route = window.location.hash.replace('#', '').toLowerCase();
+    if (route === 'about') {
+        showAbout();
+    } else if (['editorial', 'studio', 'concert', 'gym', 'product', 'bts'].includes(route)) {
+        showCategory(route.toUpperCase());
+    } else {
+        showCategory('ALL');
+    }
+}
+
+function shuffleGrid() {
+    const grid = document.getElementById("grid");
+    if (!grid) return;
+    const items = Array.from(grid.children);
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        grid.appendChild(items[j]);
+    }
+}
+
+function showCategory(cat) {
+    const pageWork = document.getElementById("page-work");
+    const pageAbout = document.getElementById("page-about");
+    if (pageWork) pageWork.classList.add("active");
+    if (pageAbout) pageAbout.classList.remove("active");
+    
+    if (cat === 'ALL') {
+        shuffleGrid();
+    }
+
+    document.querySelectorAll(".item").forEach(item => {
+        if (cat === 'ALL') {
+            item.style.display = item.classList.contains('BTS') ? 'none' : 'block';
+        } else {
+            item.style.display = item.classList.contains(cat) ? 'block' : 'none';
+        }
+    });
+    updateNav(cat);
+}
+
+function showAbout() {
+    const pageWork = document.getElementById("page-work");
+    const pageAbout = document.getElementById("page-about");
+    if (pageWork) pageWork.classList.remove("active");
+    if (pageAbout) pageAbout.classList.add("active");
+    updateNav("ABOUT");
+}
+
+function updateNav(cat) {
+    document.querySelectorAll(".nav span").forEach(s => {
+        s.classList.toggle("active", s.getAttribute("data-cat") === cat);
+    });
+
+    // Dynamic Title Update for SEO
+    if (cat === 'ABOUT') {
+        document.title = "About | Dombele Studio Photographer London, Bristol & Taunton";
+    } else {
+        const catName = cat === 'ALL' ? 'Portfolio' : cat.charAt(0) + cat.slice(1).toLowerCase();
+        document.title = `${catName} Photography | Dombele Studio London, Bristol & Taunton`;
+    }
+    window.scrollTo(0,0);
+}
+
+function openLB(src) {
+    const activeItems = Array.from(document.querySelectorAll('.item')).filter(item => {
+        return item.style.display !== 'none';
+    });
+    
+    visibleImages = activeItems.map(item => item.dataset.src);
+    currentIndex = visibleImages.indexOf(src);
+    if (currentIndex === -1) currentIndex = 0;
+
+    updateLB();
+    document.getElementById("lightbox").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function updateLB() {
+    const currentSrc = visibleImages[currentIndex];
+    const imgObj = DATA.find(d => d.src === currentSrc);
+    
+    const lbImg = document.getElementById("lb-img");
+    if (lbImg) {
+        lbImg.src = currentSrc;
+        lbImg.alt = imgObj ? imgObj.alt : "Dombele Studio Portfolio Photo";
+    }
+    
+    const counter = document.getElementById("lb-counter");
+    if (counter) counter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
+}
+
+function shiftLB(n) {
+    if (!visibleImages.length) return;
+    currentIndex = (currentIndex + n + visibleImages.length) % visibleImages.length;
+    updateLB();
+}
+
+function closeLB() {
+    const lb = document.getElementById("lightbox");
+    if (lb) lb.classList.remove("open");
+    document.body.style.overflow = "auto";
+}
+
+/* MODAL CONTROLS */
+function openModal() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.remove("open");
+    document.body.style.overflow = "auto";
+}
+
+/* FORMSPREE ASYNC SUBMISSION */
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const status = document.getElementById("formStatus");
+    const btn = document.getElementById("formSubmitBtn");
+    
+    btn.disabled = true;
+    btn.innerText = "Sending...";
+    status.style.display = "block";
+    status.innerText = "";
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            status.style.color = "#111";
+            status.innerText = "THANK YOU. YOUR INQUIRY HAS BEEN RECEIVED.";
+            form.reset();
+            setTimeout(() => { closeModal(); status.style.display = "none"; btn.innerText = "Send Inquiry"; btn.disabled = false; }, 3000);
+        } else {
+            throw new Error("Form submission error");
+        }
+    } catch (error) {
+        status.style.color = "#d9534f";
+        status.innerText = "SOMETHING WENT WRONG. PLEASE TRY AGAIN OR EMAIL DIRECTLY.";
+        btn.disabled = false;
+        btn.innerText = "Send Inquiry";
+    }
+}
+
+window.onkeydown = (e) => {
+    const modal = document.getElementById("contactModal");
+    if (modal && modal.classList.contains("open")) {
+        if (e.key === "Escape") closeModal();
+        return;
+    }
+    const lb = document.getElementById("lightbox");
+    if (!lb || !lb.classList.contains("open")) return;
+    if (e.key === "ArrowRight") shiftLB(1);
+    if (e.key === "ArrowLeft") shiftLB(-1);
+    if (e.key === "Escape") closeLB();
+};
+
+// Safe DOM initialization
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+</script>
+</body>
+</html>
