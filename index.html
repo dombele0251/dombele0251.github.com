@@ -140,6 +140,16 @@
             padding: 20px 60px 40px;
         }
 
+        /* GRID FIX FOR BTS CATEGORY TO ALLOW SIDE-BY-SIDE LAYOUT */
+        .masonry.bts-view {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            column-count: auto;
+            max-width: 1200px;
+            margin: auto;
+        }
+
         .item {
             break-inside: avoid;
             margin-bottom: 15px;
@@ -158,35 +168,35 @@
 
         .item:hover img { transform: scale(1.05); }
 
-        /* BTS FEATURED CARD (SIDE-BY-SIDE) */
+        /* GUARANTEED SIDE-BY-SIDE LAYOUT FOR BTS 4 */
         .item.bts-featured {
-            column-span: all;
+            width: 100%;
             background: #fafafa;
             border: 1px solid #eeeeee;
-            padding: 20px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 25px;
+            padding: 30px;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 40px !important;
             cursor: default;
+            margin-bottom: 20px;
         }
 
-        .bts-featured .bts-img-container {
+        .item.bts-featured .bts-img-container {
             width: 50%;
             flex-shrink: 0;
             overflow: hidden;
             cursor: pointer;
         }
 
-        .bts-featured .bts-img-container img {
+        .item.bts-featured .bts-img-container img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .bts-featured .bts-text-container {
+        .item.bts-featured .bts-text-container {
             width: 50%;
-            padding-right: 15px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -196,13 +206,13 @@
             font-size: 10px;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             opacity: 0.5;
             font-weight: 600;
         }
 
         .bts-text-container p {
-            font-size: 12.5px;
+            font-size: 13.5px;
             line-height: 1.8;
             font-weight: 300;
             color: #222222;
@@ -386,16 +396,15 @@
             .about-wrap { padding: 40px 20px; }
             .mobile-contact-fab { display: block; }
 
-            /* Stack BTS card vertically on smaller screens */
+            /* Mobile Stack Fix */
             .item.bts-featured {
-                flex-direction: column;
+                flex-direction: column !important;
                 padding: 15px;
-                gap: 15px;
+                gap: 20px !important;
             }
-            .bts-featured .bts-img-container, 
-            .bts-featured .bts-text-container {
-                width: 100%;
-                padding: 0;
+            .item.bts-featured .bts-img-container, 
+            .item.bts-featured .bts-text-container {
+                width: 100% !important;
             }
         }
 
@@ -583,7 +592,7 @@ function init() {
         div.dataset.src = imgData.src;
 
         if (imgData.isFeatured) {
-            // Photo on Left
+            // Photo Container (Left Side)
             const imgContainer = document.createElement("div");
             imgContainer.className = "bts-img-container";
             
@@ -597,7 +606,7 @@ function init() {
             imgContainer.appendChild(img);
             div.appendChild(imgContainer);
 
-            // Text explicitly on Right
+            // Text Container (Right Side)
             const textContainer = document.createElement("div");
             textContainer.className = "bts-text-container";
             textContainer.innerHTML = `
@@ -685,9 +694,20 @@ function shuffleGrid() {
 function showCategory(cat) {
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
+    const grid = document.getElementById("grid");
+
     if (pageWork) pageWork.classList.add("active");
     if (pageAbout) pageAbout.classList.remove("active");
     
+    // Toggle special BTS Flex grid layout
+    if (grid) {
+        if (cat === 'BTS') {
+            grid.classList.add("bts-view");
+        } else {
+            grid.classList.remove("bts-view");
+        }
+    }
+
     if (cat === 'ALL') {
         shuffleGrid();
     }
