@@ -158,6 +158,35 @@
 
         .item:hover img { transform: scale(1.05); }
 
+        /* BTS FEATURED CARD FOR EXPERTISE TEXT */
+        .item.bts-featured {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .bts-text-box {
+            padding: 5px 0 10px;
+        }
+
+        .bts-text-box h3 {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .bts-text-box p {
+            font-size: 12px;
+            line-height: 1.7;
+            font-weight: 300;
+            color: #333333;
+        }
+
         /* ABOUT SECTION */
         .about-wrap { max-width: 1100px; margin: auto; padding: 100px 60px; }
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
@@ -319,11 +348,11 @@
             display: none;
         }
 
-        /* MOBILE OVERLAP FIX & PADDING */
+        /* MOBILE FIXES */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
             footer { 
-                padding: 40px 20px 120px 20px; /* Generous bottom space prevents overlap with FAB */
+                padding: 40px 20px 120px 20px;
                 flex-direction: row;
                 justify-content: space-around;
                 gap: 15px; 
@@ -376,8 +405,8 @@
                 <div class="about-text">
                     <h1>About the Studio</h1>
                     <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
-                    <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
-                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial, fashion, music, and commercial commissions across the UK.</p>
+                    <p>My experience both in studio and on location shoots gives me the confidence to rapidly assess the shooting environment, determine what photographic methods will best suit current conditions, and resolve any issues that may arise during a shoot to consistently provide clients with high-quality, uniform results.</p>
+                    <p>Working across <strong>London, Bristol, and Taunton</strong>, I am available for editorial, fashion, music, and commercial commissions across the UK.</p>
                     
                     <button onclick="openModal()" class="about-cta">Book a Shoot</button>
                 </div>
@@ -494,7 +523,14 @@ const DATA = [
     {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
     {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
     {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
-    {src:"bts 4.jpg", cat:"BTS", alt:"Behind the scenes editorial production shoot"},
+    {
+        src:"bts 4.jpg", 
+        cat:"BTS", 
+        isFeatured: true,
+        captionTitle: "Production & Technical Approach",
+        captionText: "My experience both in studio and on location shoots gives me the confidence to rapidly assess the shooting environment, determine what photographic methods will best suit current conditions, and resolve any issues that may arise during a shoot to consistently provide clients with high-quality, uniform results.",
+        alt:"Editorial production shoot behind the scenes"
+    },
     {src:"bts 5.JPG", cat:"BTS", alt:"Behind the scenes photo retouching process"},
     {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
 ];
@@ -510,7 +546,7 @@ function init() {
 
     DATA.forEach(imgData => {
         const div = document.createElement("div");
-        div.className = `item ${imgData.cat}`;
+        div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
         div.dataset.src = imgData.src;
 
         const img = document.createElement("img");
@@ -521,6 +557,18 @@ function init() {
         img.onclick = () => openLB(imgData.src);
 
         div.appendChild(img);
+
+        // Append text block if it's the featured BTS photo
+        if (imgData.isFeatured) {
+            const textDiv = document.createElement("div");
+            textDiv.className = "bts-text-box";
+            textDiv.innerHTML = `
+                <h3>${imgData.captionTitle}</h3>
+                <p>${imgData.captionText}</p>
+            `;
+            div.appendChild(textDiv);
+        }
+
         grid.appendChild(div);
     });
 
