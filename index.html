@@ -140,23 +140,13 @@
             padding: 20px 60px 40px;
         }
 
-        /* GRID FIX FOR BTS CATEGORY TO ALLOW SIDE-BY-SIDE LAYOUT */
-        .masonry.bts-view {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            column-count: auto;
-            max-width: 1200px;
-            margin: auto;
-        }
-
         .item {
             break-inside: avoid;
             margin-bottom: 15px;
             overflow: hidden;
             background: var(--accent);
             cursor: pointer;
-            min-height: 200px;
+            position: relative;
         }
 
         .item img {
@@ -166,56 +156,34 @@
             transition: opacity 0.6s ease-in-out, transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .item:hover img { transform: scale(1.05); }
+        .item:hover img { transform: scale(1.03); }
 
-        /* GUARANTEED SIDE-BY-SIDE LAYOUT FOR BTS 4 */
+        /* UNIFORM MASONRY CARD FOR FEATURED BTS */
         .item.bts-featured {
-            width: 100%;
             background: #fafafa;
             border: 1px solid #eeeeee;
-            padding: 30px;
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 40px !important;
-            cursor: default;
-            margin-bottom: 20px;
         }
 
-        .item.bts-featured .bts-img-container {
-            width: 50%;
-            flex-shrink: 0;
-            overflow: hidden;
-            cursor: pointer;
+        .bts-text-overlay {
+            padding: 15px;
+            background: #ffffff;
+            border-top: 1px solid #f0f0f0;
         }
 
-        .item.bts-featured .bts-img-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .item.bts-featured .bts-text-container {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .bts-text-container h3 {
-            font-size: 10px;
-            letter-spacing: 0.25em;
+        .bts-text-overlay h3 {
+            font-size: 9px;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 15px;
-            opacity: 0.5;
+            margin-bottom: 6px;
+            opacity: 0.7;
             font-weight: 600;
         }
 
-        .bts-text-container p {
-            font-size: 13.5px;
-            line-height: 1.8;
+        .bts-text-overlay p {
+            font-size: 12px;
+            line-height: 1.6;
             font-weight: 300;
-            color: #222222;
+            color: #444444;
         }
 
         /* ABOUT SECTION */
@@ -380,6 +348,10 @@
         }
 
         /* MOBILE RESPONSIVE FIXES */
+        @media (max-width: 1024px) {
+            .masonry { column-count: 3; }
+        }
+
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
             footer { 
@@ -395,17 +367,10 @@
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .about-wrap { padding: 40px 20px; }
             .mobile-contact-fab { display: block; }
+        }
 
-            /* Mobile Stack Fix */
-            .item.bts-featured {
-                flex-direction: column !important;
-                padding: 15px;
-                gap: 20px !important;
-            }
-            .item.bts-featured .bts-img-container, 
-            .item.bts-featured .bts-text-container {
-                width: 100% !important;
-            }
+        @media (max-width: 480px) {
+            .masonry { column-count: 1; }
         }
 
         @media (max-width: 380px) {
@@ -570,7 +535,7 @@ const DATA = [
         cat:"BTS", 
         isFeatured: true,
         captionTitle: "Production & Technical Expertise",
-        captionText: "My experience both in studio and on location shoots gives me the confidence to rapidly assess the shooting environment, determine what photographic methods will best suit current conditions, and resolve any issues that may arise during a shoot to consistently provide clients with high-quality, uniform results.",
+        captionText: "My experience both in studio and on location shoots gives me the confidence to rapidly assess the shooting environment and deliver high-quality results.",
         alt:"Editorial production shoot behind the scenes"
     },
     {src:"bts 5.JPG", cat:"BTS", alt:"Behind the scenes photo retouching process"},
@@ -591,38 +556,22 @@ function init() {
         div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
         div.dataset.src = imgData.src;
 
-        if (imgData.isFeatured) {
-            // Photo Container (Left Side)
-            const imgContainer = document.createElement("div");
-            imgContainer.className = "bts-img-container";
-            
-            const img = document.createElement("img");
-            img.src = imgData.src;
-            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
-            img.loading = "lazy";
-            img.decoding = "async";
-            img.onclick = () => openLB(imgData.src);
-            
-            imgContainer.appendChild(img);
-            div.appendChild(imgContainer);
+        const img = document.createElement("img");
+        img.src = imgData.src;
+        img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.onclick = () => openLB(imgData.src);
+        div.appendChild(img);
 
-            // Text Container (Right Side)
+        if (imgData.isFeatured) {
             const textContainer = document.createElement("div");
-            textContainer.className = "bts-text-container";
+            textContainer.className = "bts-text-overlay";
             textContainer.innerHTML = `
                 <h3>${imgData.captionTitle}</h3>
                 <p>${imgData.captionText}</p>
             `;
             div.appendChild(textContainer);
-        } else {
-            const img = document.createElement("img");
-            img.src = imgData.src;
-            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
-            img.loading = "lazy";
-            img.decoding = "async";
-            img.onclick = () => openLB(imgData.src);
-
-            div.appendChild(img);
         }
 
         grid.appendChild(div);
@@ -651,7 +600,6 @@ function init() {
     handleRouting();
     window.addEventListener('hashchange', handleRouting);
     
-    // Asynchronous Formspree Submission
     const contactForm = document.getElementById("contactForm");
     if (contactForm) {
         contactForm.addEventListener("submit", handleFormSubmit);
@@ -694,19 +642,9 @@ function shuffleGrid() {
 function showCategory(cat) {
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
-    const grid = document.getElementById("grid");
 
     if (pageWork) pageWork.classList.add("active");
     if (pageAbout) pageAbout.classList.remove("active");
-    
-    // Toggle special BTS Flex grid layout
-    if (grid) {
-        if (cat === 'BTS') {
-            grid.classList.add("bts-view");
-        } else {
-            grid.classList.remove("bts-view");
-        }
-    }
 
     if (cat === 'ALL') {
         shuffleGrid();
@@ -735,7 +673,6 @@ function updateNav(cat) {
         s.classList.toggle("active", s.getAttribute("data-cat") === cat);
     });
 
-    // Dynamic Title Update for SEO
     if (cat === 'ABOUT') {
         document.title = "About | Dombele Studio Photographer London, Bristol & Taunton";
     } else {
@@ -785,7 +722,6 @@ function closeLB() {
     document.body.style.overflow = "auto";
 }
 
-/* MODAL CONTROLS */
 function openModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.add("open");
@@ -798,7 +734,6 @@ function closeModal() {
     document.body.style.overflow = "auto";
 }
 
-/* FORMSPREE ASYNC SUBMISSION */
 async function handleFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
@@ -818,40 +753,31 @@ async function handleFormSubmit(event) {
         });
 
         if (response.ok) {
-            status.style.color = "#111";
-            status.innerText = "THANK YOU. YOUR INQUIRY HAS BEEN RECEIVED.";
+            status.style.color = "#000000";
+            status.innerText = "Thank you! Your inquiry has been sent.";
             form.reset();
-            setTimeout(() => { closeModal(); status.style.display = "none"; btn.innerText = "Send Inquiry"; btn.disabled = false; }, 3000);
+            setTimeout(() => {
+                closeModal();
+                status.style.display = "none";
+                btn.disabled = false;
+                btn.innerText = "Send Inquiry";
+            }, 3000);
         } else {
-            throw new Error("Form submission error");
+            const data = await response.json();
+            status.style.color = "#d9534f";
+            status.innerText = data.errors ? data.errors.map(e => e.message).join(", ") : "Oops! Problem submitting form.";
+            btn.disabled = false;
+            btn.innerText = "Send Inquiry";
         }
     } catch (error) {
         status.style.color = "#d9534f";
-        status.innerText = "SOMETHING WENT WRONG. PLEASE TRY AGAIN OR EMAIL DIRECTLY.";
+        status.innerText = "Network error while sending form.";
         btn.disabled = false;
         btn.innerText = "Send Inquiry";
     }
 }
 
-window.onkeydown = (e) => {
-    const modal = document.getElementById("contactModal");
-    if (modal && modal.classList.contains("open")) {
-        if (e.key === "Escape") closeModal();
-        return;
-    }
-    const lb = document.getElementById("lightbox");
-    if (!lb || !lb.classList.contains("open")) return;
-    if (e.key === "ArrowRight") shiftLB(1);
-    if (e.key === "ArrowLeft") shiftLB(-1);
-    if (e.key === "Escape") closeLB();
-};
-
-// Safe DOM initialization
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+document.addEventListener("DOMContentLoaded", init);
 </script>
 </body>
 </html>
