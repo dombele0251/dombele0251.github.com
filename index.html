@@ -158,33 +158,54 @@
 
         .item:hover img { transform: scale(1.05); }
 
-        /* BTS FEATURED CARD FOR EXPERTISE TEXT */
+        /* BTS FEATURED CARD (SIDE-BY-SIDE) */
         .item.bts-featured {
+            column-span: all;
             background: #fafafa;
             border: 1px solid #eeeeee;
-            padding: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 25px;
+            cursor: default;
+        }
+
+        .bts-featured .bts-img-container {
+            width: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .bts-featured .bts-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .bts-featured .bts-text-container {
+            width: 50%;
+            padding-right: 15px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: center;
         }
 
-        .bts-text-box {
-            padding: 5px 0 10px;
-        }
-
-        .bts-text-box h3 {
+        .bts-text-container h3 {
             font-size: 10px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0.6;
+            margin-bottom: 12px;
+            opacity: 0.5;
+            font-weight: 600;
         }
 
-        .bts-text-box p {
-            font-size: 12px;
-            line-height: 1.7;
+        .bts-text-container p {
+            font-size: 12.5px;
+            line-height: 1.8;
             font-weight: 300;
-            color: #333333;
+            color: #222222;
         }
 
         /* ABOUT SECTION */
@@ -348,7 +369,7 @@
             display: none;
         }
 
-        /* MOBILE FIXES */
+        /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
             footer { 
@@ -364,6 +385,18 @@
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .about-wrap { padding: 40px 20px; }
             .mobile-contact-fab { display: block; }
+
+            /* Stack BTS card vertically on smaller screens */
+            .item.bts-featured {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            .bts-featured .bts-img-container, 
+            .bts-featured .bts-text-container {
+                width: 100%;
+                padding: 0;
+            }
         }
 
         @media (max-width: 380px) {
@@ -527,7 +560,7 @@ const DATA = [
         src:"bts 4.jpg", 
         cat:"BTS", 
         isFeatured: true,
-        captionTitle: "Production & Technical Approach",
+        captionTitle: "Production & Technical Expertise",
         captionText: "My experience both in studio and on location shoots gives me the confidence to rapidly assess the shooting environment, determine what photographic methods will best suit current conditions, and resolve any issues that may arise during a shoot to consistently provide clients with high-quality, uniform results.",
         alt:"Editorial production shoot behind the scenes"
     },
@@ -549,24 +582,38 @@ function init() {
         div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
         div.dataset.src = imgData.src;
 
-        const img = document.createElement("img");
-        img.src = imgData.src;
-        img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
-        img.loading = "lazy";
-        img.decoding = "async";
-        img.onclick = () => openLB(imgData.src);
-
-        div.appendChild(img);
-
-        // Append text block if it's the featured BTS photo
         if (imgData.isFeatured) {
-            const textDiv = document.createElement("div");
-            textDiv.className = "bts-text-box";
-            textDiv.innerHTML = `
+            // Photo on Left
+            const imgContainer = document.createElement("div");
+            imgContainer.className = "bts-img-container";
+            
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onclick = () => openLB(imgData.src);
+            
+            imgContainer.appendChild(img);
+            div.appendChild(imgContainer);
+
+            // Text explicitly on Right
+            const textContainer = document.createElement("div");
+            textContainer.className = "bts-text-container";
+            textContainer.innerHTML = `
                 <h3>${imgData.captionTitle}</h3>
                 <p>${imgData.captionText}</p>
             `;
-            div.appendChild(textDiv);
+            div.appendChild(textContainer);
+        } else {
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onclick = () => openLB(imgData.src);
+
+            div.appendChild(img);
         }
 
         grid.appendChild(div);
