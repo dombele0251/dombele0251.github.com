@@ -158,17 +158,17 @@
 
         .item:hover img { transform: scale(1.05); }
 
-        /* FULL SPAN SIDE-BY-SIDE FEATURED CARD INSIDE MASONRY */
+        /* FULL SPAN FEATURED CARD (IMAGE LEFT, TEXT RIGHT) */
         .item.bts-featured {
             column-span: all;
             width: 100%;
             background: #fafafa;
             border: 1px solid #eeeeee;
             padding: 30px;
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 40px !important;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 40px;
             cursor: default;
             margin-bottom: 25px;
         }
@@ -370,7 +370,7 @@
             display: none;
         }
 
-        /* MOBILE RESPONSIVE FIXES */
+        /* MOBILE FIXES */
         @media (max-width: 850px) {
             header { padding: 25px 20px; flex-direction: column; gap: 20px; }
             footer { 
@@ -387,15 +387,15 @@
             .about-wrap { padding: 40px 20px; }
             .mobile-contact-fab { display: block; }
 
-            /* Mobile Stack Fix */
+            /* Mobile Stack Fix for Featured BTS */
             .item.bts-featured {
-                flex-direction: column !important;
+                flex-direction: column;
                 padding: 15px;
-                gap: 20px !important;
+                gap: 20px;
             }
             .item.bts-featured .bts-img-container, 
             .item.bts-featured .bts-text-container {
-                width: 100% !important;
+                width: 100%;
             }
         }
 
@@ -552,7 +552,7 @@ const DATA = [
     {src:"outdoor-6.jpg", cat:"EDITORIAL", alt:"Creative outdoor fashion portrait shoot"},
     {src:"outdoor-7.jpg", cat:"EDITORIAL", alt:"Editorial portrait photography Taunton"},
 
-    // BTS
+    // BTS (Strictly only visible under BTS filter)
     {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
     {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
     {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
@@ -560,7 +560,7 @@ const DATA = [
         src:"bts 4.jpg", 
         cat:"BTS", 
         isFeatured: true,
-        captionTitle: "Production & Technical Expertise",
+        captionTitle: "Production & Technical Approach",
         captionText: "My experience both in studio and on location shoot gives me enough confidence that when I arrive at a shoot I am able to rapidly assess the shooting environment, determine what photographic methods will best suit the current conditions, and resolve any issues that may arise during the course of the shoot so that I consistently provide clients with high-quality, uniform results.",
         alt:"Editorial production shoot behind the scenes"
     },
@@ -583,7 +583,7 @@ function init() {
         div.dataset.src = imgData.src;
 
         if (imgData.isFeatured) {
-            // Photo Container (Left Side)
+            // Image Left Container
             const imgContainer = document.createElement("div");
             imgContainer.className = "bts-img-container";
             
@@ -597,7 +597,7 @@ function init() {
             imgContainer.appendChild(img);
             div.appendChild(imgContainer);
 
-            // Text Container (Right Side)
+            // Text Right Container
             const textContainer = document.createElement("div");
             textContainer.className = "bts-text-container";
             textContainer.innerHTML = `
@@ -695,9 +695,11 @@ function showCategory(cat) {
 
     document.querySelectorAll(".item").forEach(item => {
         if (cat === 'ALL') {
+            // Strict rule: BTS items remain hidden in ALL
             item.style.display = item.classList.contains('BTS') ? 'none' : 'block';
         } else {
-            item.style.display = item.classList.contains(cat) ? (item.classList.contains('bts-featured') ? 'flex' : 'block') : 'none';
+            // Show BTS items only when explicitly selecting BTS category
+            item.style.display = item.classList.contains(cat) ? 'block' : 'none';
         }
     });
     updateNav(cat);
@@ -799,35 +801,39 @@ async function handleFormSubmit(event) {
         });
 
         if (response.ok) {
-            status.style.color = "#000000";
-            status.innerText = "Thank you! Your inquiry has been sent.";
+            status.style.color = "#111";
+            status.innerText = "THANK YOU. YOUR INQUIRY HAS BEEN RECEIVED.";
             form.reset();
-            setTimeout(() => {
-                closeModal();
-                status.style.display = "none";
-                btn.disabled = false;
-                btn.innerText = "Send Inquiry";
-            }, 3000);
+            setTimeout(() => { closeModal(); status.style.display = "none"; btn.innerText = "Send Inquiry"; btn.disabled = false; }, 3000);
         } else {
-            const data = await response.json();
-            status.style.color = "#d9534f";
-            if (Object.hasOwn(data, 'errors')) {
-                status.innerText = data["errors"].map(error => error["message"]).join(", ");
-            } else {
-                status.innerText = "Oops! There was a problem submitting your form.";
-            }
-            btn.disabled = false;
-            btn.innerText = "Send Inquiry";
+            throw new Error("Form submission error");
         }
     } catch (error) {
         status.style.color = "#d9534f";
-        status.innerText = "Oops! There was a network error sending your form.";
+        status.innerText = "SOMETHING WENT WRONG. PLEASE TRY AGAIN OR EMAIL DIRECTLY.";
         btn.disabled = false;
         btn.innerText = "Send Inquiry";
     }
 }
 
-document.addEventListener("DOMContentLoaded", init);
+window.onkeydown = (e) => {
+    const modal = document.getElementById("contactModal");
+    if (modal && modal.classList.contains("open")) {
+        if (e.key === "Escape") closeModal();
+        return;
+    }
+    const lb = document.getElementById("lightbox");
+    if (!lb || !lb.classList.contains("open")) return;
+    if (e.key === "ArrowRight") shiftLB(1);
+    if (e.key === "ArrowLeft") shiftLB(-1);
+    if (e.key === "Escape") closeLB();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 </script>
 </body>
 </html>
