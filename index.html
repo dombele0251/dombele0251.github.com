@@ -172,7 +172,7 @@
             aspect-ratio: 3 / 4; /* Default standard photographic ratio placeholder */
         }
 
-        /* Shimmer loading effect while image renders */
+        /* Shimmer loading effect while asset renders */
         .item::before {
             content: "";
             position: absolute;
@@ -188,7 +188,7 @@
             100% { background-position: -200% 0; }
         }
 
-        .item img {
+        .item img, .item video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -199,11 +199,11 @@
             transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .item img.loaded {
+        .item img.loaded, .item video.loaded {
             opacity: 1;
         }
 
-        .item:hover img { transform: scale(1.05); }
+        .item:hover img, .item:hover video { transform: scale(1.05); }
 
         /* FULL SPAN FEATURED CARD (IMAGE LEFT, TEXT RIGHT) */
         .item.bts-featured {
@@ -218,7 +218,7 @@
             gap: 40px;
             cursor: default;
             margin-bottom: 25px;
-            aspect-ratio: auto; /* Remove default ratio constraint for feature block */
+            aspect-ratio: auto;
         }
 
         .item.bts-featured::before { display: none; }
@@ -321,7 +321,7 @@
             touch-action: pan-y;
         }
         .lightbox.open { display: flex; }
-        .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+        .lightbox img, .lightbox video { max-width: 90vw; max-height: 85vh; object-fit: contain; }
         .lb-nav { position: absolute; background: none; border: none; font-size: 30px; cursor: pointer; padding: 40px; top: 50%; transform: translateY(-50%); }
         .lb-prev { left: 0; } .lb-next { right: 0; }
         .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; border: none; background: transparent; }
@@ -518,7 +518,7 @@
 <div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
     <button class="lb-close" onclick="closeLB()" aria-label="Close Lightbox">CLOSE</button>
     <button class="lb-nav lb-prev" onclick="shiftLB(-1)" aria-label="Previous Image">‹</button>
-    <img id="lb-img" src="" alt="Dombele Studio Portfolio Preview">
+    <div id="lb-container" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;"></div>
     <button class="lb-nav lb-next" onclick="shiftLB(1)" aria-label="Next Image">›</button>
     <div id="lb-counter" style="position:absolute; bottom:30px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
 </div>
@@ -567,6 +567,7 @@ const DATA = [
     {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
 
     // CONCERT
+    {src:"tommy-richman.mp4", cat:"CONCERT", isVideo:true, alt:"Tommy Richman live video performance clip"},
     {src:"website-136.jpg", cat:"CONCERT", alt:"Live music concert photographer London"},
     {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
     {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
@@ -627,7 +628,7 @@ const DATA = [
     {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
 ];
 
-let visibleImages = [];
+let visibleItems = [];
 let currentIndex = 0;
 let touchStartX = 0;
 let touchEndX = 0;
@@ -636,22 +637,37 @@ function init() {
     const grid = document.getElementById("grid");
     if (!grid) return;
 
-    DATA.forEach(imgData => {
+    DATA.forEach(itemData => {
         const div = document.createElement("div");
-        div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
-        div.dataset.src = imgData.src;
+        div.className = `item ${itemData.cat}${itemData.isFeatured ? ' bts-featured' : ''}`;
+        div.dataset.src = itemData.src;
+        div.dataset.isVideo = itemData.isVideo ? "true" : "false";
 
-        if (imgData.isFeatured) {
+        if (itemData.isVideo) {
+            const video = document.createElement("video");
+            video.src = itemData.src;
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            video.playsInline = true;
+            video.onload = () => video.classList.add('loaded');
+            // Force class addition incase onload triggers before element insertion
+            setTimeout(() => video.classList.add('loaded'), 200);
+            
+            video.onclick = () => openLB(itemData.src, true);
+            div.appendChild(video);
+
+        } else if (itemData.isFeatured) {
             const imgContainer = document.createElement("div");
             imgContainer.className = "bts-img-container";
             
             const img = document.createElement("img");
-            img.src = imgData.src;
-            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.src = itemData.src;
+            img.alt = itemData.alt || `${itemData.cat} photography by Dombele Studio`;
             img.loading = "lazy";
             img.decoding = "async";
             img.onload = () => img.classList.add('loaded');
-            img.onclick = () => openLB(imgData.src);
+            img.onclick = () => openLB(itemData.src, false);
             
             imgContainer.appendChild(img);
             div.appendChild(imgContainer);
@@ -659,18 +675,18 @@ function init() {
             const textContainer = document.createElement("div");
             textContainer.className = "bts-text-container";
             textContainer.innerHTML = `
-                <h3>${imgData.captionTitle}</h3>
-                <p>${imgData.captionText}</p>
+                <h3>${itemData.captionTitle}</h3>
+                <p>${itemData.captionText}</p>
             `;
             div.appendChild(textContainer);
         } else {
             const img = document.createElement("img");
-            img.src = imgData.src;
-            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.src = itemData.src;
+            img.alt = itemData.alt || `${itemData.cat} photography by Dombele Studio`;
             img.loading = "lazy";
             img.decoding = "async";
             img.onload = () => img.classList.add('loaded');
-            img.onclick = () => openLB(imgData.src);
+            img.onclick = () => openLB(itemData.src, false);
 
             div.appendChild(img);
         }
@@ -678,7 +694,6 @@ function init() {
         grid.appendChild(div);
     });
 
-    // Keyboard navigation for focus elements
     document.querySelectorAll('.nav span').forEach(el => {
         el.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -688,7 +703,6 @@ function init() {
         });
     });
 
-    // Mobile swipe for Lightbox
     const lb = document.getElementById("lightbox");
     if (lb) {
         lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
@@ -701,7 +715,6 @@ function init() {
     handleRouting();
     window.addEventListener('hashchange', handleRouting);
     
-    // Asynchronous Formspree Submission with dynamic client-side validation
     const contactForm = document.getElementById("contactForm");
     if (contactForm) {
         contactForm.addEventListener("submit", handleFormSubmit);
@@ -793,70 +806,78 @@ function updateNav(cat) {
     window.scrollTo(0,0);
 }
 
-function openLB(src) {
-    const activeItems = Array.from(document.querySelectorAll('.item')).filter(item => {
-        return item.style.display !== 'none';
-    });
-    
-    visibleImages = activeItems.map(item => item.dataset.src);
-    currentIndex = visibleImages.indexOf(src);
+function openLB(src, isVideo) {
+    const lb = document.getElementById("lightbox");
+    const lbContainer = document.getElementById("lb-container");
+    const lbCounter = document.getElementById("lb-counter");
+    if (!lb || !lbContainer) return;
+
+    visibleItems = Array.from(document.querySelectorAll('.item')).filter(item => {
+        return item.style.display !== 'none' && !item.classList.contains('bts-featured');
+    }).map(item => ({ src: item.dataset.src, isVideo: item.dataset.isVideo === "true" }));
+
+    currentIndex = visibleItems.findIndex(item => item.src === src);
     if (currentIndex === -1) currentIndex = 0;
 
-    updateLB();
-    document.getElementById("lightbox").classList.add("open");
-    document.body.style.overflow = "hidden";
+    renderLbContent(visibleItems[currentIndex]);
+    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleItems.length}`;
+    lb.classList.add("open");
+    document.body.style.overflow = 'hidden';
 }
 
-function updateLB() {
-    const currentSrc = visibleImages[currentIndex];
-    const imgObj = DATA.find(d => d.src === currentSrc);
-    
-    const lbImg = document.getElementById("lb-img");
-    if (lbImg) {
-        lbImg.src = currentSrc;
-        lbImg.alt = imgObj ? imgObj.alt : "Dombele Studio Portfolio Photo";
+function renderLbContent(item) {
+    const lbContainer = document.getElementById("lb-container");
+    lbContainer.innerHTML = "";
+    if (item.isVideo) {
+        const video = document.createElement("video");
+        video.src = item.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        lbContainer.appendChild(video);
+    } else {
+        const img = document.createElement("img");
+        img.src = item.src;
+        img.alt = "Dombele Studio Portfolio Preview";
+        lbContainer.appendChild(img);
     }
-    
-    const counter = document.getElementById("lb-counter");
-    if (counter) counter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
-}
-
-function shiftLB(n) {
-    if (!visibleImages.length) return;
-    currentIndex = (currentIndex + n + visibleImages.length) % visibleImages.length;
-    updateLB();
 }
 
 function closeLB() {
     const lb = document.getElementById("lightbox");
     if (lb) lb.classList.remove("open");
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = '';
 }
 
-/* MODAL CONTROLS */
+function shiftLB(dir) {
+    if (visibleItems.length === 0) return;
+    currentIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+    const lbCounter = document.getElementById("lb-counter");
+    renderLbContent(visibleItems[currentIndex]);
+    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleItems.length}`;
+}
+
 function openModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.add("open");
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.remove("open");
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = '';
 }
 
-/* FORMSPREE ASYNC SUBMISSION WITH VALIDATION */
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const status = document.getElementById("formStatus");
-    const btn = document.getElementById("formSubmitBtn");
+function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = document.getElementById("formSubmitBtn");
+    const statusDiv = document.getElementById("formStatus");
     
-    // Client-side required fields check
     let isValid = true;
     form.querySelectorAll("[required]").forEach(field => {
-        if (!field.value.trim()) {
+        if (!field.value.trim() || (field.tagName === 'SELECT' && field.value === "")) {
             field.classList.add("invalid");
             isValid = false;
         } else {
@@ -864,60 +885,77 @@ async function handleFormSubmit(event) {
         }
     });
 
+    const emailField = form.querySelector("input[name='email']");
+    if (emailField && emailField.value.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailField.value.trim())) {
+            emailField.classList.add("invalid");
+            isValid = false;
+        }
+    }
+
     if (!isValid) {
-        status.style.display = "block";
-        status.style.color = "var(--error)";
-        status.innerText = "PLEASE FILL IN ALL REQUIRED FIELDS (*)";
+        statusDiv.style.display = "block";
+        statusDiv.style.color = "var(--error)";
+        statusDiv.textContent = "Please complete all required fields correctly.";
         return;
     }
 
-    btn.disabled = true;
-    btn.innerText = "Sending...";
-    status.style.display = "block";
-    status.innerText = "";
+    statusDiv.style.display = "block";
+    statusDiv.style.color = "var(--text)";
+    statusDiv.textContent = "SENDING INQUIRY...";
+    if (submitBtn) submitBtn.disabled = true;
 
-    try {
-        const response = await fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-        });
-
+    const formData = new FormData(form);
+    fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    }).then(response => {
         if (response.ok) {
-            status.style.color = "#111";
-            status.innerText = "THANK YOU. YOUR INQUIRY HAS BEEN RECEIVED.";
+            statusDiv.style.color = "var(--text)";
+            statusDiv.textContent = "INQUIRY SENT SUCCESSFULLY. THANK YOU.";
             form.reset();
-            setTimeout(() => { closeModal(); status.style.display = "none"; btn.innerText = "Send Inquiry"; btn.disabled = false; }, 3000);
+            setTimeout(() => {
+                closeModal();
+                statusDiv.style.display = "none";
+                if (submitBtn) submitBtn.disabled = false;
+            }, 2500);
         } else {
-            throw new Error("Form submission error");
+            response.json().then(data => {
+                statusDiv.style.color = "var(--error)";
+                if (Object.hasOwn(data, 'errors')) {
+                    statusDiv.textContent = data.errors.map(error => error.message).join(", ");
+                } else {
+                    statusDiv.textContent = "OOPS! THERE WAS A PROBLEM. PLEASE EMAIL US DIRECTLY.";
+                }
+                if (submitBtn) submitBtn.disabled = false;
+            });
         }
-    } catch (error) {
-        status.style.color = "var(--error)";
-        status.innerText = "SOMETHING WENT WRONG. PLEASE TRY AGAIN OR EMAIL DIRECTLY.";
-        btn.disabled = false;
-        btn.innerText = "Send Inquiry";
-    }
+    }).catch(() => {
+        statusDiv.style.color = "var(--error)";
+        statusDiv.textContent = "NETWORK ERROR. PLEASE EMAIL US DIRECTLY AT STUDIO@DOMBELE.COM";
+        if (submitBtn) submitBtn.disabled = false;
+    });
 }
 
-/* GLOBAL KEYBOARD CONTROLS FOR LIGHTBOX AND MODAL */
-window.onkeydown = (e) => {
+document.addEventListener("DOMContentLoaded", init);
+
+document.addEventListener("keydown", (e) => {
+    const lightbox = document.getElementById("lightbox");
     const modal = document.getElementById("contactModal");
+    
+    if (lightbox && lightbox.classList.contains("open")) {
+        if (e.key === "Escape") closeLB();
+        if (e.key === "ArrowLeft") shiftLB(-1);
+        if (e.key === "ArrowRight") shiftLB(1);
+    }
+    
     if (modal && modal.classList.contains("open")) {
         if (e.key === "Escape") closeModal();
-        return;
     }
-    const lb = document.getElementById("lightbox");
-    if (!lb || !lb.classList.contains("open")) return;
-    if (e.key === "ArrowRight") shiftLB(1);
-    if (e.key === "ArrowLeft") shiftLB(-1);
-    if (e.key === "Escape") closeLB();
-};
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+});
 </script>
+
 </body>
 </html>
