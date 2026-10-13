@@ -169,10 +169,10 @@
             background: var(--accent);
             cursor: pointer;
             position: relative;
-            aspect-ratio: 3 / 4; /* Default standard photographic ratio placeholder */
+            aspect-ratio: 3 / 4;
         }
 
-        /* Shimmer loading effect while asset renders */
+        /* Shimmer loading effect */
         .item::before {
             content: "";
             position: absolute;
@@ -188,7 +188,7 @@
             100% { background-position: -200% 0; }
         }
 
-        .item img, .item video {
+        .item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -199,11 +199,11 @@
             transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .item img.loaded, .item video.loaded {
+        .item img.loaded {
             opacity: 1;
         }
 
-        .item:hover img, .item:hover video { transform: scale(1.05); }
+        .item:hover img { transform: scale(1.05); }
 
         /* FULL SPAN FEATURED CARD (IMAGE LEFT, TEXT RIGHT) */
         .item.bts-featured {
@@ -321,7 +321,7 @@
             touch-action: pan-y;
         }
         .lightbox.open { display: flex; }
-        .lightbox img, .lightbox video { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+        .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
         .lb-nav { position: absolute; background: none; border: none; font-size: 30px; cursor: pointer; padding: 40px; top: 50%; transform: translateY(-50%); }
         .lb-prev { left: 0; } .lb-next { right: 0; }
         .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; border: none; background: transparent; }
@@ -518,7 +518,7 @@
 <div class="lightbox" id="lightbox" onclick="if(event.target===this) closeLB()">
     <button class="lb-close" onclick="closeLB()" aria-label="Close Lightbox">CLOSE</button>
     <button class="lb-nav lb-prev" onclick="shiftLB(-1)" aria-label="Previous Image">‹</button>
-    <div id="lb-container" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;"></div>
+    <img id="lb-img" src="" alt="Dombele Studio Portfolio Preview">
     <button class="lb-nav lb-next" onclick="shiftLB(1)" aria-label="Next Image">›</button>
     <div id="lb-counter" style="position:absolute; bottom:30px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
 </div>
@@ -567,12 +567,16 @@ const DATA = [
     {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
 
     // CONCERT
-    {src:"tommy-richman.mp4", cat:"CONCERT", isVideo:true, alt:"Tommy Richman live video performance clip"},
+    {
+        src: "website-96.jpg", 
+        cat: "CONCERT", 
+        link: "https://uk.pinterest.com/pin/930908185610382433/", 
+        alt: "Tommy Richman Live Performance Video"
+    },
     {src:"website-136.jpg", cat:"CONCERT", alt:"Live music concert photographer London"},
     {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
     {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
     {src:"website-131.jpg", cat:"CONCERT", alt:"Stage music performance photography UK"},
-    {src:"website-96.jpg", cat:"CONCERT", alt:"Band concert photography venue shot"},
     {src:"website-120.jpg", cat:"CONCERT", alt:"Live concert artist lighting photo"},
     {src:"website-125.jpg", cat:"CONCERT", alt:"Music festival event photography UK"},
 
@@ -628,7 +632,7 @@ const DATA = [
     {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
 ];
 
-let visibleItems = [];
+let visibleImages = [];
 let currentIndex = 0;
 let touchStartX = 0;
 let touchEndX = 0;
@@ -637,37 +641,22 @@ function init() {
     const grid = document.getElementById("grid");
     if (!grid) return;
 
-    DATA.forEach(itemData => {
+    DATA.forEach(imgData => {
         const div = document.createElement("div");
-        div.className = `item ${itemData.cat}${itemData.isFeatured ? ' bts-featured' : ''}`;
-        div.dataset.src = itemData.src;
-        div.dataset.isVideo = itemData.isVideo ? "true" : "false";
+        div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
+        div.dataset.src = imgData.src;
 
-        if (itemData.isVideo) {
-            const video = document.createElement("video");
-            video.src = itemData.src;
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.playsInline = true;
-            video.onload = () => video.classList.add('loaded');
-            // Force class addition incase onload triggers before element insertion
-            setTimeout(() => video.classList.add('loaded'), 200);
-            
-            video.onclick = () => openLB(itemData.src, true);
-            div.appendChild(video);
-
-        } else if (itemData.isFeatured) {
+        if (imgData.isFeatured) {
             const imgContainer = document.createElement("div");
             imgContainer.className = "bts-img-container";
             
             const img = document.createElement("img");
-            img.src = itemData.src;
-            img.alt = itemData.alt || `${itemData.cat} photography by Dombele Studio`;
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
             img.loading = "lazy";
             img.decoding = "async";
             img.onload = () => img.classList.add('loaded');
-            img.onclick = () => openLB(itemData.src, false);
+            img.onclick = () => openLB(imgData.src);
             
             imgContainer.appendChild(img);
             div.appendChild(imgContainer);
@@ -675,18 +664,23 @@ function init() {
             const textContainer = document.createElement("div");
             textContainer.className = "bts-text-container";
             textContainer.innerHTML = `
-                <h3>${itemData.captionTitle}</h3>
-                <p>${itemData.captionText}</p>
+                <h3>${imgData.captionTitle}</h3>
+                <p>${imgData.captionText}</p>
             `;
             div.appendChild(textContainer);
         } else {
             const img = document.createElement("img");
-            img.src = itemData.src;
-            img.alt = itemData.alt || `${itemData.cat} photography by Dombele Studio`;
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
             img.loading = "lazy";
             img.decoding = "async";
             img.onload = () => img.classList.add('loaded');
-            img.onclick = () => openLB(itemData.src, false);
+            
+            if (imgData.link) {
+                img.onclick = () => window.open(imgData.link, '_blank');
+            } else {
+                img.onclick = () => openLB(imgData.src);
+            }
 
             div.appendChild(img);
         }
@@ -806,41 +800,23 @@ function updateNav(cat) {
     window.scrollTo(0,0);
 }
 
-function openLB(src, isVideo) {
+function openLB(src) {
     const lb = document.getElementById("lightbox");
-    const lbContainer = document.getElementById("lb-container");
+    const lbImg = document.getElementById("lb-img");
     const lbCounter = document.getElementById("lb-counter");
-    if (!lb || !lbContainer) return;
+    if (!lb || !lbImg) return;
 
-    visibleItems = Array.from(document.querySelectorAll('.item')).filter(item => {
+    visibleImages = Array.from(document.querySelectorAll('.item')).filter(item => {
         return item.style.display !== 'none' && !item.classList.contains('bts-featured');
-    }).map(item => ({ src: item.dataset.src, isVideo: item.dataset.isVideo === "true" }));
+    }).map(item => item.dataset.src);
 
-    currentIndex = visibleItems.findIndex(item => item.src === src);
+    currentIndex = visibleImages.indexOf(src);
     if (currentIndex === -1) currentIndex = 0;
 
-    renderLbContent(visibleItems[currentIndex]);
-    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleItems.length}`;
+    lbImg.src = src;
+    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
     lb.classList.add("open");
     document.body.style.overflow = 'hidden';
-}
-
-function renderLbContent(item) {
-    const lbContainer = document.getElementById("lb-container");
-    lbContainer.innerHTML = "";
-    if (item.isVideo) {
-        const video = document.createElement("video");
-        video.src = item.src;
-        video.controls = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        lbContainer.appendChild(video);
-    } else {
-        const img = document.createElement("img");
-        img.src = item.src;
-        img.alt = "Dombele Studio Portfolio Preview";
-        lbContainer.appendChild(img);
-    }
 }
 
 function closeLB() {
@@ -850,11 +826,12 @@ function closeLB() {
 }
 
 function shiftLB(dir) {
-    if (visibleItems.length === 0) return;
-    currentIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+    if (visibleImages.length === 0) return;
+    currentIndex = (currentIndex + dir + visibleImages.length) % visibleImages.length;
+    const lbImg = document.getElementById("lb-img");
     const lbCounter = document.getElementById("lb-counter");
-    renderLbContent(visibleItems[currentIndex]);
-    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleItems.length}`;
+    if (lbImg) lbImg.src = visibleImages[currentIndex];
+    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
 }
 
 function openModal() {
