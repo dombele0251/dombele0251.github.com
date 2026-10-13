@@ -26,7 +26,7 @@
     <meta name="twitter:description" content="Editorial, Fashion, and Music Photographer working in London, Bristol, and Taunton.">
     <meta name="twitter:image" content="https://dombele.com/A67D.jpg">
 
-    <!-- Structured Data (JSON-LD for Local SEO & Image Gallery) -->
+    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -76,6 +76,14 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html { scroll-behavior: smooth; }
+
+        /* Custom Sleek Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #e0e0e0; }
+        ::-webkit-scrollbar-thumb:hover { background: #111; }
+
         body {
             background: var(--bg);
             font-family: "Inter", -apple-system, Helvetica, Arial, sans-serif;
@@ -124,7 +132,6 @@
         .nav span.active, .nav span:hover { opacity: 1; }
         .nav span.active { border-bottom: 1px solid var(--text); }
 
-        /* Desktop Inquire Button */
         .nav-book {
             font-size: 10px;
             letter-spacing: 0.15em;
@@ -141,10 +148,7 @@
         .nav-book:hover { background: #444; color: #fff; }
 
         /* MAIN CONTENT AREA */
-        main.content-area {
-            flex: 1;
-        }
-
+        main.content-area { flex: 1; }
         .page { display: none; }
         .page.active { display: block; }
 
@@ -157,11 +161,8 @@
             transition: opacity 0.3s ease;
         }
 
-        .masonry.fading {
-            opacity: 0;
-        }
+        .masonry.fading { opacity: 0; }
 
-        /* ASPECT RATIO & SKELETON PLACEHOLDERS TO PREVENT CLS */
         .item {
             break-inside: avoid;
             margin-bottom: 15px;
@@ -172,7 +173,24 @@
             aspect-ratio: 3 / 4;
         }
 
-        /* Shimmer loading effect */
+        /* Video Play Overlay Indicator */
+        .item.video-item::after {
+            content: "▶ PLAY VIDEO";
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            padding: 5px 10px;
+            z-index: 3;
+            pointer-events: none;
+            transition: background 0.3s;
+        }
+        .item.video-item:hover::after { background: rgba(0,0,0,0.9); }
+
+        /* Shimmer Loading */
         .item::before {
             content: "";
             position: absolute;
@@ -199,13 +217,10 @@
             transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        .item img.loaded {
-            opacity: 1;
-        }
-
+        .item img.loaded { opacity: 1; }
         .item:hover img { transform: scale(1.05); }
 
-        /* FULL SPAN FEATURED CARD (IMAGE LEFT, TEXT RIGHT) */
+        /* FEATURED / LINK CARD FORMAT */
         .item.bts-featured {
             column-span: all;
             width: 100%;
@@ -251,15 +266,8 @@
             letter-spacing: 0.25em;
             text-transform: uppercase;
             margin-bottom: 15px;
-            opacity: 0.5;
+            opacity: 0.6;
             font-weight: 600;
-        }
-
-        .bts-text-container p {
-            font-size: 13.5px;
-            line-height: 1.8;
-            font-weight: 300;
-            color: #222222;
         }
 
         /* ABOUT SECTION */
@@ -270,8 +278,8 @@
         
         .about-cta {
             display: inline-block;
-            margin-top: 20px;
-            padding: 15px 30px;
+            margin-top: 10px;
+            padding: 12px 24px;
             background: var(--text);
             color: var(--bg);
             text-decoration: none;
@@ -346,7 +354,7 @@
             cursor: pointer;
         }
 
-        /* INQUIRY CONTACT MODAL & FORM VALIDATION */
+        /* INQUIRY CONTACT MODAL */
         .contact-modal {
             position: fixed;
             inset: 0;
@@ -531,7 +539,7 @@
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/xpqyddel" method="POST" novalidate>
             <input type="text" name="name" placeholder="YOUR NAME *" required>
             <input type="email" name="email" placeholder="YOUR EMAIL *" required>
-            <select name="type" required>
+            <select name="type" id="projectTypeSelect" required>
                 <option value="" disabled selected>PROJECT TYPE *</option>
                 <option value="Editorial">Editorial / Fashion</option>
                 <option value="Studio">Studio Portraiture</option>
@@ -577,6 +585,7 @@ const DATA = [
     {
         src: "website-96.jpg", 
         cat: "CONCERT", 
+        captionTitle: "Tommy Richman — Crowd Surfing",
         link: "https://uk.pinterest.com/pin/930908185610382433/", 
         alt: "Tommy Richman Crowd Surfing Video"
     },
@@ -617,7 +626,7 @@ const DATA = [
     {src:"outdoor-6.jpg", cat:"EDITORIAL", alt:"Creative outdoor fashion portrait shoot"},
     {src:"outdoor-7.jpg", cat:"EDITORIAL", alt:"Editorial portrait photography Taunton"},
 
-    // BTS (Strictly only visible under BTS filter)
+    // BTS
     {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
     {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
     {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
@@ -644,10 +653,34 @@ function init() {
 
     DATA.forEach(imgData => {
         const div = document.createElement("div");
-        div.className = `item ${imgData.cat}${imgData.isFeatured ? ' bts-featured' : ''}`;
+        div.className = `item ${imgData.cat}${imgData.isFeatured || imgData.captionTitle ? ' bts-featured' : ''}${imgData.link ? ' video-item' : ''}`;
         div.dataset.src = imgData.src;
 
-        if (imgData.isFeatured) {
+        if (imgData.link) {
+            const imgContainer = document.createElement("div");
+            imgContainer.className = "bts-img-container";
+            
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onload = () => img.classList.add('loaded');
+            img.onclick = () => window.open(imgData.link, '_blank');
+            
+            imgContainer.appendChild(img);
+            div.appendChild(imgContainer);
+
+            const textContainer = document.createElement("div");
+            textContainer.className = "bts-text-container";
+            textContainer.innerHTML = `
+                <h3>${imgData.captionTitle}</h3>
+                <a href="${imgData.link}" target="_blank" rel="noopener" class="about-cta" style="display:inline-block; margin-top:0;">
+                    Watch Video →
+                </a>
+            `;
+            div.appendChild(textContainer);
+        } else if (imgData.isFeatured) {
             const imgContainer = document.createElement("div");
             imgContainer.className = "bts-img-container";
             
@@ -676,12 +709,7 @@ function init() {
             img.loading = "lazy";
             img.decoding = "async";
             img.onload = () => img.classList.add('loaded');
-            
-            if (imgData.link) {
-                img.onclick = () => window.open(imgData.link, '_blank');
-            } else {
-                img.onclick = () => openLB(imgData.src);
-            }
+            img.onclick = () => openLB(imgData.src);
 
             div.appendChild(img);
         }
@@ -838,6 +866,18 @@ function shiftLB(dir) {
 function openModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.add("open");
+    
+    // Auto-select dropdown option matching active category
+    const activeNav = document.querySelector('.nav span.active');
+    const select = document.getElementById('projectTypeSelect');
+    if (activeNav && select) {
+        const cat = activeNav.getAttribute('data-cat');
+        if (cat === 'EDITORIAL') select.value = 'Editorial';
+        else if (cat === 'STUDIO') select.value = 'Studio';
+        else if (cat === 'CONCERT') select.value = 'Concert';
+        else if (cat === 'GYM' || cat === 'PRODUCT') select.value = 'Commercial';
+    }
+
     document.body.style.overflow = 'hidden';
 }
 
