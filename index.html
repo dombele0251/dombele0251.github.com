@@ -565,3 +565,392 @@
 </div>
 
 <script>
+const DATA = [
+    // STUDIO
+    {src:"website-179.jpg", cat:"STUDIO", alt:"Studio portrait photography in London"},
+    {src:"website-197.jpg", cat:"STUDIO", alt:"Studio portrait photo session Bristol"},
+    {src:"website-227.jpg", cat:"STUDIO", alt:"High-key creative studio portrait shoot"},
+    {src:"website-236.jpg", cat:"STUDIO", alt:"High-end editorial studio lighting portrait"},
+    {src:"website-239.jpg", cat:"STUDIO", alt:"Fashion studio portrait photograph"},
+    {src:"website-240.jpg", cat:"STUDIO", alt:"Studio retouched fashion photography"},
+    {src:"website-173.jpg", cat:"STUDIO", alt:"Studio photography Taunton model portrait"},
+    {src:"website-162.jpg", cat:"STUDIO", alt:"Minimalist studio portrait shoot UK"},
+    {src:"website-153.jpg", cat:"STUDIO", alt:"Creative directional lighting studio portrait"},
+    {src:"website-148.jpg", cat:"STUDIO", alt:"Professional model studio portfolio photo"},
+    {src:"outdoor-8.jpg", cat:"STUDIO", alt:"Location studio lighting editorial photo"},
+    {src:"outdoor-9.jpg", cat:"STUDIO", alt:"Outdoor studio lighting portrait Bristol"},
+
+    // PRODUCT
+    {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
+
+    // CONCERT
+    { 
+        src: "website-136.jpg", 
+        cat: "CONCERT", 
+        captionTitle: "Tommy Richman — Crowd Surfing",
+        link: "https://uk.pinterest.com/pin/930908185610382433/", 
+        alt: "Tommy Richman Crowd Surfing Video"
+    },
+    {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
+    {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
+    {src:"website-131.jpg", cat:"CONCERT", alt:"Stage music performance photography UK"},
+    {src:"website-96.jpg", cat:"CONCERT", alt:"Band concert photography venue shot"},
+    {src:"website-120.jpg", cat:"CONCERT", alt:"Live concert artist lighting photo"},
+    {src:"website-125.jpg", cat:"CONCERT", alt:"Music festival event photography UK"},
+
+    // GYM
+    {src:"DSC00913.jpg", cat:"GYM", alt:"Fitness and gym editorial photography"},
+    {src:"DSC01057.jpg", cat:"GYM", alt:"Athletic sports portrait shoot Bristol"},
+    {src:"DSC01516-Recovered.jpg", cat:"GYM", alt:"Gym fitness athlete editorial portrait"},
+    {src:"DSC01562.jpg", cat:"GYM", alt:"Commercial fitness photography London"},
+    {src:"website-138.jpg", cat:"GYM", alt:"Athletic model fitness portrait photo"},
+    {src:"website-142.jpg", cat:"GYM", alt:"Gym photoshoot lighting photography"},
+    {src:"website-234.jpg", cat:"GYM", alt:"High-contrast athletic movement photo"},
+    {src:"1website-19.jpg", cat:"GYM", alt:"Fitness activewear commercial shoot"},
+
+    // EDITORIAL
+    {src:"website-9.jpg", cat:"EDITORIAL", alt:"Editorial fashion photography shoot London"},
+    {src:"website-12.jpg", cat:"EDITORIAL", alt:"Fashion editorial retouched portrait Bristol"},
+    {src:"website-31.jpg", cat:"EDITORIAL", alt:"High fashion editorial narrative photography"},
+    {src:"website-40.jpg", cat:"EDITORIAL", alt:"Creative fashion shoot location UK"},
+    {src:"website-41.jpg", cat:"EDITORIAL", alt:"Fashion magazine editorial style portrait"},
+    {src:"website-43.jpg", cat:"EDITORIAL", alt:"Location fashion photography UK"},
+    {src:"website-53.jpg", cat:"EDITORIAL", alt:"High-contrast editorial portrait photograph"},
+    {src:"website-55.jpg", cat:"EDITORIAL", alt:"Contemporary fashion model photography"},
+    {src:"website-62.jpg", cat:"EDITORIAL", alt:"Creative portrait editorial photography Taunton"},
+    {src:"website-68.jpg", cat:"EDITORIAL", alt:"High-end photo retouched editorial portrait"},
+    {src:"website-71.jpg", cat:"EDITORIAL", alt:"Fashion editorial model photography Bristol"},
+    {src:"website-72.jpg", cat:"EDITORIAL", alt:"London editorial fashion photoshoot"},
+    {src:"website-158.jpg", cat:"EDITORIAL", alt:"Editorial story fashion photography"},
+    {src:"website-174.jpg", cat:"EDITORIAL", alt:"Location editorial portrait fashion shot"},
+    {src:"website-11.jpg", cat:"EDITORIAL", alt:"High-fashion model editorial shoot"},
+    {src:"website-45.jpg", cat:"EDITORIAL", alt:"Fashion photography retouched style"},
+    {src:"website-60.jpg", cat:"EDITORIAL", alt:"Commercial fashion editorial photography"},
+    {src:"outdoor-1.jpg", cat:"EDITORIAL", alt:"Natural light outdoor editorial photoshoot"},
+    {src:"outdoor-2.jpg", cat:"EDITORIAL", alt:"Outdoor fashion portrait shoot Bristol"},
+    {src:"outdoor-3.jpg", cat:"EDITORIAL", alt:"Location editorial photography London"},
+    {src:"outdoor-4.jpg", cat:"EDITORIAL", alt:"Outdoor model portrait photography"},
+    {src:"outdoor-5.jpg", cat:"EDITORIAL", alt:"Natural backdrop fashion editorial photo"},
+    {src:"outdoor-6.jpg", cat:"EDITORIAL", alt:"Creative outdoor fashion portrait shoot"},
+    {src:"outdoor-7.jpg", cat:"EDITORIAL", alt:"Editorial portrait photography Taunton"},
+
+    // BTS
+    {src:"bts 1.JPG", cat:"BTS", alt:"Behind the scenes photography shoot setup"},
+    {src:"bts 2.JPG", cat:"BTS", alt:"Behind the scenes studio lighting workflow"},
+    {src:"bts 3.JPG", cat:"BTS", alt:"Photographer working behind the scenes"},
+    {
+        src:"bts 4.jpg", 
+        cat:"BTS", 
+        isFeatured: true,
+        captionTitle: "Production & Technical Approach",
+        captionText: "My experience both in studio and on location shoot gives me enough confidence that when I arrive at a shoot I am able to rapidly assess the shooting environment, determine what photographic methods will best suit the current conditions, and resolve any issues that may arise during the course of the shoot so that I consistently provide clients with high-quality, uniform results.",
+        alt:"Editorial production shoot behind the scenes"
+    },
+    {src:"bts 5.JPG", cat:"BTS", alt:"Behind the scenes photo retouching process"},
+    {src:"bts 6.JPG", cat:"BTS", alt:"Studio set setup behind the scenes"}
+];
+
+let visibleImages = [];
+let currentIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function init() {
+    const grid = document.getElementById("grid");
+    if (!grid) return;
+
+    DATA.forEach(imgData => {
+        const div = document.createElement("div");
+        div.className = `item ${imgData.cat}${imgData.isFeatured || imgData.captionTitle ? ' bts-featured' : ''}${imgData.link ? ' video-item' : ''}`;
+        div.dataset.src = imgData.src;
+
+        if (imgData.link) {
+            const imgContainer = document.createElement("div");
+            imgContainer.className = "bts-img-container";
+            
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onload = () => img.classList.add('loaded');
+            img.onclick = () => window.open(imgData.link, '_blank');
+            
+            imgContainer.appendChild(img);
+            div.appendChild(imgContainer);
+
+            const textContainer = document.createElement("div");
+            textContainer.className = "bts-text-container";
+            textContainer.innerHTML = `
+                <h3>${imgData.captionTitle}</h3>
+                <a href="${imgData.link}" target="_blank" rel="noopener" class="about-cta" style="display:inline-block; margin-top:0;">
+                    Watch Video →
+                </a>
+            `;
+            div.appendChild(textContainer);
+        } else if (imgData.isFeatured) {
+            const imgContainer = document.createElement("div");
+            imgContainer.className = "bts-img-container";
+            
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onload = () => img.classList.add('loaded');
+            img.onclick = () => openLB(imgData.src);
+            
+            imgContainer.appendChild(img);
+            div.appendChild(imgContainer);
+
+            const textContainer = document.createElement("div");
+            textContainer.className = "bts-text-container";
+            textContainer.innerHTML = `
+                <h3>${imgData.captionTitle}</h3>
+                <p>${imgData.captionText}</p>
+            `;
+            div.appendChild(textContainer);
+        } else {
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.alt = imgData.alt || `${imgData.cat} photography by Dombele Studio`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.onload = () => img.classList.add('loaded');
+            img.onclick = () => openLB(imgData.src);
+
+            div.appendChild(img);
+        }
+
+        grid.appendChild(div);
+    });
+
+    document.querySelectorAll('.nav span').forEach(el => {
+        el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
+    });
+
+    // Lightbox Touch & Keyboard Controls
+    const lb = document.getElementById("lightbox");
+    if (lb) {
+        lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        lb.addEventListener('touchend', e => { 
+            touchEndX = e.changedTouches[0].screenX; 
+            handleSwipe(); 
+        }, {passive: true});
+    }
+
+    window.addEventListener('keydown', (e) => {
+        const lbOpen = lb && lb.classList.contains('open');
+        if (!lbOpen) return;
+
+        if (e.key === 'ArrowRight') {
+            shiftLB(1);
+        } else if (e.key === 'ArrowLeft') {
+            shiftLB(-1);
+        } else if (e.key === 'Escape') {
+            closeLB();
+        }
+    });
+
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+    
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm) {
+        contactForm.addEventListener("submit", handleFormSubmit);
+        contactForm.querySelectorAll("input, select, textarea").forEach(field => {
+            field.addEventListener("input", () => field.classList.remove("invalid"));
+        });
+    }
+}
+
+function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+        if (diff > 0) shiftLB(1);
+        else shiftLB(-1);
+    }
+}
+
+function navigateTo(route) {
+    window.location.hash = route;
+}
+
+function handleRouting() {
+    const route = window.location.hash.replace('#', '').toLowerCase();
+    if (route === 'about') {
+        showAbout();
+    } else if (['editorial', 'studio', 'concert', 'gym', 'product', 'bts'].includes(route)) {
+        showCategory(route.toUpperCase());
+    } else {
+        showCategory('ALL');
+    }
+}
+
+function shuffleGrid() {
+    const grid = document.getElementById("grid");
+    if (!grid) return;
+    const items = Array.from(grid.children);
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        grid.appendChild(items[j]);
+    }
+}
+
+function showCategory(cat) {
+    const pageWork = document.getElementById("page-work");
+    const pageAbout = document.getElementById("page-about");
+    const grid = document.getElementById("grid");
+
+    if (!pageWork || !pageAbout || !grid) return;
+
+    pageWork.classList.add("active");
+    pageAbout.classList.remove("active");
+
+    grid.classList.add("fading");
+
+    setTimeout(() => {
+        const items = grid.children;
+        visibleImages = [];
+
+        for (let item of items) {
+            const isMatch = (cat === 'ALL' || item.classList.contains(cat));
+            item.style.display = isMatch ? "" : "none";
+            
+            if (isMatch) {
+                const img = item.querySelector("img");
+                if (img && !item.classList.contains('bts-featured')) {
+                    visibleImages.push(img.src);
+                }
+            }
+        }
+
+        if (cat === 'ALL') {
+            shuffleGrid();
+        }
+
+        grid.classList.remove("fading");
+    }, 150);
+
+    updateNavActiveState(cat);
+}
+
+function showAbout() {
+    const pageWork = document.getElementById("page-work");
+    const pageAbout = document.getElementById("page-about");
+    if (!pageWork || !pageAbout) return;
+
+    pageWork.classList.remove("active");
+    pageAbout.classList.add("active");
+    updateNavActiveState('ABOUT');
+}
+
+function updateNavActiveState(cat) {
+    document.querySelectorAll('.nav span').forEach(el => {
+        if (el.dataset.cat === cat) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
+    });
+}
+
+function openLB(src) {
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lb-img");
+    const lbCounter = document.getElementById("lb-counter");
+    if (!lb || !lbImg) return;
+
+    currentIndex = visibleImages.indexOf(src);
+    if (currentIndex === -1) currentIndex = 0;
+
+    lbImg.src = src;
+    if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
+    lb.classList.add("open");
+}
+
+function closeLB() {
+    const lb = document.getElementById("lightbox");
+    if (lb) lb.classList.remove("open");
+}
+
+function shiftLB(direction) {
+    if (visibleImages.length === 0) return;
+    const lbImg = document.getElementById("lb-img");
+    const lbCounter = document.getElementById("lb-counter");
+    if (!lbImg) return;
+
+    // Smooth fade effect on switch
+    lbImg.classList.add("fade");
+
+    setTimeout(() => {
+        currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
+        lbImg.src = visibleImages[currentIndex];
+        if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
+        lbImg.classList.remove("fade");
+    }, 150);
+}
+
+function openModal() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.add("open");
+}
+
+function closeModal() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.remove("open");
+}
+
+async function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById("formStatus");
+    const btn = document.getElementById("formSubmitBtn");
+
+    let isValid = true;
+    form.querySelectorAll("[required]").forEach(field => {
+        if (!field.value.trim() || (field.tagName === "SELECT" && field.value === "")) {
+            field.classList.add("invalid");
+            isValid = false;
+        } else {
+            field.classList.remove("invalid");
+        }
+    });
+
+    if (!isValid) return;
+
+    const formData = new FormData(form);
+    btn.textContent = "SENDING...";
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            status.style.display = "block";
+            status.style.color = "var(--text)";
+            status.textContent = "INQUIRY SENT SUCCESSFULLY. WE'LL BE IN TOUCH.";
+            form.reset();
+        } else {
+            throw new Error();
+        }
+    } catch (err) {
+        status.style.display = "block";
+        status.style.color = "var(--error)";
+        status.textContent = "OOPS! THERE WAS A PROBLEM SENDING YOUR INQUIRY.";
+    } finally {
+        btn.textContent = "Send Inquiry";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
