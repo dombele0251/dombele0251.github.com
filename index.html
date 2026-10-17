@@ -353,7 +353,7 @@
 
         footer a:hover, footer button:hover { opacity: 1; border-bottom: 1px solid var(--text); }
 
-        /* LIGHTBOX FIX: PROPER FULL RESPONSIVE IMAGE SIZING & LEFT BTS OVERLAY */
+        /* LIGHTBOX FIX: PROPER FULL RESPONSIVE IMAGE SIZING & OVERLAYS */
         .lightbox {
             position: fixed; inset: 0; background: rgba(255, 255, 255, 0.98);
             display: none; align-items: center; justify-content: center; z-index: 2000;
@@ -383,18 +383,27 @@
         .lb-prev { left: 10px; } .lb-next { right: 10px; }
         .lb-close { position: absolute; top: 35px; right: 50px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; border: none; background: transparent; opacity: 0.6; z-index: 2100; }
         .lb-close:hover { opacity: 1; }
-        
-        .lb-meta-link {
+
+        /* VIDEO LINK AT BOTTOM-CENTER UNDER LIGHTBOX STAGE */
+        .lb-video-overlay {
             position: absolute;
-            bottom: 20px;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2100;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .lb-video-overlay a {
             font-size: 10px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--text);
             text-decoration: underline;
-            cursor: pointer;
-            z-index: 2100;
+            font-weight: 500;
+            transition: opacity 0.3s;
         }
+        .lb-video-overlay a:hover { opacity: 0.5; }
 
         /* BTS GLASS CARD ON LEFT SIDE WHEN LIGHTBOX IS OPEN */
         .lb-bts-text {
@@ -583,6 +592,10 @@
                 max-width: none;
                 padding: 15px;
             }
+            
+            .lb-video-overlay {
+                bottom: -25px;
+            }
         }
 
         @media (max-width: 380px) {
@@ -649,7 +662,9 @@
     <div class="lb-stage">
         <img id="lb-img" src="" alt="Dombele Studio Portfolio Preview">
         <div id="lb-bts-text" class="lb-bts-text" style="display:none;"></div>
-        <a id="lb-video-link" class="lb-meta-link" href="" target="_blank" rel="noopener" style="display:none;">Watch Video External Link →</a>
+        <div id="lb-video-box" class="lb-video-overlay" style="display:none;">
+            <a id="lb-video-link" href="" target="_blank" rel="noopener">Watch Video →</a>
+        </div>
     </div>
     <button class="lb-nav lb-next" onclick="shiftLB(1)" aria-label="Next Image">›</button>
     <div id="lb-counter" style="position:absolute; bottom:25px; font-size:9px; opacity:0.4; letter-spacing: 0.2em;"></div>
@@ -983,6 +998,7 @@ function openLB(src) {
 function renderLBItem() {
     const lbImg = document.getElementById("lb-img");
     const lbCounter = document.getElementById("lb-counter");
+    const lbVideoBox = document.getElementById("lb-video-box");
     const lbVideoLink = document.getElementById("lb-video-link");
     const lbBtsText = document.getElementById("lb-bts-text");
 
@@ -993,7 +1009,7 @@ function renderLBItem() {
 
     if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
 
-    // BTS Glass text card placed on the LEFT side
+    // BTS Glass text card on LEFT side
     if (lbBtsText) {
         if (currentData.isFeatured) {
             lbBtsText.innerHTML = `
@@ -1006,13 +1022,13 @@ function renderLBItem() {
         }
     }
 
-    // Video external link
-    if (lbVideoLink) {
+    // Video link centered beneath the image
+    if (lbVideoBox && lbVideoLink) {
         if (currentData.link) {
             lbVideoLink.href = currentData.link;
-            lbVideoLink.style.display = "block";
+            lbVideoBox.style.display = "block";
         } else {
-            lbVideoLink.style.display = "none";
+            lbVideoBox.style.display = "none";
         }
     }
 }
