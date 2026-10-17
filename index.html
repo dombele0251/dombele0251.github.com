@@ -575,20 +575,19 @@ const DATA = [
     {src:"website-79.jpg", cat:"PRODUCT", alt:"Commercial product photography studio shot"},
 
     // CONCERT
-    {src:"website-136.jpg", cat:"CONCERT", alt:"Live music concert photographer London"},
+    { 
+        src: "website-136.jpg", 
+        cat: "CONCERT", 
+        captionTitle: "Tommy Richman — Crowd Surfing",
+        link: "https://uk.pinterest.com/pin/930908185610382433/", 
+        alt: "Tommy Richman Crowd Surfing Video"
+    },
     {src:"website-105.jpg", cat:"CONCERT", alt:"Live gig music photography Bristol"},
     {src:"website-91.jpg", cat:"CONCERT", alt:"Atmospheric concert performance portrait"},
     {src:"website-131.jpg", cat:"CONCERT", alt:"Stage music performance photography UK"},
     {src:"website-96.jpg", cat:"CONCERT", alt:"Band concert photography venue shot"},
     {src:"website-120.jpg", cat:"CONCERT", alt:"Live concert artist lighting photo"},
     {src:"website-125.jpg", cat:"CONCERT", alt:"Music festival event photography UK"},
-    {
-        src: "website-96.jpg", 
-        cat: "CONCERT", 
-        captionTitle: "Tommy Richman — Crowd Surfing",
-        link: "https://uk.pinterest.com/pin/930908185610382433/", 
-        alt: "Tommy Richman Crowd Surfing Video"
-    },
 
     // GYM
     {src:"DSC00913.jpg", cat:"GYM", alt:"Fitness and gym editorial photography"},
@@ -785,48 +784,57 @@ function showCategory(cat) {
     const pageAbout = document.getElementById("page-about");
     const grid = document.getElementById("grid");
 
-    if (pageWork) pageWork.classList.add("active");
-    if (pageAbout) pageAbout.classList.remove("active");
+    if (!pageWork || !pageAbout || !grid) return;
 
-    if (grid) grid.classList.add("fading");
+    pageWork.classList.add("active");
+    pageAbout.classList.remove("active");
+
+    grid.classList.add("fading");
 
     setTimeout(() => {
+        const items = grid.children;
+        visibleImages = [];
+
+        for (let item of items) {
+            const isMatch = (cat === 'ALL' || item.classList.contains(cat));
+            item.style.display = isMatch ? "" : "none";
+            
+            if (isMatch) {
+                const img = item.querySelector("img");
+                if (img && !item.classList.contains('bts-featured')) {
+                    visibleImages.push(img.src);
+                }
+            }
+        }
+
         if (cat === 'ALL') {
             shuffleGrid();
         }
 
-        document.querySelectorAll(".item").forEach(item => {
-            if (cat === 'ALL') {
-                item.style.display = item.classList.contains('BTS') ? 'none' : 'block';
-            } else {
-                item.style.display = item.classList.contains(cat) ? 'block' : 'none';
-            }
-        });
-        updateNav(cat);
-        if (grid) grid.classList.remove("fading");
+        grid.classList.remove("fading");
     }, 150);
+
+    updateNavActiveState(cat);
 }
 
 function showAbout() {
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
-    if (pageWork) pageWork.classList.remove("active");
-    if (pageAbout) pageAbout.classList.add("active");
-    updateNav("ABOUT");
+    if (!pageWork || !pageAbout) return;
+
+    pageWork.classList.remove("active");
+    pageAbout.classList.add("active");
+    updateNavActiveState('ABOUT');
 }
 
-function updateNav(cat) {
-    document.querySelectorAll(".nav span").forEach(s => {
-        s.classList.toggle("active", s.getAttribute("data-cat") === cat);
+function updateNavActiveState(cat) {
+    document.querySelectorAll('.nav span').forEach(el => {
+        if (el.dataset.cat === cat) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
     });
-
-    if (cat === 'ABOUT') {
-        document.title = "About | Dombele Studio Photographer London, Bristol & Taunton";
-    } else {
-        const catName = cat === 'ALL' ? 'Portfolio' : cat.charAt(0) + cat.slice(1).toLowerCase();
-        document.title = `${catName} Photography | Dombele Studio London, Bristol & Taunton`;
-    }
-    window.scrollTo(0,0);
 }
 
 function openLB(src) {
@@ -835,67 +843,47 @@ function openLB(src) {
     const lbCounter = document.getElementById("lb-counter");
     if (!lb || !lbImg) return;
 
-    visibleImages = Array.from(document.querySelectorAll('.item')).filter(item => {
-        return item.style.display !== 'none' && !item.classList.contains('bts-featured');
-    }).map(item => item.dataset.src);
-
     currentIndex = visibleImages.indexOf(src);
     if (currentIndex === -1) currentIndex = 0;
 
     lbImg.src = src;
-    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
+    if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
     lb.classList.add("open");
-    document.body.style.overflow = 'hidden';
 }
 
 function closeLB() {
     const lb = document.getElementById("lightbox");
     if (lb) lb.classList.remove("open");
-    document.body.style.overflow = '';
 }
 
-function shiftLB(dir) {
+function shiftLB(direction) {
     if (visibleImages.length === 0) return;
-    currentIndex = (currentIndex + dir + visibleImages.length) % visibleImages.length;
+    currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
     const lbImg = document.getElementById("lb-img");
     const lbCounter = document.getElementById("lb-counter");
     if (lbImg) lbImg.src = visibleImages[currentIndex];
-    if (lbCounter) lbCounter.innerText = `${currentIndex + 1} / ${visibleImages.length}`;
+    if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
 }
 
 function openModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.add("open");
-    
-    // Auto-select dropdown option matching active category
-    const activeNav = document.querySelector('.nav span.active');
-    const select = document.getElementById('projectTypeSelect');
-    if (activeNav && select) {
-        const cat = activeNav.getAttribute('data-cat');
-        if (cat === 'EDITORIAL') select.value = 'Editorial';
-        else if (cat === 'STUDIO') select.value = 'Studio';
-        else if (cat === 'CONCERT') select.value = 'Concert';
-        else if (cat === 'GYM' || cat === 'PRODUCT') select.value = 'Commercial';
-    }
-
-    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById("contactModal");
     if (modal) modal.classList.remove("open");
-    document.body.style.overflow = '';
 }
 
-function handleFormSubmit(e) {
+async function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    const submitBtn = document.getElementById("formSubmitBtn");
-    const statusDiv = document.getElementById("formStatus");
-    
+    const status = document.getElementById("formStatus");
+    const btn = document.getElementById("formSubmitBtn");
+
     let isValid = true;
     form.querySelectorAll("[required]").forEach(field => {
-        if (!field.value.trim() || (field.tagName === 'SELECT' && field.value === "")) {
+        if (!field.value.trim() || (field.tagName === "SELECT" && field.value === "")) {
             field.classList.add("invalid");
             isValid = false;
         } else {
@@ -903,77 +891,35 @@ function handleFormSubmit(e) {
         }
     });
 
-    const emailField = form.querySelector("input[name='email']");
-    if (emailField && emailField.value.trim()) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailField.value.trim())) {
-            emailField.classList.add("invalid");
-            isValid = false;
-        }
-    }
-
-    if (!isValid) {
-        statusDiv.style.display = "block";
-        statusDiv.style.color = "var(--error)";
-        statusDiv.textContent = "Please complete all required fields correctly.";
-        return;
-    }
-
-    statusDiv.style.display = "block";
-    statusDiv.style.color = "var(--text)";
-    statusDiv.textContent = "SENDING INQUIRY...";
-    if (submitBtn) submitBtn.disabled = true;
+    if (!isValid) return;
 
     const formData = new FormData(form);
-    fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-    }).then(response => {
+    btn.textContent = "SENDING...";
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
         if (response.ok) {
-            statusDiv.style.color = "var(--text)";
-            statusDiv.textContent = "INQUIRY SENT SUCCESSFULLY. THANK YOU.";
+            status.style.display = "block";
+            status.style.color = "var(--text)";
+            status.textContent = "INQUIRY SENT SUCCESSFULLY. WE'LL BE IN TOUCH.";
             form.reset();
-            setTimeout(() => {
-                closeModal();
-                statusDiv.style.display = "none";
-                if (submitBtn) submitBtn.disabled = false;
-            }, 2500);
         } else {
-            response.json().then(data => {
-                statusDiv.style.color = "var(--error)";
-                if (Object.hasOwn(data, 'errors')) {
-                    statusDiv.textContent = data.errors.map(error => error.message).join(", ");
-                } else {
-                    statusDiv.textContent = "OOPS! THERE WAS A PROBLEM. PLEASE EMAIL US DIRECTLY.";
-                }
-                if (submitBtn) submitBtn.disabled = false;
-            });
+            throw new Error();
         }
-    }).catch(() => {
-        statusDiv.style.color = "var(--error)";
-        statusDiv.textContent = "NETWORK ERROR. PLEASE EMAIL US DIRECTLY AT STUDIO@DOMBELE.COM";
-        if (submitBtn) submitBtn.disabled = false;
-    });
+    } catch (err) {
+        status.style.display = "block";
+        status.style.color = "var(--error)";
+        status.textContent = "OOPS! THERE WAS A PROBLEM SENDING YOUR INQUIRY.";
+    } finally {
+        btn.textContent = "Send Inquiry";
+    }
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
-document.addEventListener("keydown", (e) => {
-    const lightbox = document.getElementById("lightbox");
-    const modal = document.getElementById("contactModal");
-    
-    if (lightbox && lightbox.classList.contains("open")) {
-        if (e.key === "Escape") closeLB();
-        if (e.key === "ArrowLeft") shiftLB(-1);
-        if (e.key === "ArrowRight") shiftLB(1);
-    }
-    
-    if (modal && modal.classList.contains("open")) {
-        if (e.key === "Escape") closeModal();
-    }
-});
 </script>
-
 </body>
 </html>
