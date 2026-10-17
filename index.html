@@ -9,6 +9,9 @@
     <meta name="keywords" content="London photographer, Bristol editorial photographer, Taunton studio photography, concert photographer UK, fashion photo retouching">
     <link rel="canonical" href="https://dombele.com">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="black logo.png">
+
     <!-- Preload Critical Assets -->
     <link rel="preload" as="image" href="black logo.png">
     <link rel="preload" as="image" href="A67D.jpg">
@@ -329,7 +332,13 @@
             touch-action: pan-y;
         }
         .lightbox.open { display: flex; }
-        .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+        .lightbox img { 
+            max-width: 90vw; 
+            max-height: 85vh; 
+            object-fit: contain; 
+            transition: opacity 0.25s ease;
+        }
+        .lightbox img.fade { opacity: 0; }
         .lb-nav { position: absolute; background: none; border: none; font-size: 30px; cursor: pointer; padding: 40px; top: 50%; transform: translateY(-50%); }
         .lb-prev { left: 0; } .lb-next { right: 0; }
         .lb-close { position: absolute; top: 40px; right: 60px; cursor: pointer; font-size: 10px; letter-spacing: 0.2em; border: none; background: transparent; }
@@ -725,6 +734,7 @@ function init() {
         });
     });
 
+    // Lightbox Touch & Keyboard Controls
     const lb = document.getElementById("lightbox");
     if (lb) {
         lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
@@ -733,6 +743,19 @@ function init() {
             handleSwipe(); 
         }, {passive: true});
     }
+
+    window.addEventListener('keydown', (e) => {
+        const lbOpen = lb && lb.classList.contains('open');
+        if (!lbOpen) return;
+
+        if (e.key === 'ArrowRight') {
+            shiftLB(1);
+        } else if (e.key === 'ArrowLeft') {
+            shiftLB(-1);
+        } else if (e.key === 'Escape') {
+            closeLB();
+        }
+    });
 
     handleRouting();
     window.addEventListener('hashchange', handleRouting);
@@ -858,11 +881,19 @@ function closeLB() {
 
 function shiftLB(direction) {
     if (visibleImages.length === 0) return;
-    currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
     const lbImg = document.getElementById("lb-img");
     const lbCounter = document.getElementById("lb-counter");
-    if (lbImg) lbImg.src = visibleImages[currentIndex];
-    if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
+    if (!lbImg) return;
+
+    // Smooth fade effect on switch
+    lbImg.classList.add("fade");
+
+    setTimeout(() => {
+        currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
+        lbImg.src = visibleImages[currentIndex];
+        if (lbCounter) lbCounter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
+        lbImg.classList.remove("fade");
+    }, 150);
 }
 
 function openModal() {
