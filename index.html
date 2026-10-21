@@ -53,8 +53,8 @@
             --muted: #737373;
             --accent: #f4f4f5;
             --border: rgba(0, 0, 0, 0.08);
-            --glass-bg: rgba(255, 255, 255, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.95);
             --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -217,7 +217,7 @@
             border-radius: 12px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
             color: var(--text);
-            pointer-events: none;
+            pointer-events: auto; /* allows scrolling inside */
         }
 
         .glass-text-overlay h3 {
@@ -617,21 +617,65 @@
             display: none;
         }
 
-        /* MOBILE RESPONSIVE FIXES */
+        /* MOBILE RESPONSIVE FIXES (FIX 1 & FIX 2) */
         @media (max-width: 900px) {
-            header { padding: 25px 25px; flex-direction: column; gap: 20px; }
-            footer { 
-                padding: 40px 25px 120px 25px;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px; 
-                text-align: center;
+            header { 
+                padding: 20px 16px; 
+                flex-direction: column; 
+                gap: 16px; 
             }
-            .nav { width: 100%; justify-content: space-between; gap: 0; flex-wrap: wrap; }
-            .nav span { font-size: 8px; letter-spacing: 0.1em; }
+
+            /* FIX 1: Horizontal scrollable mobile navigation */
+            .nav { 
+                width: 100vw; 
+                margin-left: -16px;
+                padding: 0 16px;
+                overflow-x: auto; 
+                white-space: nowrap; 
+                display: flex;
+                gap: 20px; 
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; 
+            }
+
+            .nav::-webkit-scrollbar { display: none; }
+
+            .nav span { 
+                font-size: 9px; 
+                letter-spacing: 0.15em; 
+                flex-shrink: 0;
+            }
+
             .nav-book { display: none; }
-            .masonry { column-count: 2; padding: 20px 15px; column-gap: 12px; }
-            .item { margin-bottom: 12px; }
+
+            .masonry { column-count: 2; padding: 20px 12px; column-gap: 10px; }
+            .item { margin-bottom: 10px; }
+
+            /* FIX 2: Scrollable card overlay for text on mobile */
+            .item.bts-featured .glass-text-overlay {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                max-height: 120px; /* keeps the card compact and image visible */
+                overflow-y: auto;  /* allows scrolling inside the text card */
+                padding: 12px 14px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.92);
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .glass-text-overlay h3 {
+                font-size: 8px;
+                letter-spacing: 0.2em;
+                margin-bottom: 4px;
+            }
+
+            .glass-text-overlay p {
+                font-size: 10.5px;
+                line-height: 1.45;
+            }
+
             .about-wrap { padding: 80px 24px; }
             .about-grid { grid-template-columns: 1fr; gap: 60px; }
             .about-text p { font-size: 16px; line-height: 1.7; }
@@ -648,6 +692,14 @@
             
             .lb-video-overlay {
                 bottom: -25px;
+            }
+
+            footer { 
+                padding: 40px 25px 120px 25px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px; 
+                text-align: center;
             }
         }
     </style>
@@ -684,11 +736,11 @@
                 </div>
                 <div class="about-text">
                     <h1>About the Studio</h1>
-                    <p>A background in <strong>professional photo retouching</strong> informs an uncompromising approach to light, tone, and visual narrative.</p>
-                    <p>My experience across both controlled studio environments and fast-paced location shoots allows me to rapidly adapt to any setting, ensuring seamless execution and consistently refined, high-end results for every client.</p>
-                    <p>Based between <strong>London, Bristol, and Taunton</strong>, available for editorial, fashion, and commercial commissions across the UK.</p>
+                    <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
+                    <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
+                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
                     
-                    <button onclick="openModal()" class="about-cta-luxury">Book a Commission</button>
+                    <button onclick="openModal()" class="about-cta-luxury">Book a Shoot</button>
                 </div>
             </div>
         </div>
@@ -1135,7 +1187,7 @@ async function handleFormSubmit(e) {
         });
         if (response.ok) {
             status.style.display = "block";
-            status.style.color = "var(--text)";
+            status.style.color = var(--text);
             status.textContent = "INQUIRY SENT SUCCESSFULLY. WE'LL BE IN TOUCH.";
             form.reset();
         } else {
