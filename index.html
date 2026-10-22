@@ -101,15 +101,24 @@
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
+            width: 100%;
         }
 
         .logo img { height: 15px; cursor: pointer; transition: opacity var(--transition); display: block; }
         .logo img:hover { opacity: 0.4; }
 
+        .nav-container-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+
         .nav { 
             display: flex; 
             gap: 28px; 
             align-items: center;
+            flex-shrink: 0;
         }
 
         .nav span {
@@ -154,8 +163,8 @@
         .nav-book:hover { background: #333333; }
 
         /* MAIN CONTENT AREA */
-        main.content-area { flex: 1; }
-        .page { display: none; }
+        main.content-area { flex: 1; width: 100%; }
+        .page { display: none; width: 100%; }
         .page.active { display: block; }
 
         /* MASONRY MULTI-COLUMN LAYOUT WITH LUXURY PADDING */
@@ -319,7 +328,7 @@
         .about-wrap { 
             max-width: 1280px; 
             margin: auto; 
-            padding: 160px 80px; 
+            padding: 120px 80px; 
         }
         
         .about-grid { 
@@ -404,6 +413,7 @@
             align-items: center;
             background: var(--bg);
             border-top: 1px solid var(--border);
+            width: 100%;
         }
 
         footer a, footer span {
@@ -645,11 +655,6 @@
             display: none;
         }
 
-        .nav-container-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
         .nav-scroll-hint {
             display: none;
         }
@@ -665,12 +670,13 @@
             .nav-container-wrapper {
                 display: flex;
                 align-items: center;
+                width: 100%;
             }
 
             .nav { 
                 width: 100vw; 
                 margin-left: -16px;
-                padding: 0 16px 8px 16px;
+                padding: 0 60px 8px 16px; /* Extra right padding so items clear hint badge */
                 overflow-x: auto; 
                 white-space: nowrap; 
                 display: flex;
@@ -704,8 +710,8 @@
                 right: 0;
                 top: 0;
                 bottom: 8px;
-                padding: 0 8px;
-                background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95) 40%);
+                padding: 0 10px 0 16px;
+                background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.95) 45%);
                 font-size: 7.5px;
                 letter-spacing: 0.12em;
                 text-transform: uppercase;
