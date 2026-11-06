@@ -66,9 +66,13 @@
             --header-bg: rgba(255, 255, 255, 0.88);
             --glass-bg: rgba(255, 255, 255, 0.72);
             --glass-border: rgba(255, 255, 255, 0.85);
-            --hl-bg: #F8F8F6;
-            --hl-input-bg: rgba(255, 255, 255, 0.7);
-            --hl-input-border: rgba(0, 0, 0, 0.1);
+            --hl-bg: #0d0d0d;
+            --hl-text: #f4f4f5;
+            --hl-muted: #a1a1aa;
+            --hl-accent: #18181b;
+            --hl-border: rgba(255, 255, 255, 0.12);
+            --hl-input-bg: #141414;
+            --hl-input-border: #27272a;
             --modal-bg: rgba(255, 255, 255, 0.985);
             --modal-input-bg: #fafafa;
             --modal-input-border: #e4e4e7;
@@ -86,9 +90,6 @@
                 --header-bg: rgba(13, 13, 13, 0.88);
                 --glass-bg: rgba(23, 23, 23, 0.8);
                 --glass-border: rgba(255, 255, 255, 0.12);
-                --hl-bg: #121212;
-                --hl-input-bg: rgba(255, 255, 255, 0.05);
-                --hl-input-border: rgba(255, 255, 255, 0.15);
                 --modal-bg: rgba(13, 13, 13, 0.985);
                 --modal-input-bg: #171717;
                 --modal-input-border: #262626;
@@ -242,7 +243,7 @@
         main.content-area { flex: 1; width: 100%; }
         .page { display: none !important; width: 100%; }
         .page.active { display: block !important; }
-        #page-headshots.page.active { display: flex !important; }
+        #page-headshots.page.active { display: block !important; }
 
         /* MASONRY MULTI-COLUMN LAYOUT WITH LUXURY PADDING */
         .masonry {
@@ -401,232 +402,292 @@
             text-decoration: underline;
         }
 
-        /* HEADSHOT LOUNGE PAGE - LUXURY MINIMAL WITH COMPACT POSTER */
+        /* AXEL ARIGATO CONFETTI-STYLE EVENT PAGE (THE HEADSHOT LOUNGE) */
         #page-headshots {
             background-color: var(--hl-bg);
+            color: var(--hl-text);
             min-height: calc(100vh - 110px);
-            align-items: center;
+            padding: 0;
         }
 
-        .hl-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 60px;
-            display: grid;
-            grid-template-columns: 4fr 7fr;
-            gap: 80px;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hl-poster-box {
+        .event-hero {
             position: relative;
-            max-width: 310px;
-            margin: 0 auto;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
-            border-radius: 3px;
-            overflow: hidden;
-            background: var(--accent);
-            border: 1px solid var(--border);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hl-poster-box:hover {
-            transform: translateY(-4px);
-        }
-
-        .hl-poster-box img {
             width: 100%;
-            height: auto;
+            height: 70vh;
+            min-height: 480px;
+            max-height: 720px;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .event-hero img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.65;
+            filter: grayscale(20%) contrast(1.1);
+        }
+
+        .event-hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13,13,13,1) 0%, rgba(13,13,13,0.4) 50%, rgba(0,0,0,0.2) 100%);
+        }
+
+        .event-hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px 80px;
+        }
+
+        .event-tag {
+            font-size: 11px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #a1a1aa;
+            margin-bottom: 16px;
+            font-weight: 500;
             display: block;
         }
 
-        .hl-form-wrap {
-            color: var(--text);
-        }
-
-        .hl-badge {
-            display: inline-block;
-            font-size: 8px;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            font-weight: 500;
-            color: var(--muted);
-            background: var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-        }
-
-        .hl-form-wrap h1 {
-            font-size: 9.5px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: var(--muted);
-        }
-
-        .hl-form-wrap h2 {
-            font-size: 32px;
-            letter-spacing: -0.025em;
+        .event-title {
+            font-size: clamp(32px, 5vw, 68px);
+            letter-spacing: -0.03em;
             font-weight: 300;
-            margin-bottom: 16px;
-            line-height: 1.15;
-            color: var(--text);
+            line-height: 1.05;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 24px;
         }
 
-        .hl-form-wrap p.hl-intro {
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 36px;
-            font-weight: 300;
-            color: var(--muted);
-            letter-spacing: -0.005em;
+        .event-meta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 24px;
         }
 
-        .hl-form {
+        .event-meta-item {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 4px;
         }
 
-        .hl-field-group {
+        .event-meta-label {
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--hl-muted);
+        }
+
+        .event-meta-val {
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            font-weight: 400;
+        }
+
+        /* EVENT MAIN CONTENT LAYOUT */
+        .event-body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 80px 120px;
+            display: grid;
+            grid-template-columns: 7fr 5fr;
+            gap: 80px;
+        }
+
+        .event-description h3 {
+            font-size: 10px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--hl-muted);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .event-description p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #d4d4d8;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .event-highlights {
+            margin-top: 40px;
+            border-top: 1px solid var(--hl-border);
+            padding-top: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .highlight-card {
+            background: var(--hl-accent);
+            border: 1px solid var(--hl-border);
+            padding: 24px;
+            border-radius: 4px;
+        }
+
+        .highlight-card h4 {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .highlight-card p {
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: var(--hl-muted);
+            margin-bottom: 0;
+        }
+
+        /* TICKET / RESERVATION BOX */
+        .event-ticket-box {
+            position: sticky;
+            top: 130px;
+            background: #141414;
+            border: 1px solid var(--hl-border);
+            border-radius: 6px;
+            padding: 40px 36px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .ticket-header {
+            border-bottom: 1px solid var(--hl-border);
+            padding-bottom: 24px;
+            margin-bottom: 28px;
+        }
+
+        .ticket-header h3 {
+            font-size: 18px;
+            letter-spacing: -0.01em;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .ticket-header p {
+            font-size: 12px;
+            color: var(--hl-muted);
+            font-weight: 300;
+        }
+
+        .event-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .event-field {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .hl-field-group label {
-            font-size: 8.5px;
-            letter-spacing: 0.3em;
+        .event-field label {
+            font-size: 9px;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
+            color: var(--hl-muted);
             font-weight: 500;
-            color: var(--muted);
-            padding-left: 4px;
         }
 
-        .hl-form input[type="text"],
-        .hl-form input[type="email"],
-        .hl-form select {
+        .event-field input[type="text"],
+        .event-field input[type="email"],
+        .event-field select {
             width: 100%;
-            padding: 14px 20px;
-            border: 1px solid var(--hl-input-border);
-            background: var(--hl-input-bg);
+            padding: 15px 18px;
+            background: #09090b;
+            border: 1px solid var(--hl-border);
+            color: #ffffff;
             font-family: inherit;
             font-size: 13px;
-            color: var(--text);
+            border-radius: 4px;
             outline: none;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 30px;
+            transition: border-color 0.3s;
         }
 
-        .hl-form input:focus,
-        .hl-form select:focus {
-            border-color: var(--text);
-            background: var(--bg);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        .event-field input:focus,
+        .event-field select:focus {
+            border-color: #ffffff;
         }
 
-        .hl-checkboxes {
+        .event-checkbox-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 6px;
-            padding-left: 4px;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 4px;
         }
 
-        .hl-checkbox-item {
+        .event-check-label {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 11.5px;
-            font-weight: 300;
-            color: var(--text);
+            font-size: 12px;
+            color: #d4d4d8;
             cursor: pointer;
+            font-weight: 300;
         }
 
-        .hl-checkbox-item input[type="checkbox"] {
-            accent-color: var(--text);
+        .event-check-label input[type="checkbox"] {
+            accent-color: #ffffff;
             width: 14px;
             height: 14px;
-            cursor: pointer;
         }
 
-        .hl-submit-btn {
+        .event-submit-btn {
+            width: 100%;
             padding: 18px;
-            background: var(--text);
-            color: var(--bg);
-            border: 1px solid var(--text);
-            font-size: 9.5px;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
+            font-size: 10px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 30px;
+            border-radius: 4px;
+            transition: all 0.4s ease;
             margin-top: 10px;
         }
 
-        .hl-submit-btn:hover {
+        .event-submit-btn:hover {
             background: transparent;
-            color: var(--text);
+            color: #ffffff;
         }
 
-        .hl-gdpr-note {
-            font-size: 9px;
-            line-height: 1.6;
-            color: var(--muted);
-            margin-top: 6px;
-            font-weight: 300;
-            padding-left: 4px;
-        }
-
-        .hl-success-view {
+        .event-success-view {
             display: none;
-            padding: 40px;
-            background: var(--accent);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            padding: 20px 0;
         }
 
-        .hl-success-view h3 {
-            font-size: 20px;
-            letter-spacing: -0.01em;
+        .event-success-view h3 {
+            font-size: 22px;
             font-weight: 400;
+            color: #ffffff;
             margin-bottom: 12px;
-            color: var(--text);
         }
 
-        .hl-success-view p {
+        .event-success-view p {
             font-size: 13.5px;
             line-height: 1.7;
+            color: var(--hl-muted);
+            margin-bottom: 28px;
             font-weight: 300;
-            margin-bottom: 24px;
-            color: var(--muted);
-        }
-
-        .hl-share-btn {
-            display: inline-block;
-            padding: 14px 24px;
-            background: var(--text);
-            color: var(--bg);
-            text-decoration: none;
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            border-radius: 30px;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--text);
-            transition: all 0.4s ease;
-        }
-
-        .hl-share-btn:hover {
-            background: transparent;
-            color: var(--text);
         }
 
         /* LUXURY ABOUT SECTION */
@@ -1061,18 +1122,24 @@
                 line-height: 1.45;
             }
 
-            .hl-container {
-                grid-template-columns: 1fr;
-                padding: 50px 24px;
-                gap: 40px;
+            .event-hero-content {
+                padding: 40px 24px;
             }
 
-            .hl-poster-box {
-                max-width: 240px;
+            .event-body {
+                grid-template-columns: 1fr;
+                padding: 50px 24px 80px;
+                gap: 50px;
             }
 
-            .hl-checkboxes {
+            .event-highlights {
                 grid-template-columns: 1fr;
+            }
+
+            .event-ticket-box {
+                position: relative;
+                top: 0;
+                padding: 30px 24px;
             }
 
             .about-wrap { padding: 80px 24px; }
@@ -1134,46 +1201,90 @@
         <div class="masonry" id="grid"></div>
     </div>
 
-    <!-- THE HEADSHOT LOUNGE WAITLIST PAGE -->
+    <!-- AXEL ARIGATO CONFETTI-STYLE EVENT PAGE (THE HEADSHOT LOUNGE) -->
     <section id="page-headshots" class="page">
-        <div class="hl-container">
-            <div class="hl-poster-box">
-                <img src="poster-headshot.jpg" alt="The Headshot Lounge Poster" onerror="this.src='Screenshot 2026-11-06 at 1.05.48 am.jpg';">
+        <div class="event-hero">
+            <img src="poster-headshot.jpg" alt="The Headshot Lounge Poster" onerror="this.src='A67D.jpg';">
+            <div class="event-hero-gradient"></div>
+            <div class="event-hero-content">
+                <span class="event-tag">EVENT 001 / DOMBELE STUDIO PRESENTS</span>
+                <h1 class="event-title">THE HEADSHOT LOUNGE</h1>
+                <div class="event-meta-bar">
+                    <div class="event-meta-item">
+                        <span class="event-meta-label">Location</span>
+                        <span class="event-meta-val">London • Bristol • Exeter • Taunton</span>
+                    </div>
+                    <div class="event-meta-item">
+                        <span class="event-meta-label">Access</span>
+                        <span class="event-meta-val">Priority Waitlist & Session RSVP</span>
+                    </div>
+                    <div class="event-meta-item">
+                        <span class="event-meta-label">Format</span>
+                        <span class="event-meta-val">Studio Headshots & Community Hangout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-body">
+            <div class="event-description">
+                <h3>About The Session</h3>
+                <p>The Headshot Lounge is a pop-up portrait experience designed to elevate your personal brand, creative portfolio, or corporate presence without the cold atmosphere of traditional studio photography.</p>
+                <p>Hosted by photographer Dombele, each session brings together high-end lighting, tailored directional coaching, and a curated studio vibe featuring matcha and music.</p>
+
+                <div class="event-highlights">
+                    <div class="highlight-card">
+                        <h4>24-Hour Early Access</h4>
+                        <p>Waitlist members receive priority booking links 24 hours before pop-up studio slots open to the public.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Retouched Deliverables</h4>
+                        <p>High-resolution, high-end skin and color retouched digital headshots delivered in private online galleries.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Social & Networking</h4>
+                        <p>Connect with local creatives, founders, performers, and professionals in an informal studio lounge atmosphere.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Pop-Up Locations</h4>
+                        <p>Touring studio sessions scheduled across Exeter, Bristol, London, and Taunton.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="hl-form-wrap">
-                <span class="hl-badge">24-Hour Priority Access</span>
-                <h1>Hosted by Dombele.com</h1>
-                <h2>THE HEADSHOT LOUNGE</h2>
-                <p class="hl-intro">Get a professional headshot that stands out and makes the right first impression. Join the priority waitlist for early access to dates, pop-ups, and special rates.</p>
+            <div class="event-ticket-box">
+                <div class="ticket-header">
+                    <h3>RSVP / Join Priority List</h3>
+                    <p>Select your location below to secure early access.</p>
+                </div>
 
-                <form class="hl-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
-                    <div class="hl-field-group">
+                <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
+                    <div class="event-field">
                         <label for="hl-name">Full Name *</label>
-                        <input type="text" id="hl-name" name="name" placeholder="Your name" required>
+                        <input type="text" id="hl-name" name="name" placeholder="First & Last Name" required>
                     </div>
 
-                    <div class="hl-field-group">
+                    <div class="event-field">
                         <label for="hl-email">Email Address *</label>
-                        <input type="email" id="hl-email" name="email" placeholder="Your email address" required>
+                        <input type="email" id="hl-email" name="email" placeholder="name@example.com" required>
                     </div>
 
-                    <div class="hl-field-group">
-                        <label for="hl-city">Primary City / Location *</label>
+                    <div class="event-field">
+                        <label for="hl-city">Primary Location *</label>
                         <select id="hl-city" name="city" required>
-                            <option value="" disabled selected>Select location...</option>
-                            <option value="Exeter">Exeter</option>
-                            <option value="Bristol">Bristol</option>
+                            <option value="" disabled selected>Select preferred city...</option>
                             <option value="London">London</option>
+                            <option value="Bristol">Bristol</option>
+                            <option value="Exeter">Exeter</option>
                             <option value="Taunton">Taunton</option>
-                            <option value="Other">Other UK Location</option>
+                            <option value="Other">Other UK City</option>
                         </select>
                     </div>
 
-                    <div class="hl-field-group">
-                        <label for="hl-role">Industry / Role</label>
+                    <div class="event-field">
+                        <label for="hl-role">Industry / Background</label>
                         <select id="hl-role" name="role">
-                            <option value="" disabled selected>Select your industry (optional)...</option>
+                            <option value="" disabled selected>Select industry (optional)...</option>
                             <option value="Creative / Art">Creative / Art & Design</option>
                             <option value="Corporate / Tech">Corporate / Tech / Business</option>
                             <option value="Entrepreneur / Founder">Entrepreneur / Founder</option>
@@ -1183,38 +1294,34 @@
                         </select>
                     </div>
 
-                    <div class="hl-field-group">
-                        <label>What interests you most?</label>
-                        <div class="hl-checkboxes">
-                            <label class="hl-checkbox-item">
+                    <div class="event-field">
+                        <label>Preferences</label>
+                        <div class="event-checkbox-grid">
+                            <label class="event-check-label">
                                 <input type="checkbox" name="interests" value="Headshot Sessions"> Headshot Sessions
                             </label>
-                            <label class="hl-checkbox-item">
-                                <input type="checkbox" name="interests" value="Networking & Community"> Networking & Community
+                            <label class="event-check-label">
+                                <input type="checkbox" name="interests" value="Networking & Community"> Studio Networking
                             </label>
-                            <label class="hl-checkbox-item">
-                                <input type="checkbox" name="interests" value="Matcha & Hangout"> Matcha & Social Vibe
-                            </label>
-                            <label class="hl-checkbox-item">
+                            <label class="event-check-label">
                                 <input type="checkbox" name="interests" value="Future Pop-Ups"> Future Studio Pop-Ups
                             </label>
                         </div>
                     </div>
 
-                    <div class="hl-field-group">
+                    <div class="event-field">
                         <label for="hl-instagram">Instagram / Website (Optional)</label>
-                        <input type="text" id="hl-instagram" name="instagram" placeholder="@yourhandle or URL">
+                        <input type="text" id="hl-instagram" name="instagram" placeholder="@handle or website">
                     </div>
 
-                    <button type="submit" class="hl-submit-btn" id="hlSubmitBtn">Join The Waitlist</button>
-                    <p class="hl-gdpr-note">By signing up, you agree to receive updates about pop-ups & events from Dombele Studio. You can unsubscribe at any time.</p>
+                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Reserve Priority Access</button>
+                    <p class="hl-gdpr-note">You will receive priority updates for upcoming studio dates. Unsubscribe anytime.</p>
                 </form>
 
-                <!-- SUCCESS VIEW -->
-                <div class="hl-success-view" id="hlSuccessView">
-                    <h3>You're on the list! ✓</h3>
-                    <p>We’ve received your details and sent a confirmation to your email. You'll be the first to know when pop-up dates open in your city.</p>
-                    <button class="hl-share-btn" onclick="shareWaitlist()">Share with a Friend</button>
+                <div class="event-success-view" id="hlSuccessView">
+                    <h3>RSVP Confirmed ✓</h3>
+                    <p>You’re officially on the priority list. We’ll notify you as soon as booking slots open in your chosen city.</p>
+                    <button class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
                 </div>
             </div>
         </div>
@@ -1520,7 +1627,6 @@ function navigateTo(route) {
 function handleRouting() {
     const route = window.location.hash.replace('#', '').toLowerCase();
     
-    // Explicit display handling for direct hash landers (e.g., from Instagram bio link)
     if (route === 'about') {
         showAbout();
     } else if (route === 'headshots') {
@@ -1610,7 +1716,7 @@ function showHeadshots() {
     
     if (pageHeadshots) {
         pageHeadshots.classList.add("active");
-        pageHeadshots.style.display = "flex";
+        pageHeadshots.style.display = "block";
     }
 
     updateNavActiveState('HEADSHOTS');
@@ -1750,7 +1856,7 @@ async function handleHLWaitlistSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('hlSubmitBtn');
     btn.disabled = true;
-    btn.innerText = 'Joining...';
+    btn.innerText = 'Reserving...';
 
     const formData = new FormData(this);
     try {
@@ -1775,7 +1881,7 @@ async function handleHLWaitlistSubmit(e) {
     } catch(err) {
         alert("Something went wrong with the submission. Please try again.");
         btn.disabled = false;
-        btn.innerText = 'Join The Waitlist';
+        btn.innerText = 'Reserve Priority Access';
     }
 }
 
@@ -1789,7 +1895,7 @@ function shareWaitlist() {
         }).catch(() => {});
     } else {
         navigator.clipboard.writeText(shareUrl);
-        alert("Waitlist link copied to clipboard!");
+        alert("Event link copied to clipboard!");
     }
 }
 
