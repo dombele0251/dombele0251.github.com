@@ -94,7 +94,6 @@
                 --modal-input-border: #262626;
             }
             
-            /* Invert logo or dim slightly for dark mode contrast if needed */
             .logo img { filter: invert(1) brightness(0.9); }
         }
 
@@ -354,7 +353,7 @@
             text-decoration: underline;
         }
 
-        /* HEADSHOT LOUNGE PAGE - LUXURY MINIMAL WITH ROUNDED INPUTS */
+        /* HEADSHOT LOUNGE PAGE - LUXURY MINIMAL WITH COMPACT POSTER */
         #page-headshots {
             background-color: var(--hl-bg);
             min-height: calc(100vh - 110px);
@@ -363,20 +362,22 @@
         }
 
         .hl-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 100px 80px;
+            padding: 80px 60px;
             display: grid;
-            grid-template-columns: 5fr 6fr;
-            gap: 100px;
+            grid-template-columns: 4fr 7fr;
+            gap: 80px;
             align-items: center;
             width: 100%;
         }
 
         .hl-poster-box {
             position: relative;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.15);
-            border-radius: 2px;
+            max-width: 310px; /* Constrained small poster width */
+            margin: 0 auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+            border-radius: 3px;
             overflow: hidden;
             background: var(--accent);
             border: 1px solid var(--border);
@@ -1026,8 +1027,12 @@
 
             .hl-container {
                 grid-template-columns: 1fr;
-                padding: 60px 24px;
-                gap: 50px;
+                padding: 50px 24px;
+                gap: 40px;
+            }
+
+            .hl-poster-box {
+                max-width: 240px;
             }
 
             .hl-checkboxes {
