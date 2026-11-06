@@ -191,10 +191,11 @@
         }
         .nav-book:hover { opacity: 0.8; }
 
-        /* MAIN CONTENT AREA */
+        /* MAIN CONTENT AREA & PAGE ROUTING FIX */
         main.content-area { flex: 1; width: 100%; }
-        .page { display: none; width: 100%; }
-        .page.active { display: block; }
+        .page { display: none !important; width: 100%; }
+        .page.active { display: block !important; }
+        #page-headshots.page.active { display: flex !important; }
 
         /* MASONRY MULTI-COLUMN LAYOUT WITH LUXURY PADDING */
         .masonry {
@@ -357,7 +358,6 @@
         #page-headshots {
             background-color: var(--hl-bg);
             min-height: calc(100vh - 110px);
-            display: flex;
             align-items: center;
         }
 
@@ -374,7 +374,7 @@
 
         .hl-poster-box {
             position: relative;
-            max-width: 310px; /* Constrained small poster width */
+            max-width: 310px;
             margin: 0 auto;
             box-shadow: 0 30px 80px rgba(0,0,0,0.12);
             border-radius: 3px;
