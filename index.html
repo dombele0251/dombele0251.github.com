@@ -66,6 +66,8 @@
             --glass-bg: rgba(255, 255, 255, 0.72);
             --glass-border: rgba(255, 255, 255, 0.85);
             --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --poster-yellow: #F3B404;
+            --poster-red: #C8321B;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -322,6 +324,212 @@
         .item-overlay .video-link:hover {
             opacity: 1;
             text-decoration: underline;
+        }
+
+        /* HEADSHOT LOUNGE PAGE STYLING */
+        #page-headshots {
+            background-color: var(--poster-yellow);
+            min-height: calc(100vh - 110px);
+        }
+
+        .hl-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hl-poster-box {
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            border-radius: 4px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .hl-poster-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hl-form-wrap {
+            color: #0a0a0a;
+        }
+
+        .hl-badge {
+            display: inline-block;
+            font-size: 8px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 600;
+            background: rgba(0,0,0,0.08);
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .hl-form-wrap h1 {
+            font-size: 11px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .hl-form-wrap h2 {
+            font-size: 28px;
+            letter-spacing: -0.02em;
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .hl-form-wrap p.hl-intro {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .hl-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hl-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hl-field-group label {
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .hl-form input[type="text"],
+        .hl-form input[type="email"],
+        .hl-form select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+            font-size: 12px;
+            color: #000;
+            outline: none;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hl-form input:focus,
+        .hl-form select:focus {
+            border-color: #000;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .hl-checkboxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .hl-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .hl-checkbox-item input[type="checkbox"] {
+            accent-color: var(--poster-red);
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+        }
+
+        .hl-submit-btn {
+            padding: 18px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 2px;
+            margin-top: 10px;
+        }
+
+        .hl-submit-btn:hover {
+            background: var(--poster-red);
+        }
+
+        .hl-gdpr-note {
+            font-size: 9.5px;
+            line-height: 1.5;
+            color: rgba(0,0,0,0.6);
+            margin-top: 6px;
+        }
+
+        /* THANK YOU SUCCESS CARD */
+        .hl-success-view {
+            display: none;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.1);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hl-success-view h3 {
+            font-size: 18px;
+            letter-spacing: -0.01em;
+            margin-bottom: 12px;
+            color: #000;
+        }
+
+        .hl-success-view p {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .hl-share-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
         }
 
         /* LUXURY ABOUT SECTION */
@@ -765,6 +973,16 @@
                 line-height: 1.45;
             }
 
+            .hl-container {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+
+            .hl-checkboxes {
+                grid-template-columns: 1fr;
+            }
+
             .about-wrap { padding: 80px 24px; }
             .about-grid { grid-template-columns: 1fr; gap: 60px; }
             .about-text p { font-size: 16px; line-height: 1.7; }
@@ -808,6 +1026,7 @@
             <span tabindex="0" role="button" data-cat="GYM" onclick="navigateTo('gym')">Gym <span class="count" id="count-GYM"></span></span>
             <span tabindex="0" role="button" data-cat="PRODUCT" onclick="navigateTo('product')">Product <span class="count" id="count-PRODUCT"></span></span>
             <span tabindex="0" role="button" data-cat="BTS" onclick="navigateTo('bts')">BTS <span class="count" id="count-BTS"></span></span>
+            <span tabindex="0" role="button" data-cat="HEADSHOTS" onclick="navigateTo('headshots')">Headshot Lounge</span>
             <span tabindex="0" role="button" data-cat="ABOUT" onclick="navigateTo('about')">About</span>
             <button onclick="openModal()" class="nav-book">Inquire</button>
         </nav>
@@ -819,6 +1038,92 @@
     <div id="page-work" class="page active">
         <div class="masonry" id="grid"></div>
     </div>
+
+    <!-- THE HEADSHOT LOUNGE WAITLIST PAGE -->
+    <section id="page-headshots" class="page">
+        <div class="hl-container">
+            <div class="hl-poster-box">
+                <img src="poster-headshot.jpg" alt="The Headshot Lounge Poster" onerror="this.src='Screenshot 2026-11-06 at 1.05.48 am.jpg';">
+            </div>
+
+            <div class="hl-form-wrap">
+                <span class="hl-badge">24-Hour Priority Access</span>
+                <h1>Hosted by Dombele.com</h1>
+                <h2>THE HEADSHOT LOUNGE</h2>
+                <p class="hl-intro">Get a professional headshot that stands out and makes the right first impression. Join the priority waitlist for early access to dates, pop-ups, and special rates.</p>
+
+                <form class="hl-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
+                    <div class="hl-field-group">
+                        <label for="hl-name">Full Name *</label>
+                        <input type="text" id="hl-name" name="name" placeholder="Your name" required>
+                    </div>
+
+                    <div class="hl-field-group">
+                        <label for="hl-email">Email Address *</label>
+                        <input type="email" id="hl-email" name="email" placeholder="Your email address" required>
+                    </div>
+
+                    <div class="hl-field-group">
+                        <label for="hl-city">Primary City / Location *</label>
+                        <select id="hl-city" name="city" required>
+                            <option value="" disabled selected>Select location...</option>
+                            <option value="Exeter">Exeter</option>
+                            <option value="Bristol">Bristol</option>
+                            <option value="London">London</option>
+                            <option value="Taunton">Taunton</option>
+                            <option value="Other">Other UK Location</option>
+                        </select>
+                    </div>
+
+                    <div class="hl-field-group">
+                        <label for="hl-role">Industry / Role</label>
+                        <select id="hl-role" name="role">
+                            <option value="" disabled selected>Select your industry (optional)...</option>
+                            <option value="Creative / Art">Creative / Art & Design</option>
+                            <option value="Corporate / Tech">Corporate / Tech / Business</option>
+                            <option value="Entrepreneur / Founder">Entrepreneur / Founder</option>
+                            <option value="Actor / Performer">Actor / Performer / Model</option>
+                            <option value="Student">Student</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="hl-field-group">
+                        <label>What interests you most?</label>
+                        <div class="hl-checkboxes">
+                            <label class="hl-checkbox-item">
+                                <input type="checkbox" name="interests" value="Headshot Sessions"> Headshot Sessions
+                            </label>
+                            <label class="hl-checkbox-item">
+                                <input type="checkbox" name="interests" value="Networking & Community"> Networking & Community
+                            </label>
+                            <label class="hl-checkbox-item">
+                                <input type="checkbox" name="interests" value="Matcha & Hangout"> Matcha & Social Vibe
+                            </label>
+                            <label class="hl-checkbox-item">
+                                <input type="checkbox" name="interests" value="Future Pop-Ups"> Future Studio Pop-Ups
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="hl-field-group">
+                        <label for="hl-instagram">Instagram / Website (Optional)</label>
+                        <input type="text" id="hl-instagram" name="instagram" placeholder="@yourhandle or URL">
+                    </div>
+
+                    <button type="submit" class="hl-submit-btn" id="hlSubmitBtn">Join The Waitlist</button>
+                    <p class="hl-gdpr-note">By signing up, you agree to receive updates about pop-ups & events from Dombele Studio. You can unsubscribe at any time.</p>
+                </form>
+
+                <!-- SUCCESS VIEW -->
+                <div class="hl-success-view" id="hlSuccessView">
+                    <h3>You're on the list! ✓</h3>
+                    <p>We’ve received your details and sent a confirmation to your email. You'll be the first to know when pop-up dates open in your city.</p>
+                    <button class="hl-share-btn" onclick="shareWaitlist()">Share with a Friend</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="page-about" class="page">
         <div class="about-wrap">
@@ -1086,6 +1391,11 @@ function init() {
             field.addEventListener("input", () => field.classList.remove("invalid"));
         });
     }
+
+    const hlForm = document.getElementById("hlWaitlistForm");
+    if (hlForm) {
+        hlForm.addEventListener("submit", handleHLWaitlistSubmit);
+    }
 }
 
 function updateCategoryCounts() {
@@ -1116,6 +1426,8 @@ function handleRouting() {
     const route = window.location.hash.replace('#', '').toLowerCase();
     if (route === 'about') {
         showAbout();
+    } else if (route === 'headshots') {
+        showHeadshots();
     } else if (['editorial', 'studio', 'concert', 'gym', 'product', 'bts'].includes(route)) {
         showCategory(route.toUpperCase());
     } else {
@@ -1136,12 +1448,14 @@ function shuffleGrid() {
 function showCategory(cat) {
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
+    const pageHeadshots = document.getElementById("page-headshots");
     const grid = document.getElementById("grid");
 
     if (!pageWork || !pageAbout || !grid) return;
 
     pageWork.classList.add("active");
     pageAbout.classList.remove("active");
+    if (pageHeadshots) pageHeadshots.classList.remove("active");
 
     grid.classList.add("fading");
 
@@ -1173,11 +1487,27 @@ function showCategory(cat) {
 function showAbout() {
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
+    const pageHeadshots = document.getElementById("page-headshots");
+
     if (!pageWork || !pageAbout) return;
 
     pageWork.classList.remove("active");
+    if (pageHeadshots) pageHeadshots.classList.remove("active");
     pageAbout.classList.add("active");
     updateNavActiveState('ABOUT');
+}
+
+function showHeadshots() {
+    const pageWork = document.getElementById("page-work");
+    const pageAbout = document.getElementById("page-about");
+    const pageHeadshots = document.getElementById("page-headshots");
+
+    if (!pageWork || !pageHeadshots) return;
+
+    pageWork.classList.remove("active");
+    pageAbout.classList.remove("active");
+    pageHeadshots.classList.add("active");
+    updateNavActiveState('HEADSHOTS');
 }
 
 function updateNavActiveState(cat) {
@@ -1307,6 +1637,52 @@ async function handleFormSubmit(e) {
         status.textContent = "OOPS! THERE WAS A PROBLEM SENDING YOUR INQUIRY.";
     } finally {
         btn.textContent = "Send Inquiry";
+    }
+}
+
+async function handleHLWaitlistSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('hlSubmitBtn');
+    btn.disabled = true;
+    btn.innerText = 'Joining...';
+
+    const formData = new FormData(this);
+    try {
+        const res = await fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', {
+                    'event_category': 'Waitlist',
+                    'event_label': 'The Headshot Lounge'
+                });
+            }
+            this.style.display = 'none';
+            document.getElementById('hlSuccessView').style.display = 'block';
+        } else {
+            throw new Error();
+        }
+    } catch(err) {
+        alert("Something went wrong with the submission. Please try again.");
+        btn.disabled = false;
+        btn.innerText = 'Join The Waitlist';
+    }
+}
+
+function shareWaitlist() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'The Headshot Lounge — Dombele Studio',
+            text: 'Join the waitlist for headshots, matcha, and networking in Exeter & Bristol.',
+            url: window.location.href
+        }).catch(() => {});
+    } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Page link copied to clipboard!");
     }
 }
 
