@@ -1519,6 +1519,8 @@ function navigateTo(route) {
 
 function handleRouting() {
     const route = window.location.hash.replace('#', '').toLowerCase();
+    
+    // Explicit display handling for direct hash landers (e.g., from Instagram bio link)
     if (route === 'about') {
         showAbout();
     } else if (route === 'headshots') {
@@ -1550,7 +1552,10 @@ function showCategory(cat) {
 
     pageWork.classList.add("active");
     pageAbout.classList.remove("active");
-    if (pageHeadshots) pageHeadshots.classList.remove("active");
+    if (pageHeadshots) {
+        pageHeadshots.classList.remove("active");
+        pageHeadshots.style.display = "none";
+    }
 
     grid.classList.add("fading");
 
@@ -1587,7 +1592,10 @@ function showAbout() {
     if (!pageWork || !pageAbout) return;
 
     pageWork.classList.remove("active");
-    if (pageHeadshots) pageHeadshots.classList.remove("active");
+    if (pageHeadshots) {
+        pageHeadshots.classList.remove("active");
+        pageHeadshots.style.display = "none";
+    }
     pageAbout.classList.add("active");
     updateNavActiveState('ABOUT');
 }
@@ -1597,11 +1605,14 @@ function showHeadshots() {
     const pageAbout = document.getElementById("page-about");
     const pageHeadshots = document.getElementById("page-headshots");
 
-    if (!pageWork || !pageHeadshots) return;
+    if (pageWork) pageWork.classList.remove("active");
+    if (pageAbout) pageAbout.classList.remove("active");
+    
+    if (pageHeadshots) {
+        pageHeadshots.classList.add("active");
+        pageHeadshots.style.display = "flex";
+    }
 
-    pageWork.classList.remove("active");
-    pageAbout.classList.remove("active");
-    pageHeadshots.classList.add("active");
     updateNavActiveState('HEADSHOTS');
 }
 
@@ -1769,15 +1780,16 @@ async function handleHLWaitlistSubmit(e) {
 }
 
 function shareWaitlist() {
+    const shareUrl = window.location.origin + window.location.pathname + '#headshots';
     if (navigator.share) {
         navigator.share({
             title: 'The Headshot Lounge — Dombele Studio',
-            text: 'Join the waitlist for headshots, matcha, and networking in Exeter & Bristol.',
-            url: window.location.href
+            text: 'Join the priority waitlist for headshots, pop-ups, and networking.',
+            url: shareUrl
         }).catch(() => {});
     } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert("Page link copied to clipboard!");
+        navigator.clipboard.writeText(shareUrl);
+        alert("Waitlist link copied to clipboard!");
     }
 }
 
