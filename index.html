@@ -67,14 +67,14 @@
             --glass-bg: rgba(255, 255, 255, 0.72);
             --glass-border: rgba(255, 255, 255, 0.85);
 
-            /* ELEGANT WARM WHITE THEME FOR HEADSHOT EVENT LOUNGE */
-            --hl-bg: #FAF9F5;
-            --hl-text: #1a1918;
-            --hl-muted: #787571;
-            --hl-accent: #FFFFFF;
-            --hl-border: rgba(0, 0, 0, 0.07);
-            --hl-input-bg: rgba(255, 255, 255, 0.85);
-            --hl-input-border: rgba(0, 0, 0, 0.1);
+            /* POSTER-MATCHED COLOR PALETTE & HEAVY TYPOGRAPHY */
+            --hl-bg: #ECE9E4;               /* Warm oatmeal poster background */
+            --hl-text: #2D2A26;             /* Poster espresso text color for outside text */
+            --hl-muted: #66625D;            /* Subdued poster text tone */
+            --hl-card-bg: #FAF9F6;          /* Warm white pill background outside form */
+            --hl-border: rgba(45, 42, 38, 0.12); /* Subtle poster tone border */
+            --hl-input-bg: rgba(255, 255, 255, 0.95);
+            --hl-input-border: rgba(45, 42, 38, 0.15);
 
             --modal-bg: rgba(255, 255, 255, 0.985);
             --modal-input-bg: #fafafa;
@@ -406,7 +406,7 @@
             text-decoration: underline;
         }
 
-        /* AXEL ARIGATO EVENT STYLE - WARM WHITE + PILL EDGES + RICH GRADIENT */
+        /* HEADSHOT LOUNGE — POSTER MATCHED & HEAVY TITLE */
         #page-headshots {
             background-color: var(--hl-bg);
             color: var(--hl-text);
@@ -417,36 +417,22 @@
         .event-hero {
             position: relative;
             width: 100%;
-            height: 70vh;
-            min-height: 500px;
-            max-height: 750px;
-            background: #1a1918;
+            padding: 80px 80px 40px;
+            background: var(--hl-bg);
             overflow: hidden;
             display: flex;
-            align-items: flex-end;
+            align-items: center;
+            justify-content: center;
         }
 
-        .event-hero img {
+        /* POSTER BACKGROUND SOFT BLUR PREVIEW */
+        .event-hero-bg-blur {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.75;
-            filter: grayscale(15%) contrast(1.05);
-        }
-
-        /* ELEGANT WARM EDITORIAL GRADIENT OVERLAY */
-        .event-hero-gradient {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to top,
-                rgba(250, 249, 245, 1) 0%,
-                rgba(250, 249, 245, 0.75) 30%,
-                rgba(30, 28, 26, 0.35) 70%,
-                rgba(0, 0, 0, 0.5) 100%
-            );
+            inset: -40px;
+            background: url('poster-headshot.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            filter: blur(35px) saturate(120%);
+            z-index: 1;
         }
 
         .event-hero-content {
@@ -455,38 +441,70 @@
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            padding: 60px 80px;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* COMPACT POSTER CARD */
+        .poster-card {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(45, 42, 38, 0.12);
+            border: 1px solid var(--hl-border);
+            background: #ffffff;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .poster-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .poster-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-details-side {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .event-tag {
             display: inline-block;
-            font-size: 10px;
+            font-size: 9.5px;
             letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--hl-text);
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--hl-card-bg);
             backdrop-filter: blur(12px);
-            padding: 6px 18px;
+            padding: 8px 22px;
             border-radius: 9999px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            margin-bottom: 24px;
+            font-weight: 700;
+            border: 1px solid var(--hl-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
+        /* HEAVIER HEADING TYPOGRAPHY */
         .event-title {
-            font-size: clamp(34px, 5.5vw, 72px);
-            letter-spacing: -0.035em;
-            font-weight: 300;
+            font-size: clamp(34px, 5.2vw, 68px);
+            letter-spacing: -0.03em;
+            font-weight: 800; /* Thicker / Heavier Title */
             line-height: 1.05;
             text-transform: uppercase;
-            color: #1a1918;
+            color: var(--hl-text);
             margin-bottom: 28px;
         }
 
         .event-meta-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 14px;
             padding-top: 10px;
         }
 
@@ -494,12 +512,12 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--hl-card-bg);
             backdrop-filter: blur(16px);
             padding: 12px 24px;
             border-radius: 9999px;
             border: 1px solid var(--hl-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
         }
 
         .event-meta-label {
@@ -507,41 +525,42 @@
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--hl-muted);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .event-meta-val {
             font-size: 12.5px;
             letter-spacing: 0.02em;
-            color: #1a1918;
-            font-weight: 500;
+            color: var(--hl-text);
+            font-weight: 600;
         }
 
         /* EVENT MAIN CONTENT LAYOUT */
         .event-body {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 80px 120px;
+            padding: 40px 80px 120px;
             display: grid;
             grid-template-columns: 7fr 5fr;
             gap: 80px;
         }
 
         .event-description h3 {
-            font-size: 10px;
+            font-size: 10.5px;
             letter-spacing: 0.35em;
             text-transform: uppercase;
-            color: var(--hl-muted);
+            color: var(--hl-text);
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .event-description p {
             font-size: 16.5px;
             line-height: 1.8;
-            color: #4a4744;
-            font-weight: 300;
+            color: var(--hl-text);
+            font-weight: 400;
             margin-bottom: 24px;
+            opacity: 0.95;
         }
 
         .event-highlights {
@@ -551,9 +570,9 @@
             gap: 20px;
         }
 
-        /* PILL-LIKE CARDS WITH WARM WHITE ACCENT */
+        /* PILL-LIKE HIGHLIGHT CARDS MATCHING POSTER */
         .highlight-card {
-            background: var(--hl-accent);
+            background: var(--hl-card-bg);
             border: 1px solid var(--hl-border);
             padding: 28px 30px;
             border-radius: 32px;
@@ -563,7 +582,7 @@
 
         .highlight-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
         }
 
         .highlight-card h4 {
@@ -572,7 +591,7 @@
             text-transform: uppercase;
             color: var(--hl-text);
             margin-bottom: 10px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .highlight-card p {
@@ -580,17 +599,18 @@
             line-height: 1.65;
             color: var(--hl-muted);
             margin-bottom: 0;
+            font-weight: 400;
         }
 
-        /* PILL TICKET & RESERVATION CARD */
+        /* TICKET & GUEST LIST RESERVATION BOX */
         .event-ticket-box {
             position: sticky;
             top: 130px;
-            background: var(--hl-accent);
+            background: var(--hl-card-bg);
             border: 1px solid var(--hl-border);
             border-radius: 40px;
             padding: 44px 38px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.05);
+            box-shadow: 0 30px 70px rgba(45, 42, 38, 0.05);
         }
 
         .ticket-header {
@@ -602,7 +622,7 @@
         .ticket-header h3 {
             font-size: 20px;
             letter-spacing: -0.015em;
-            font-weight: 400;
+            font-weight: 600;
             color: var(--hl-text);
             margin-bottom: 6px;
         }
@@ -610,7 +630,7 @@
         .ticket-header p {
             font-size: 13px;
             color: var(--hl-muted);
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .event-form {
@@ -630,7 +650,7 @@
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--hl-muted);
-            font-weight: 600;
+            font-weight: 700;
             padding-left: 12px;
         }
 
@@ -672,7 +692,7 @@
             font-size: 12.5px;
             color: var(--hl-text);
             cursor: pointer;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .event-check-label input[type="checkbox"] {
@@ -692,7 +712,7 @@
             font-size: 10px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             border-radius: 9999px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -714,7 +734,7 @@
 
         .event-success-view h3 {
             font-size: 22px;
-            font-weight: 400;
+            font-weight: 600;
             color: var(--hl-text);
             margin-bottom: 12px;
         }
@@ -724,7 +744,7 @@
             line-height: 1.7;
             color: var(--hl-muted);
             margin-bottom: 28px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .hl-share-btn {
@@ -737,7 +757,7 @@
             letter-spacing: 0.3em;
             text-transform: uppercase;
             border-radius: 9999px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             border: 1px solid var(--hl-text);
             transition: all 0.4s ease;
@@ -753,7 +773,7 @@
             line-height: 1.6;
             color: var(--hl-muted);
             margin-top: 8px;
-            font-weight: 300;
+            font-weight: 400;
             padding-left: 8px;
         }
 
@@ -1190,13 +1210,23 @@
                 line-height: 1.45;
             }
 
+            .event-hero {
+                padding: 40px 24px 20px;
+            }
+
             .event-hero-content {
-                padding: 40px 24px;
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .poster-card {
+                max-width: 260px;
+                margin: 0 auto;
             }
 
             .event-body {
                 grid-template-columns: 1fr;
-                padding: 50px 24px 80px;
+                padding: 40px 24px 80px;
                 gap: 50px;
             }
 
@@ -1271,26 +1301,31 @@
         <div class="masonry" id="grid"></div>
     </div>
 
-    <!-- AXEL ARIGATO EVENT STYLE (THE HEADSHOT LOUNGE) — WARM WHITE & PILL EDGES -->
+    <!-- AXEL ARIGATO EVENT STYLE (THE HEADSHOT LOUNGE) — POSTER MATCHED & HEAVY TITLE -->
     <section id="page-headshots" class="page">
         <div class="event-hero">
-            <img src="poster-headshot.jpg" alt="The Headshot Lounge Poster" onerror="this.src='A67D.jpg';">
-            <div class="event-hero-gradient"></div>
+            <div class="event-hero-bg-blur"></div>
             <div class="event-hero-content">
-                <span class="event-tag">EVENT 001 / DOMBELE STUDIO PRESENTS</span>
-                <h1 class="event-title">THE HEADSHOT LOUNGE</h1>
-                <div class="event-meta-bar">
-                    <div class="event-meta-pill">
-                        <span class="event-meta-label">Location</span>
-                        <span class="event-meta-val">London • Bristol • Exeter • Taunton</span>
-                    </div>
-                    <div class="event-meta-pill">
-                        <span class="event-meta-label">Access</span>
-                        <span class="event-meta-val">Priority Waitlist & Session RSVP</span>
-                    </div>
-                    <div class="event-meta-pill">
-                        <span class="event-meta-label">Format</span>
-                        <span class="event-meta-val">Studio Headshots & Community Lounge</span>
+                <div class="poster-card">
+                    <img src="poster-headshot.jpg" alt="Exeter Headshot Lounge Event Poster" onerror="this.src='A67D.jpg';">
+                </div>
+
+                <div class="hero-details-side">
+                    <span class="event-tag">EVENT 001 / DOMBELE PRESENTS</span>
+                    <h1 class="event-title">EXETER HEADSHOT LOUNGE</h1>
+                    <div class="event-meta-bar">
+                        <div class="event-meta-pill">
+                            <span class="event-meta-label">Location</span>
+                            <span class="event-meta-val">Exeter • Bristol • London • Taunton</span>
+                        </div>
+                        <div class="event-meta-pill">
+                            <span class="event-meta-label">Access</span>
+                            <span class="event-meta-val">Guest List & Priority RSVP</span>
+                        </div>
+                        <div class="event-meta-pill">
+                            <span class="event-meta-label">Includes</span>
+                            <span class="event-meta-val">2x Retouched Photos + Drinks</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1298,18 +1333,22 @@
 
         <div class="event-body">
             <div class="event-description">
-                <h3>About The Session</h3>
-                <p>The Headshot Lounge is a pop-up portrait experience designed to elevate your personal brand, creative portfolio, or corporate presence without the cold atmosphere of traditional studio photography.</p>
-                <p>Hosted by photographer Dombele, each session brings together high-end lighting, tailored directional coaching, and a curated studio vibe featuring matcha and music.</p>
+                <h3>About The Event</h3>
+                <p>Join us in our Exeter Headshot Lounge event for professional headshots, drinks, and a great vibe. Hosted by Dombele.</p>
+                <p>Expect good music, drinks, and good company. Designed to elevate your creative profile, personal brand, or corporate image in a warm, relaxed pop-up studio atmosphere.</p>
 
                 <div class="event-highlights">
                     <div class="highlight-card">
-                        <h4>24-Hour Early Access</h4>
-                        <p>Waitlist members receive priority booking links 24 hours before pop-up studio slots open to the public.</p>
+                        <h4>2x Retouched Photos</h4>
+                        <p>Receive 2 professionally skin and color retouched portrait files delivered directly to your private gallery.</p>
                     </div>
                     <div class="highlight-card">
-                        <h4>Retouched Deliverables</h4>
-                        <p>High-resolution, high-end skin and color retouched digital headshots delivered in private online galleries.</p>
+                        <h4>Drinks & Good Music</h4>
+                        <p>Enjoy curated tracks, drinks, and a relaxed studio environment while having your headshots taken.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Priority Guest List</h4>
+                        <p>Guest list members receive early access booking links 24 hours before studio slots open publicly.</p>
                     </div>
                     <div class="highlight-card">
                         <h4>Social & Networking</h4>
@@ -1319,13 +1358,17 @@
                         <h4>Pop-Up Locations</h4>
                         <p>Touring studio sessions scheduled across Exeter, Bristol, London, and Taunton.</p>
                     </div>
+                    <div class="highlight-card">
+                        <h4>Community & Connections</h4>
+                        <p>Meet local founders, creatives, performers, and professionals in an informal lounge setting.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="event-ticket-box">
                 <div class="ticket-header">
-                    <h3>RSVP / Join Priority List</h3>
-                    <p>Select your location below to secure early access.</p>
+                    <h3>Join Exeter Guest List</h3>
+                    <p>Reserve your spot for 2 retouched photos, drinks & priority access.</p>
                 </div>
 
                 <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
@@ -1342,10 +1385,9 @@
                     <div class="event-field">
                         <label for="hl-city">Primary Location *</label>
                         <select id="hl-city" name="city" required>
-                            <option value="" disabled selected>Select preferred city...</option>
-                            <option value="London">London</option>
+                            <option value="Exeter" selected>Exeter (Next Event)</option>
                             <option value="Bristol">Bristol</option>
-                            <option value="Exeter">Exeter</option>
+                            <option value="London">London</option>
                             <option value="Taunton">Taunton</option>
                             <option value="Other">Other UK City</option>
                         </select>
@@ -1368,10 +1410,10 @@
                         <label>Preferences</label>
                         <div class="event-checkbox-grid">
                             <label class="event-check-label">
-                                <input type="checkbox" name="interests" value="Headshot Sessions"> Headshot Sessions
+                                <input type="checkbox" name="interests" value="Headshot Sessions (2x Retouched Photos)" checked> 2x Retouched Headshots
                             </label>
                             <label class="event-check-label">
-                                <input type="checkbox" name="interests" value="Networking & Community"> Studio Networking
+                                <input type="checkbox" name="interests" value="Drinks & Good Music" checked> Drinks & Good Vibe
                             </label>
                             <label class="event-check-label">
                                 <input type="checkbox" name="interests" value="Future Pop-Ups"> Future Studio Pop-Ups
@@ -1384,13 +1426,13 @@
                         <input type="text" id="hl-instagram" name="instagram" placeholder="@handle or website">
                     </div>
 
-                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Reserve Priority Access</button>
+                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join Exeter Guest List</button>
                     <p class="hl-gdpr-note">You will receive priority updates for upcoming studio dates. Unsubscribe anytime.</p>
                 </form>
 
                 <div class="event-success-view" id="hlSuccessView">
-                    <h3>RSVP Confirmed ✓</h3>
-                    <p>You’re officially on the priority list. We’ll notify you as soon as booking slots open in your chosen city.</p>
+                    <h3>Guest List RSVP Confirmed ✓</h3>
+                    <p>You’re officially on the priority list. We’ll notify you as soon as booking slots open in Exeter.</p>
                     <button class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
                 </div>
             </div>
@@ -1951,7 +1993,7 @@ async function handleHLWaitlistSubmit(e) {
     } catch(err) {
         alert("Something went wrong with the submission. Please try again.");
         btn.disabled = false;
-        btn.innerText = 'Reserve Priority Access';
+        btn.innerText = 'Join Exeter Guest List';
     }
 }
 
@@ -1959,8 +2001,8 @@ function shareWaitlist() {
     const shareUrl = window.location.origin + window.location.pathname + '#headshots';
     if (navigator.share) {
         navigator.share({
-            title: 'The Headshot Lounge — Dombele Studio',
-            text: 'Join the priority waitlist for headshots, pop-ups, and networking.',
+            title: 'Exeter Headshot Lounge — Dombele Studio',
+            text: 'Join the priority guest list for 2 retouched headshots, drinks & good vibes.',
             url: shareUrl
         }).catch(() => {});
     } else {
