@@ -774,6 +774,48 @@
             padding-left: 8px;
         }
 
+        /* FAQ SECTION STYLING */
+        .faq-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--hl-border);
+        }
+
+        .faq-section h3 {
+            font-size: 11px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--hl-text);
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+
+        .faq-item {
+            background: var(--hl-card-bg);
+            border: 1px solid var(--hl-border);
+            border-radius: 24px;
+            padding: 22px 28px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 25px rgba(191,31,44,0.04);
+        }
+
+        .faq-item h4 {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .faq-item p {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
         /* LUXURY ABOUT SECTION */
         .about-wrap { 
             max-width: 1280px; 
@@ -1353,11 +1395,36 @@
                     </div>
                     <div class="highlight-card">
                         <h4>Pop-Up Locations</h4>
-                        <p>Touring studio sessions scheduled across Exeter, Bristol, London, and Taunton.</p>
+                        <p>Touring studio sessions scheduled across Exeter, Bristol, London, and Taunton. We plan to tour around universities across the southwest before taking this to London.</p>
                     </div>
-                    <div class="highlight-card">
-                        <h4>Community & Connections</h4>
-                        <p>Meet local founders, creatives, performers, and professionals in an informal lounge setting.</p>
+                </div>
+
+                <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+                <div class="faq-section">
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="faq-item">
+                        <h4>When and where are event dates announced?</h4>
+                        <p>Dates will be posted and advertised in advance on @dombele.studio but firstly to members signed up to the guestlist on the specific city.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What should I wear for my session?</h4>
+                        <p>Wear clothes that feel like you and match your personal brand. Solid tones and textured layers work best—feel free to bring a second outfit option to try!</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How long does a portrait session take?</h4>
+                        <p>Sessions run around 10–15 minutes, giving us plenty of time to direct poses and capture authentic shots while keeping the studio lounge energy relaxed.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How and when will I receive my retouched photos?</h4>
+                        <p>Your 2 retouched high-res image files will be delivered to your private online gallery within a few days after the pop-up event.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I purchase extra photos if I want more than two?</h4>
+                        <p>Yes! You’ll view a gallery preview of your session where additional retouched images can be ordered anytime.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Who can attend the Headshot Lounge pop-ups?</h4>
+                        <p>Everyone is welcome—whether you are a student, local creative, founder, model, actor, or corporate professional.</p>
                     </div>
                 </div>
             </div>
@@ -1817,7 +1884,7 @@ function showAbout() {
         pageHeadshots.style.display = "none";
     }
     pageAbout.classList.add("active");
-    updateNav_activeState('ABOUT');
+    updateNavActiveState('ABOUT');
 }
 
 function showHeadshots() {
