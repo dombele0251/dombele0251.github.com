@@ -562,6 +562,85 @@
             margin-bottom: 24px;
         }
 
+        /* SAMPLE QUALITY CIRCULAR AVATARS SHOWCASE */
+        .sample-quality-section {
+            margin: 40px 0;
+            background: var(--hl-card-bg);
+            border: 1px solid var(--hl-border);
+            border-radius: 32px;
+            padding: 32px 36px;
+            box-shadow: 0 15px 35px rgba(191,31,44,0.04);
+        }
+
+        .sample-quality-section h3 {
+            font-size: 10.5px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #000000;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .sample-quality-section p.subhead {
+            font-size: 13px;
+            color: #000000;
+            opacity: 0.8;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .sample-circles-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sample-circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sample-circle-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .circle-avatar-frame {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(191,31,44,0.15);
+            background: var(--accent);
+            position: relative;
+        }
+
+        .circle-avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .sample-circle-item:hover .circle-avatar-frame img {
+            transform: scale(1.1);
+        }
+
+        .sample-circle-label {
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #000000;
+            font-weight: 700;
+        }
+
         .event-highlights {
             margin-top: 40px;
             display: grid;
@@ -1312,6 +1391,11 @@
                 gap: 50px;
             }
 
+            .circle-avatar-frame {
+                width: 85px;
+                height: 85px;
+            }
+
             .event-highlights {
                 grid-template-columns: 1fr;
             }
@@ -1418,6 +1502,32 @@
                 <h3>About The Event</h3>
                 <p>Join us in our Exeter Headshot Lounge event for professional headshots, drinks, and a great vibe. Hosted by Dombele.</p>
                 <p>Expect good music, drinks, and good company. Designed to elevate your creative profile, personal brand, or corporate image in a warm, relaxed pop-up studio atmosphere.</p>
+
+                <!-- CIRCULAR QUALITY EXAMPLES SHOWCASE -->
+                <div class="sample-quality-section">
+                    <h3>Sample Portrait Quality</h3>
+                    <p class="subhead">An example of the lighting, tone, and retouching finish you will receive:</p>
+                    <div class="sample-circles-grid">
+                        <div class="sample-circle-item" onclick="openLB('website-197.jpg')">
+                            <div class="circle-avatar-frame">
+                                <img src="website-197.jpg" alt="Sample Retouched Headshot 1" loading="lazy">
+                            </div>
+                            <span class="sample-circle-label">Studio Portrait</span>
+                        </div>
+                        <div class="sample-circle-item" onclick="openLB('paige ball.jpg')">
+                            <div class="circle-avatar-frame">
+                                <img src="paige ball.jpg" alt="Sample Retouched Headshot 2" loading="lazy">
+                            </div>
+                            <span class="sample-circle-label">Creative Headshot</span>
+                        </div>
+                        <div class="sample-circle-item" onclick="openLB('website-162.jpg')">
+                            <div class="circle-avatar-frame">
+                                <img src="website-162.jpg" alt="Sample Retouched Headshot 3" loading="lazy">
+                            </div>
+                            <span class="sample-circle-label">Minimalist Tone</span>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="event-highlights">
                     <div class="highlight-card">
@@ -2010,8 +2120,19 @@ function openLB(src) {
     const lb = document.getElementById("lightbox");
     if (!lb) return;
 
-    currentIndex = visibleItems.findIndex(item => item.src === src);
-    if (currentIndex === -1) currentIndex = 0;
+    // Check if image exists in current visible list, otherwise set temporary view
+    let index = visibleItems.findIndex(item => item.src === src);
+    if (index === -1) {
+        let matched = DATA.find(d => d.src === src);
+        if (matched) {
+            visibleItems = [matched];
+            currentIndex = 0;
+        } else {
+            currentIndex = 0;
+        }
+    } else {
+        currentIndex = index;
+    }
 
     renderLBItem();
     lb.classList.add("open");
