@@ -774,7 +774,7 @@
             padding-left: 8px;
         }
 
-        /* FAQ SECTION STYLING */
+        /* FAQ ACCORDION SECTION STYLING */
         .faq-section {
             margin-top: 60px;
             padding-top: 40px;
@@ -790,25 +790,68 @@
             font-weight: 800;
         }
 
-        .faq-item {
+        .faq-accordion-item {
             background: var(--hl-card-bg);
             border: 1px solid var(--hl-border);
             border-radius: 24px;
-            padding: 22px 28px;
             margin-bottom: 14px;
             box-shadow: 0 10px 25px rgba(191,31,44,0.04);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
         }
 
-        .faq-item h4 {
+        .faq-accordion-item:hover {
+            box-shadow: 0 15px 30px rgba(191,31,44,0.08);
+        }
+
+        .faq-accordion-header {
+            width: 100%;
+            padding: 22px 28px;
+            background: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .faq-accordion-header h4 {
             font-size: 12px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: #000000;
-            margin-bottom: 8px;
             font-weight: 700;
+            margin: 0;
+            padding-right: 15px;
         }
 
-        .faq-item p {
+        .faq-accordion-icon {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-accordion-item.active .faq-accordion-icon {
+            transform: rotate(45px);
+        }
+
+        .faq-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
+            padding: 0 28px;
+        }
+
+        .faq-accordion-item.active .faq-accordion-content {
+            padding: 0 28px 22px 28px;
+        }
+
+        .faq-accordion-content p {
             font-size: 13.5px;
             line-height: 1.6;
             color: #000000;
@@ -1399,32 +1442,68 @@
                     </div>
                 </div>
 
-                <!-- FREQUENTLY ASKED QUESTIONS SECTION -->
+                <!-- FREQUENTLY ASKED QUESTIONS ACCORDION SECTION -->
                 <div class="faq-section">
                     <h3>Frequently Asked Questions</h3>
-                    <div class="faq-item">
-                        <h4>When and where are event dates announced?</h4>
-                        <p>Dates will be posted and advertised in advance on @dombele.studio but firstly to members signed up to the guestlist on the specific city.</p>
+                    
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>When and where are event dates announced?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Dates will be posted and advertised in advance on @dombele.studio but firstly to members signed up to the guestlist on the specific city.</p>
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h4>What should I wear for my session?</h4>
-                        <p>Wear clothes that feel like you and match your personal brand. Solid tones and textured layers work best—feel free to bring a second outfit option to try!</p>
+
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>What should I wear for my session?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Wear clothes that feel like you and match your personal brand. Solid tones and textured layers work best—feel free to bring a second outfit option to try!</p>
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h4>How long does a portrait session take?</h4>
-                        <p>Sessions run around 10–15 minutes, giving us plenty of time to direct poses and capture authentic shots while keeping the studio lounge energy relaxed.</p>
+
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>How long does a portrait session take?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Sessions run around 10–15 minutes, giving us plenty of time to direct poses and capture authentic shots while keeping the studio lounge energy relaxed.</p>
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h4>How and when will I receive my retouched photos?</h4>
-                        <p>Your 2 retouched high-res image files will be delivered to your private online gallery within a few days after the pop-up event.</p>
+
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>How and when will I receive my retouched photos?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Your 2 retouched high-res image files will be delivered to your private online gallery within a few days after the pop-up event.</p>
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h4>Can I purchase extra photos if I want more than two?</h4>
-                        <p>Yes! You’ll view a gallery preview of your session where additional retouched images can be ordered anytime.</p>
+
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>Can I purchase extra photos if I want more than two?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Yes! You’ll view a gallery preview of your session where additional retouched images can be ordered anytime.</p>
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h4>Who can attend the Headshot Lounge pop-ups?</h4>
-                        <p>Everyone is welcome—whether you are a student, local creative, founder, model, actor, or corporate professional.</p>
+
+                    <div class="faq-accordion-item">
+                        <button class="faq-accordion-header" onclick="toggleFaq(this)">
+                            <h4>Who can attend the Headshot Lounge pop-ups?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Everyone is welcome—whether you are a student, local creative, founder, model, actor, or corporate professional.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1778,6 +1857,20 @@ function init() {
     const hlForm = document.getElementById("hlWaitlistForm");
     if (hlForm) {
         hlForm.addEventListener("submit", handleHLWaitlistSubmit);
+    }
+}
+
+function toggleFaq(buttonEl) {
+    const item = buttonEl.parentElement;
+    const content = item.querySelector('.faq-accordion-content');
+    const isOpen = item.classList.contains('active');
+
+    if (isOpen) {
+        item.classList.remove('active');
+        content.style.maxHeight = '0px';
+    } else {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
     }
 }
 
