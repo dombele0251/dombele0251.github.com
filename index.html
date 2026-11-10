@@ -785,28 +785,17 @@
             box-shadow: 0 6px 20px rgba(191,31,44,0.1);
         }
 
-        .event-checkbox-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+        /* PACKAGE SUMMARY CALLOUT */
+        .ticket-summary-box {
+            background: #ffffff;
+            border: 1px solid var(--hl-border);
+            border-radius: 20px;
+            padding: 16px 20px;
+            font-size: 11.5px;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #000000;
             margin-top: 4px;
-            padding-left: 8px;
-        }
-
-        .event-check-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 12.5px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .event-check-label input[type="checkbox"] {
-            accent-color: var(--hl-text);
-            width: 15px;
-            height: 15px;
-            cursor: pointer;
         }
 
         /* PILL SUBMIT BUTTON IN RED */
@@ -1516,12 +1505,12 @@
                             <span class="event-meta-val">Exeter</span>
                         </div>
                         <div class="event-meta-pill">
-                            <span class="event-meta-label">Access</span>
-                            <span class="event-meta-val">Guest List & Priority RSVP</span>
+                            <span class="event-meta-label">Status</span>
+                            <span class="event-meta-val">Dates Dropping Soon</span>
                         </div>
                         <div class="event-meta-pill">
-                            <span class="event-meta-label">Includes</span>
-                            <span class="event-meta-val">2x Retouched Photos + Drinks</span>
+                            <span class="event-meta-label">Ticket Price</span>
+                            <span class="event-meta-val">£20 (All-Inclusive)</span>
                         </div>
                     </div>
                 </div>
@@ -1531,8 +1520,8 @@
         <div class="event-body">
             <div class="event-description">
                 <h3>About The Event</h3>
-                <p>Join us in our Exeter Headshot Lounge event for professional headshots, drinks, and a great vibe. Hosted by Dombele.</p>
-                <p>Expect good music, drinks, and good company. Designed to elevate your creative profile, personal brand, or corporate image in a warm, relaxed pop-up studio atmosphere.</p>
+                <p>Join us in our Exeter Headshot Lounge pop-up studio for professional headshots, drinks, and good music. Hosted by Dombele Studio.</p>
+                <p>Shot by a photographer trusted by UK artists and brands (including <strong>Tommy Richman, Odeal, Jay1</strong>, and top fashion influencers across 40+ UK shoots), this session brings high-end industry photography into an accessible, relaxed pop-up lounge setting.</p>
 
                 <!-- CIRCULAR QUALITY EXAMPLES SHOWCASE -->
                 <div class="sample-quality-section">
@@ -1652,7 +1641,7 @@
             <div class="event-ticket-box">
                 <div class="ticket-header">
                     <h3>Join Exeter Guest List</h3>
-                    <p>Reserve your spot for 2 retouched photos, drinks & priority access.</p>
+                    <p>£20 all-inclusive. Join the list to get early booking access when dates drop.</p>
                 </div>
 
                 <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
@@ -1691,32 +1680,21 @@
                     </div>
 
                     <div class="event-field">
-                        <label>Preferences</label>
-                        <div class="event-checkbox-grid">
-                            <label class="event-check-label">
-                                <input type="checkbox" name="interests" value="Headshot Sessions (2x Retouched Photos)" checked> 2x Retouched Headshots
-                            </label>
-                            <label class="event-check-label">
-                                <input type="checkbox" name="interests" value="Drinks & Good Music" checked> Drinks & Good Vibe
-                            </label>
-                            <label class="event-check-label">
-                                <input type="checkbox" name="interests" value="Future Pop-Ups"> Future Studio Pop-Ups
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="event-field">
                         <label for="hl-instagram">Instagram / Website (Optional)</label>
                         <input type="text" id="hl-instagram" name="instagram" placeholder="@handle or website">
                     </div>
 
-                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join Exeter Guest List</button>
-                    <p class="hl-gdpr-note" id="hl-gdpr-note">You will receive priority updates for upcoming studio dates. Unsubscribe anytime.</p>
+                    <div class="ticket-summary-box">
+                        <strong>Ticket Includes:</strong> 10–15 min studio session + 2 retouched high-res photos + drinks & music lounge access.
+                    </div>
+
+                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join Exeter Guest List — £20</button>
+                    <p class="hl-gdpr-note" id="hl-gdpr-note">Priority booking links sent 24h before public launch. Fully refundable up to 48h before your shoot.</p>
                 </form>
 
                 <div class="event-success-view" id="hlSuccessView">
                     <h3>Guest List RSVP Confirmed ✓</h3>
-                    <p>You’re officially on the priority list. We’ll notify you as soon as booking slots open in Exeter.</p>
+                    <p>You’re officially on the priority list. You’ll receive an email with your private booking link to pick your time slot and lock in your £20 ticket 24 hours before public launch.</p>
                     <button type="button" class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
                 </div>
             </div>
@@ -1975,8 +1953,6 @@ function init() {
         });
     }
 
-
-
     const lb = document.getElementById("lightbox");
     if (lb) {
         lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
@@ -2193,7 +2169,6 @@ function openLB(src) {
     const lb = document.getElementById("lightbox");
     if (!lb) return;
 
-    // Check if image exists in current visible list, otherwise set temporary view
     let index = visibleItems.findIndex(item => item.src === src);
     if (index === -1) {
         let matched = DATA.find(d => d.src === src);
@@ -2363,7 +2338,7 @@ async function handleHLWaitlistSubmit(e) {
     } catch(err) {
         alert("Something went wrong with the submission. Please try again.");
         btn.disabled = false;
-        btn.innerText = 'Join Exeter Guest List';
+        btn.innerText = 'Join Exeter Guest List — £20';
     }
 }
 
