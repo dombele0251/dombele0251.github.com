@@ -870,6 +870,29 @@
             padding-left: 8px;
         }
 
+        .hl-booking-steps {
+            margin: 34px 0 0;
+            padding: 24px 26px;
+            border: 1px solid var(--hl-border);
+            border-radius: 24px;
+            background: var(--hl-card-bg);
+            color: #000;
+        }
+        .hl-booking-steps h3 { margin: 0 0 14px; color: #000; }
+        .hl-booking-steps ol { margin: 0; padding-left: 22px; }
+        .hl-booking-steps li { padding: 5px 0 5px 4px; font-size: 13px; line-height: 1.65; }
+        .hl-form-status { min-height: 1.4em; margin: 0; font-size: 12px; line-height: 1.5; color: #9b1724; }
+        .hl-form-status:empty { display: none; }
+        .event-submit-btn:disabled { opacity: .7; cursor: wait; }
+        @media (prefers-reduced-motion: reduce) {
+            #page-headshots *, #page-headshots *::before, #page-headshots *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
         /* FAQ ACCORDION SECTION STYLING */
         .faq-section {
             margin-top: 60px;
@@ -1509,8 +1532,8 @@
                             <span class="event-meta-val">Dates Dropping Soon</span>
                         </div>
                         <div class="event-meta-pill">
-                            <span class="event-meta-label">Ticket Price</span>
-                            <span class="event-meta-val">£20 (All-Inclusive)</span>
+                            <span class="event-meta-label">Session Price</span>
+                            <span class="event-meta-val">£20 · Pay when booking</span>
                         </div>
                     </div>
                 </div>
@@ -1560,7 +1583,7 @@
                     </div>
                     <div class="highlight-card">
                         <h4>Priority Guest List</h4>
-                        <p>Guest list members receive early access booking links 24 hours before studio slots open publicly.</p>
+                        <p>Joining the guest list is free. Members receive early access booking links 24 hours before studio slots open publicly, with no obligation to book.</p>
                     </div>
                     <div class="highlight-card">
                         <h4>Social & Networking</h4>
@@ -1572,9 +1595,28 @@
                     </div>
                 </div>
 
+                <div class="hl-booking-steps" aria-label="How the guest list works">
+                    <h3>How It Works</h3>
+                    <ol>
+                        <li><strong>Join for free.</strong> Add your details to the guest list — no payment and no commitment.</li>
+                        <li><strong>Get priority access.</strong> We’ll email your private booking link 24 hours before public bookings open.</li>
+                        <li><strong>Choose and confirm.</strong> Select an available session and pay £20 when you confirm your time.</li>
+                    </ol>
+                </div>
+
                 <!-- FREQUENTLY ASKED QUESTIONS ACCORDION SECTION -->
                 <div class="faq-section">
                     <h3>Frequently Asked Questions</h3>
+
+                    <div class="faq-accordion-item">
+                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
+                            <h4>Is it free to join, and when do I pay?</h4>
+                            <span class="faq-accordion-icon">+</span>
+                        </button>
+                        <div class="faq-accordion-content">
+                            <p>Joining the guest list is completely free and does not reserve or commit you to a paid session. You’ll receive 24-hour priority access to booking. If you choose a session, the price is £20 and payment is made when you confirm your booking. You’ll see the booking details before you pay.</p>
+                        </div>
+                    </div>
                     
                     <div class="faq-accordion-item">
                         <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
@@ -1640,8 +1682,8 @@
 
             <div class="event-ticket-box">
                 <div class="ticket-header">
-                    <h3>Join Exeter Guest List</h3>
-                    <p>£20 all-inclusive. Join the list to get early booking access when dates drop.</p>
+                    <h3>Join the Free Exeter Guest List</h3>
+                    <p>It’s completely free to join, and there’s no commitment to book. Get 24-hour priority access when session bookings open. The £20 session fee is only payable if you choose and confirm a booking.</p>
                 </div>
 
                 <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
@@ -1685,16 +1727,17 @@
                     </div>
 
                     <div class="ticket-summary-box">
-                        <strong>Ticket Includes:</strong> 10–15 min studio session + 2 retouched high-res photos + drinks & music lounge access.
+                        <strong>£20 Session Includes:</strong> 10–15 minute studio session, 2 professionally retouched high-resolution photos, and drinks & music lounge access. This is payable only when you confirm a session.
                     </div>
 
-                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join Exeter Guest List — £20</button>
-                    <p class="hl-gdpr-note" id="hl-gdpr-note">Priority booking links sent 24h before public launch. Fully refundable up to 48h before your shoot.</p>
+                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join the Free Guest List</button>
+                    <p class="hl-gdpr-note" id="hl-gdpr-note">No payment details are needed. We’ll use your details to manage your guest-list place and send relevant priority-access and booking updates. You can decide later whether to book; the £20 fee is paid only when you confirm a session.</p>
+                    <p class="hl-form-status" id="hlFormStatus" role="status" aria-live="polite" aria-atomic="true"></p>
                 </form>
 
                 <div class="event-success-view" id="hlSuccessView">
-                    <h3>Guest List RSVP Confirmed ✓</h3>
-                    <p>You’re officially on the priority list. You’ll receive an email with your private booking link to pick your time slot and lock in your £20 ticket 24 hours before public launch.</p>
+                    <h3 tabindex="-1">Guest List RSVP Confirmed ✓</h3>
+                    <p>You’re on the priority guest list. Joining was free and no payment has been taken. You’ll receive an email with your private booking link 24 hours before public launch. You can then choose whether to book a session for £20.</p>
                     <button type="button" class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
                 </div>
             </div>
@@ -1721,11 +1764,11 @@
 </main>
 
 <button type="button" id="backToTop" aria-label="Back to top" class="back-to-top" onclick="window.scrollTo({top:0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'})">↑ Top</button>
-<button type="button" onclick="openModal()" class="mobile-contact-fab">Email for Bookings</button>
+<button type="button" id="mobileContactFab" onclick="openModal()" class="mobile-contact-fab">Email for Bookings</button>
 
 <footer>
     <span>Dombele Studio © 2026</span>
-    <a href="mailto:studio@dombele.com?subject=Inquiry">studio@dombele.com</a>
+    <a href="mailto:studio@dombele.com?subject=Inquiry" id="footerContactLink">studio@dombele.com</a>
     <a href="https://instagram.com/dombele.studio" target="_blank" rel="noopener">Instagram</a>
 </footer>
 
@@ -2080,7 +2123,25 @@ function shuffleGrid() {
     }
 }
 
+function setHeadshotContactShortcuts(isHeadshots) {
+    const footerLink = document.getElementById('footerContactLink');
+    const mobileButton = document.getElementById('mobileContactFab');
+
+    if (footerLink) {
+        footerLink.href = isHeadshots ? '#hlWaitlistForm' : 'mailto:studio@dombele.com?subject=Inquiry';
+        footerLink.textContent = isHeadshots ? 'Join the Free Guest List' : 'studio@dombele.com';
+    }
+
+    if (mobileButton) {
+        mobileButton.textContent = isHeadshots ? 'Join Free Guest List' : 'Email for Bookings';
+        mobileButton.onclick = isHeadshots
+            ? () => document.getElementById('hlWaitlistForm')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' })
+            : openModal;
+    }
+}
+
 function showCategory(cat) {
+    setHeadshotContactShortcuts(false);
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
     const pageHeadshots = document.getElementById("page-headshots");
@@ -2120,6 +2181,7 @@ function showCategory(cat) {
 }
 
 function showAbout() {
+    setHeadshotContactShortcuts(false);
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
     const pageHeadshots = document.getElementById("page-headshots");
@@ -2136,6 +2198,7 @@ function showAbout() {
 }
 
 function showHeadshots() {
+    setHeadshotContactShortcuts(true);
     const pageWork = document.getElementById("page-work");
     const pageAbout = document.getElementById("page-about");
     const pageHeadshots = document.getElementById("page-headshots");
@@ -2309,7 +2372,9 @@ async function handleHLWaitlistSubmit(e) {
     if (!this.checkValidity()) { this.reportValidity(); return; }
     if (btn.disabled) return;
     btn.disabled = true;
-    btn.innerText = 'Reserving...';
+    btn.innerText = 'Joining...';
+    const status = document.getElementById('hlFormStatus');
+    if (status) status.textContent = 'Submitting your free guest-list registration…';
 
     const formData = new FormData(this);
     try {
@@ -2331,14 +2396,14 @@ async function handleHLWaitlistSubmit(e) {
             successView.style.display = 'block';
             successView.setAttribute('role', 'status');
             successView.setAttribute('aria-live', 'polite');
-            successView.querySelector('h3')?.focus?.();
+            successView.querySelector('h3')?.focus();
         } else {
-            throw new Error();
+            throw new Error('Form submission failed');
         }
     } catch(err) {
-        alert("Something went wrong with the submission. Please try again.");
+        if (status) status.textContent = 'We couldn’t submit your details just now. Please check your connection and try again.';
         btn.disabled = false;
-        btn.innerText = 'Join Exeter Guest List — £20';
+        btn.innerText = 'Join the Free Guest List';
     }
 }
 
@@ -2347,12 +2412,17 @@ function shareWaitlist() {
     if (navigator.share) {
         navigator.share({
             title: 'Exeter Headshot Lounge — Dombele Studio',
-            text: 'Join the priority guest list for 2 retouched headshots, drinks & good vibes.',
+            text: 'Join the Exeter Headshot Lounge guest list for free. Get 24-hour priority access to £20 session bookings.',
             url: shareUrl
         }).catch(() => {});
+    } else if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            alert("Event link copied to clipboard!");
+        }).catch(() => {
+            window.prompt("Copy the event link:", shareUrl);
+        });
     } else {
-        navigator.clipboard.writeText(shareUrl);
-        alert("Event link copied to clipboard!");
+        window.prompt("Copy the event link:", shareUrl);
     }
 }
 
