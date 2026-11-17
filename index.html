@@ -2134,7 +2134,7 @@ function toggleFaq(buttonEl) {
 }
 
 function updateCategoryCounts() {
-    const counts = { ALL: DATA.length };
+    const counts = { ALL: DATA.filter(d => d.cat !== 'BTS').length };
     DATA.forEach(d => {
         counts[d.cat] = (counts[d.cat] || 0) + 1;
     });
@@ -2222,7 +2222,7 @@ function showCategory(cat) {
         visibleItems = [];
 
         for (let item of items) {
-            const isMatch = (cat === 'ALL' || item.classList.contains(cat));
+            const isMatch = (cat === 'ALL' ? !item.classList.contains('BTS') : item.classList.contains(cat));
             item.style.display = isMatch ? "" : "none";
             
             if (isMatch) {
