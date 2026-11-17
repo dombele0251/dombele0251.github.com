@@ -977,6 +977,102 @@
             font-weight: 400;
         }
 
+        /* MINIMAL HEADSHOTS PAGE */
+        .headshots-simple {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 88px 56px 120px;
+        }
+        .headshots-intro {
+            position: static;
+            width: auto;
+            padding: 0;
+            margin: 0 auto 52px;
+            border: 0;
+            background: transparent;
+            backdrop-filter: none;
+            text-align: center;
+        }
+        .headshots-intro h1 {
+            margin: 0 0 16px;
+            color: var(--hl-text);
+            font-size: clamp(32px, 5vw, 56px);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            font-weight: 800;
+        }
+        .headshots-intro p {
+            max-width: 560px;
+            margin: 0 auto;
+            color: #2b2108;
+            font-size: 15px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        .headshots-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .headshots-gallery-item {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: 0;
+            border-radius: 4px;
+            overflow: hidden;
+            background: rgba(255,255,255,.35);
+            cursor: zoom-in;
+        }
+        .headshots-gallery-item img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            transition: transform .6s ease;
+        }
+        .headshots-gallery-item:hover img { transform: scale(1.025); }
+        .headshots-guest-list {
+            max-width: 560px;
+            margin: 76px auto 0;
+            scroll-margin-top: 130px;
+        }
+        .headshots-guest-list .event-ticket-box {
+            position: static;
+            padding: 36px;
+            border-radius: 24px;
+        }
+        .headshots-guest-list .ticket-header { padding-bottom: 20px; margin-bottom: 22px; }
+        .headshots-guest-list .ticket-header h3 {
+            margin-bottom: 10px;
+            font-size: 17px;
+            letter-spacing: .04em;
+            text-transform: none;
+        }
+        .headshots-guest-list .ticket-header p {
+            font-size: 13px;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+        body.headshots-active #mobileContactFab { display: block; }
+        body.headshots-active #mobileContactFab {
+            bottom: max(22px, env(safe-area-inset-bottom));
+            right: 24px;
+            background: var(--hl-text);
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(0,0,0,.22);
+        }
+        @media (max-width: 768px) {
+            .headshots-simple { padding: 54px 22px 100px; }
+            .headshots-intro { margin-bottom: 32px; }
+            .headshots-intro p { font-size: 14px; }
+            .headshots-gallery { grid-template-columns: 1fr; gap: 14px; }
+            .headshots-gallery-item img { aspect-ratio: 4 / 5; }
+            .headshots-guest-list { margin-top: 48px; }
+            .headshots-guest-list .event-ticket-box { padding: 28px 22px; }
+            body.headshots-active #mobileContactFab { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); }
+        }
+
         /* LUXURY ABOUT SECTION */
         .about-wrap { 
             max-width: 1280px; 
@@ -1562,235 +1658,65 @@
 
     <!-- AXEL ARIGATO EVENT STYLE (THE HEADSHOT LOUNGE) — EXACT POSTER GOLDEN YELLOW & RED -->
     <section id="page-headshots" class="page">
-        <div class="event-hero">
-            <div class="event-hero-bg-blur"></div>
-            <div class="event-hero-content">
-                <div class="poster-card">
-                    <img src="poster-headshot.jpg" alt="Exeter Headshot Lounge Event Poster" onerror="this.src='A67D.jpg';">
-                </div>
-
-                <div class="hero-details-side">
-                    <span class="event-tag">EVENT 023 / DOMBELE PRESENTS</span>
-                    <h1 class="event-title">EXETER HEADSHOT LOUNGE</h1>
-                    <div class="event-meta-bar">
-                        <div class="event-meta-pill">
-                            <span class="event-meta-label">Location</span>
-                            <span class="event-meta-val">Exeter</span>
-                        </div>
-                        <div class="event-meta-pill">
-                            <span class="event-meta-label">Status</span>
-                            <span class="event-meta-val">Dates Dropping Soon</span>
-                        </div>
-                        <div class="event-meta-pill">
-                            <span class="event-meta-label">Session Price</span>
-                            <span class="event-meta-val">£20 · Pay when booking</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="event-body">
-            <div class="event-description">
-                <h3>About The Event</h3>
-                <p>Join us in our Exeter Headshot Lounge pop-up studio for professional headshots, drinks, and good music. Hosted by Dombele Studio.</p>
-                <p>Shot by a photographer trusted by UK artists and brands (including <strong>Tommy Richman, Odeal, Jay1</strong>, and top fashion influencers across 40+ UK shoots), this session brings high-end industry photography into an accessible, relaxed pop-up lounge setting.</p>
-
-                <!-- CIRCULAR QUALITY EXAMPLES SHOWCASE -->
-                <div class="sample-quality-section">
-                    <h3>Sample Portrait Quality</h3>
-                    <p class="subhead">An example of the lighting, tone, and retouching finish you will receive:</p>
-                    <div class="sample-circles-grid">
-                        <button type="button" class="sample-circle-item" onclick="openLB('website-197.jpg')" aria-label="View enlarged sample: website-197.jpg">
-                            <div class="circle-avatar-frame">
-                                <img src="website-197.jpg" alt="Sample Retouched Headshot 1" loading="lazy">
-                            </div>
-                            <span class="sample-circle-label">Studio Portrait</span>
-                        </button>
-                        <button type="button" class="sample-circle-item" onclick="openLB('paige ball.jpg')" aria-label="View enlarged sample: paige ball.jpg">
-                            <div class="circle-avatar-frame">
-                                <img src="paige ball.jpg" alt="Sample Retouched Headshot 2" loading="lazy">
-                            </div>
-                            <span class="sample-circle-label">Creative Headshot</span>
-                        </button>
-                        <button type="button" class="sample-circle-item" onclick="openLB('website-162.jpg')" aria-label="View enlarged sample: website-162.jpg">
-                            <div class="circle-avatar-frame">
-                                <img src="website-162.jpg" alt="Sample Retouched Headshot 3" loading="lazy">
-                            </div>
-                            <span class="sample-circle-label">Minimalist Tone</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="event-highlights">
-                    <div class="highlight-card">
-                        <h4>2x Retouched Photos</h4>
-                        <p>Receive 2 professionally skin and color retouched portrait files delivered directly to your private gallery.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>Drinks & Good Music</h4>
-                        <p>Enjoy curated tracks, drinks, and a relaxed studio environment while having your headshots taken.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>Priority Guest List</h4>
-                        <p>Joining the guest list is free. Members receive early access booking links 24 hours before studio slots open publicly, with no obligation to book.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>Social & Networking</h4>
-                        <p>Connect with local creatives, founders, performers, and professionals in an informal studio lounge atmosphere.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>Pop-Up Locations</h4>
-                        <p>Touring studio sessions scheduled across Exeter, Bristol, London, and Taunton. We plan to tour around universities across the southwest before taking this to London.</p>
-                    </div>
-                </div>
-
-                <div class="hl-booking-steps" aria-label="How the guest list works">
-                    <h3>How It Works</h3>
-                    <ol>
-                        <li><strong>Join for free.</strong> Add your details to the guest list — no payment and no commitment.</li>
-                        <li><strong>Get priority access.</strong> We’ll email your private booking link 24 hours before public bookings open.</li>
-                        <li><strong>Choose and confirm.</strong> Select an available session and pay £20 when you confirm your time.</li>
-                    </ol>
-                </div>
-
-                <!-- FREQUENTLY ASKED QUESTIONS ACCORDION SECTION -->
-                <div class="faq-section">
-                    <h3>Frequently Asked Questions</h3>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>Is it free to join, and when do I pay?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Joining the guest list is completely free and does not reserve or commit you to a paid session. You’ll receive 24-hour priority access to booking. If you choose a session, the price is £20 and payment is made when you confirm your booking. You’ll see the booking details before you pay.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>When and where are event dates announced?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Dates will be posted and advertised in advance on @dombele.studio but firstly to members signed up to the guestlist on the specific city.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>What should I wear for my session?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Wear clothes that feel like you and match your personal brand. Solid tones and textured layers work best—feel free to bring a second outfit option to try!</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>How long does a portrait session take?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Sessions run around 10–15 minutes, giving us plenty of time to direct poses and capture authentic shots while keeping the studio lounge energy relaxed.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>How and when will I receive my retouched photos?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Your 2 retouched high-res image files will be delivered to your private online gallery within a few days after the pop-up event.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>Can I purchase extra photos if I want more than two?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Yes! You’ll view a gallery preview of your session where additional retouched images can be ordered anytime.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-accordion-item">
-                        <button type="button" class="faq-accordion-header" aria-expanded="false" onclick="toggleFaq(this)">
-                            <h4>Who can attend the Headshot Lounge pop-ups?</h4>
-                            <span class="faq-accordion-icon">+</span>
-                        </button>
-                        <div class="faq-accordion-content">
-                            <p>Everyone is welcome—whether you are a student, local creative, founder, model, actor, or corporate professional.</p>
-                        </div>
-                    </div>
-                </div>
+        <div class="headshots-simple">
+            <div class="headshots-intro">
+                <h1>Professional Headshots</h1>
+                <p>Natural, considered portraits for professionals and creatives. Join the free guest list for priority access to upcoming Exeter sessions.</p>
             </div>
 
-            <div class="event-ticket-box">
-                <div class="ticket-header">
-                    <h3>Join the Free Exeter Guest List</h3>
-                    <p>It’s completely free to join, and there’s no commitment to book. Get 24-hour priority access when session bookings open. The £20 session fee is only payable if you choose and confirm a booking.</p>
-                </div>
-
-                <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
-                    <div class="event-field">
-                        <label for="hl-name">Full Name *</label>
-                        <input type="text" id="hl-name" name="name" placeholder="First & Last Name" required>
-                    </div>
-
-                    <div class="event-field">
-                        <label for="hl-email">Email Address *</label>
-                        <input type="email" id="hl-email" name="email" placeholder="name@example.com" required>
-                    </div>
-
-                    <div class="event-field">
-                        <label for="hl-city">Primary Location *</label>
-                        <select id="hl-city" name="city" required>
-                            <option value="Exeter" selected>Exeter (Next Event)</option>
-                            <option value="Bristol">Bristol</option>
-                            <option value="London">London</option>
-                            <option value="Taunton">Taunton</option>
-                            <option value="Other">Other UK City</option>
-                        </select>
-                    </div>
-
-                    <div class="event-field">
-                        <label for="hl-role">Industry / Background</label>
-                        <select id="hl-role" name="role">
-                            <option value="" disabled selected>Select industry (optional)...</option>
-                            <option value="Creative / Art">Creative / Art & Design</option>
-                            <option value="Corporate / Tech">Corporate / Tech / Business</option>
-                            <option value="Entrepreneur / Founder">Entrepreneur / Founder</option>
-                            <option value="Actor / Performer">Actor / Performer / Model</option>
-                            <option value="Student">Student</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="event-field">
-                        <label for="hl-instagram">Instagram / Website (Optional)</label>
-                        <input type="text" id="hl-instagram" name="instagram" placeholder="@handle or website">
-                    </div>
-
-                    <div class="ticket-summary-box">
-                        <strong>£20 Session Includes:</strong> 10–15 minute studio session, 2 professionally retouched high-resolution photos, and drinks & music lounge access. This is payable only when you confirm a session.
-                    </div>
-
-                    <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join the Free Guest List</button>
-                    <p class="hl-gdpr-note" id="hl-gdpr-note">No payment details are needed. We’ll use your details to manage your guest-list place and send relevant priority-access and booking updates. You can decide later whether to book; the £20 fee is paid only when you confirm a session.</p>
-                    <p class="hl-form-status" id="hlFormStatus" role="status" aria-live="polite" aria-atomic="true"></p>
-                </form>
-
-                <div class="event-success-view" id="hlSuccessView">
-                    <h3 tabindex="-1">Guest List RSVP Confirmed ✓</h3>
-                    <p>You’re on the priority guest list. Joining was free and no payment has been taken. You’ll receive an email with your private booking link 24 hours before public launch. You can then choose whether to book a session for £20.</p>
-                    <button type="button" class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
-                </div>
+            <div class="headshots-gallery" aria-label="Headshot photography examples">
+                <button type="button" class="headshots-gallery-item" onclick="openLB('website-197.jpg')" aria-label="View studio headshot">
+                    <img src="website-197.jpg" alt="Professional studio headshot" loading="lazy" decoding="async">
+                </button>
+                <button type="button" class="headshots-gallery-item" onclick="openLB('paige ball.jpg')" aria-label="View creative headshot">
+                    <img src="paige ball.jpg" alt="Creative headshot portrait" loading="lazy" decoding="async">
+                </button>
+                <button type="button" class="headshots-gallery-item" onclick="openLB('website-162.jpg')" aria-label="View portrait example">
+                    <img src="website-162.jpg" alt="Professional portrait example" loading="lazy" decoding="async">
+                </button>
             </div>
+
+            <section class="headshots-guest-list" id="headshotsGuestList" aria-labelledby="headshots-guest-title">
+                <div class="event-ticket-box">
+                    <div class="ticket-header">
+                        <h3 id="headshots-guest-title">Join the Free Guest List</h3>
+                        <p>Get 24-hour priority access to session bookings. Joining is free; the £20 session fee is only payable if you choose to book.</p>
+                    </div>
+
+                    <form class="event-form" id="hlWaitlistForm" action="https://formspree.io/f/xpppnblg" method="POST">
+                        <div class="event-field">
+                            <label for="hl-name">Full Name *</label>
+                            <input type="text" id="hl-name" name="name" autocomplete="name" placeholder="First & Last Name" required>
+                        </div>
+
+                        <div class="event-field">
+                            <label for="hl-email">Email Address *</label>
+                            <input type="email" id="hl-email" name="email" autocomplete="email" placeholder="name@example.com" required>
+                        </div>
+
+                        <div class="event-field">
+                            <label for="hl-city">Primary Location *</label>
+                            <select id="hl-city" name="city" required>
+                                <option value="Exeter" selected>Exeter (Next Event)</option>
+                                <option value="Bristol">Bristol</option>
+                                <option value="London">London</option>
+                                <option value="Taunton">Taunton</option>
+                                <option value="Other">Other UK City</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="event-submit-btn" id="hlSubmitBtn">Join the Free Guest List</button>
+                        <p class="hl-gdpr-note" id="hl-gdpr-note">No payment details are needed. We’ll use your details to manage your guest-list place and send relevant priority-access and booking updates. You can decide later whether to book.</p>
+                        <p class="hl-form-status" id="hlFormStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+                    </form>
+
+                    <div class="event-success-view" id="hlSuccessView">
+                        <h3 tabindex="-1">Guest List RSVP Confirmed ✓</h3>
+                        <p>You’re on the priority guest list. Joining was free and no payment has been taken. You’ll receive an email with your private booking link 24 hours before public launch. You can then choose whether to book a session for £20.</p>
+                        <button type="button" class="hl-share-btn" onclick="shareWaitlist()">Share Event Link</button>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
@@ -2183,6 +2109,7 @@ function shuffleGrid() {
 }
 
 function setHeadshotContactShortcuts(isHeadshots) {
+    document.body.classList.toggle('headshots-active', isHeadshots);
     const footerLink = document.getElementById('footerContactLink');
     const mobileButton = document.getElementById('mobileContactFab');
 
