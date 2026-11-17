@@ -1036,40 +1036,49 @@
             opacity: 1;
         }
 
-        .about-quote {
-            max-width: 900px;
-            margin: 90px auto 0;
+        /* OVERLAY QUOTE ON BOTTOM LEFT OF THE PHOTO */
+        .about-quote-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 32px 32px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            color: #ffffff;
+            z-index: 10;
+        }
+
+        .about-quote-overlay p {
+            font-size: clamp(16px, 1.6vw, 21px);
+            line-height: 1.45;
+            font-weight: 300;
+            letter-spacing: -0.015em;
+            color: #ffffff;
+            margin: 0 0 16px;
+        }
+
+        .about-quote-overlay footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
             padding: 0;
+            background: transparent;
             border: none;
         }
 
-        .about-quote p {
-            font-size: clamp(24px, 3vw, 38px);
-            line-height: 1.4;
-            font-weight: 300;
-            letter-spacing: -0.025em;
-            color: var(--text);
-            margin: 0 0 30px;
-        }
-
-        .about-quote footer {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .about-quote footer strong {
-            font-size: 12px;
+        .about-quote-overlay footer strong {
+            font-size: 11px;
             font-weight: 500;
-            letter-spacing: 0.04em;
-            color: var(--text);
+            letter-spacing: 0.06em;
+            color: #ffffff;
         }
 
-        .about-quote footer span {
-            font-size: 10px;
-            letter-spacing: 0.16em;
+        .about-quote-overlay footer span {
+            font-size: 9px;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--muted);
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .about-cta-luxury {
@@ -1785,7 +1794,17 @@
             <div class="about-grid">
                 <div class="about-image-frame">
                     <img src="A67D.jpg" alt="Dombele Studio Portrait - Photographer in London, Bristol, and Taunton" loading="lazy" decoding="async">
+                    
+                    <!-- QUOTE OVERLAID ON BOTTOM LEFT -->
+                    <blockquote class="about-quote-overlay">
+                        <p>“After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the action and create the images, not just refine them.”</p>
+                        <footer>
+                            <strong>Dombele Chindandy</strong>
+                            <span>Founder &amp; Photographer</span>
+                        </footer>
+                    </blockquote>
                 </div>
+
                 <div class="about-text">
                     <h1>The Studio</h1>
                     <p>Dombelestudio is a photography and creative production studio helping independent creators, brands and businesses elevate their identity through considered, high-end imagery. Working across commercial, editorial and creative projects, the studio brings together photography, creative direction and shoot production.</p>
@@ -1793,13 +1812,6 @@
                     <button onclick="openModal()" class="about-cta-luxury">Book a Shoot</button>
                 </div>
             </div>
-            <blockquote class="about-quote">
-                <p>“After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the action and create the images, not just refine them.”</p>
-                <footer>
-                    <strong>Dombele Chindandy</strong>
-                    <span>Founder &amp; Photographer</span>
-                </footer>
-            </blockquote>
         </div>
     </section>
 </main>
