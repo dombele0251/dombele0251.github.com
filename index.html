@@ -1035,6 +1035,42 @@
             color: var(--text);
             opacity: 1;
         }
+
+        .about-quote {
+            max-width: 900px;
+            margin: 90px auto 0;
+            padding: 0;
+            border: none;
+        }
+
+        .about-quote p {
+            font-size: clamp(24px, 3vw, 38px);
+            line-height: 1.4;
+            font-weight: 300;
+            letter-spacing: -0.025em;
+            color: var(--text);
+            margin: 0 0 30px;
+        }
+
+        .about-quote footer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .about-quote footer strong {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--text);
+        }
+
+        .about-quote footer span {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
         
         .about-cta-luxury {
             display: inline-flex;
@@ -1751,14 +1787,19 @@
                     <img src="A67D.jpg" alt="Dombele Studio Portrait - Photographer in London, Bristol, and Taunton" loading="lazy" decoding="async">
                 </div>
                 <div class="about-text">
-                    <h1>About the Studio</h1>
-                    <p>A background in <strong>professional photo retouching</strong> informs a precise approach to light, tone, and image-making.</p>
-                    <p>After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the moment and create the images, not just refine them.</p>
-                    <p>Working in <strong>London, Bristol, and Taunton</strong>, I am available for editorial and commercial commissions across the UK.</p>
-                    
+                    <h1>The Studio</h1>
+                    <p>Dombelestudio is a photography and creative production studio helping independent creators, brands and businesses elevate their identity through considered, high-end imagery. Working across commercial, editorial and creative projects, the studio brings together photography, creative direction and shoot production.</p>
+                    <p>With experience working across a wide range of environments, Dombele brings a considered, adaptable approach to every shoot. A strong understanding of light, reflections and photographic equipment allows him to respond to different conditions, make the most of each setting and overcome the challenges that come with it. Whether working in a controlled studio or on location, the focus remains on creating the best possible images, whatever the circumstances.</p>
                     <button onclick="openModal()" class="about-cta-luxury">Book a Shoot</button>
                 </div>
             </div>
+            <blockquote class="about-quote">
+                <p>“After years spent working behind the scenes, I was drawn to step into the process itself — to be closer to the action and create the images, not just refine them.”</p>
+                <footer>
+                    <strong>Dombele Chindandy</strong>
+                    <span>Founder &amp; Photographer</span>
+                </footer>
+            </blockquote>
         </div>
     </section>
 </main>
